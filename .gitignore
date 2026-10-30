@@ -1,0 +1,42 @@
+# ── Dependencias ──
+node_modules/
+.pnpm-store/
+.yarn/
+!.yarn/releases
+
+# ── Compilación y cachés ──
+dist/
+dist-ssr/
+build/
+.vite/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ── Pruebas y cobertura ──
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# ── Variables de entorno (nunca al repositorio; solo el ejemplo) ──
+.env
+.env.*
+!.env.example
+*.local
+
+# ── Logs ──
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ── Editores y sistema ──
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
