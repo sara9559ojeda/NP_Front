@@ -26,6 +26,8 @@ La web sigue el contrato aprobado. Su fuente está en el repositorio del backend
 
 ## Puesta en marcha
 
+Para publicar con la API real: [Vercel y variables del proxy](docs/DESPLIEGUE_VERCEL.md). La configuración ya está en `vercel.json`; la URL real del backend se introduce como `NP_BACKEND_ORIGIN` en el servidor de Vercel, sin editar código.
+
 Requiere Node >=20.19.0; verificado con Node **24.19.0** y npm **11.6.2**. Las dependencias tienen versiones exactas y `package-lock.json` se versiona.
 
 ```sh
