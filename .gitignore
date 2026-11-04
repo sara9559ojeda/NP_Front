@@ -40,3 +40,10 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Local instructions and review artifacts
+CLAUDE.md
+.claude/
+coordination/
+capturas/
+informes/

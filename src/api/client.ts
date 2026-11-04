@@ -121,6 +121,10 @@ export async function requestRaw(path: string, options: RequestOptions = {}): Pr
     const refreshed = await refreshAccessToken();
     if (refreshed) {
       response = await send(path, options);
+      if (response.status === 401) {
+        accessToken = null;
+        onSessionLost?.();
+      }
     } else {
       accessToken = null;
       onSessionLost?.();
