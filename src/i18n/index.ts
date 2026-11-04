@@ -40,11 +40,13 @@ export function formatDateTime(iso: string | null | undefined): string {
   return new Intl.DateTimeFormat(LOCALE, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso));
 }
 
-export function formatNumber(value: number, maximumFractionDigits = 1): string {
+export function formatNumber(value: number | null | undefined, maximumFractionDigits = 1): string {
+  if (value == null) return t('common.noData');
   return new Intl.NumberFormat(LOCALE, { maximumFractionDigits }).format(value);
 }
 
-export function formatMinutes(seconds: number): string {
+export function formatMinutes(seconds: number | null): string {
+  if (seconds == null) return t('common.noData');
   return t('format.minutes', { n: Math.round(seconds / 60) });
 }
 

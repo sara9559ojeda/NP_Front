@@ -42,7 +42,7 @@ const PAD = { top: 16, right: 16, bottom: 32, left: 40 };
 export function ToleranceChart({ sessions }: { sessions: SessionSummary[] }) {
   const points = sessions
     .filter((s) => typeof s.toleranceIndex === 'number')
-    .sort((a, b) => a.startedAt.localeCompare(b.startedAt));
+    .sort((a, b) => (a.startedAt ?? '').localeCompare(b.startedAt ?? ''));
 
   if (points.length === 0) return <EmptyState>{t('chart.tolerance.empty')}</EmptyState>;
 
@@ -263,7 +263,7 @@ export function SessionDetailView({ detail }: { detail: SessionDetail }) {
       <div className="stats">
         <StatCard label={t('session.levelReached')} value={levelLabel(detail.levelReached)} />
         <StatCard label={t('session.duration')} value={formatMinutes(detail.totalDurationSeconds)} />
-        <StatCard label={t('session.phobiaGrade')} value={String(detail.phobiaGrade)} />
+        <StatCard label={t('session.phobiaGrade')} value={detail.phobiaGrade == null ? t('common.noData') : String(detail.phobiaGrade)} />
         <StatCard
           label={t('session.endReason')}
           value={detail.endReason ? tDynamic(`endReason.${detail.endReason}`, 'common.noData') : t('common.noData')}

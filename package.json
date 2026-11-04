@@ -13,6 +13,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:proxy": "node --test tests-server/*.test.mjs",
     "gen:api-types": "openapi-typescript docs/api/openapi.json -o src/api/generated/openapi.ts",
     "texts:table": "node scripts/texts-table.mjs",
     "check:mojibake": "node scripts/check-mojibake.mjs"

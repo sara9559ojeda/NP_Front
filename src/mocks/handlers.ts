@@ -122,14 +122,14 @@ function summary(s: SessionDetail): SessionSummary {
 }
 
 function sessionsNewestFirst(patientId: string): SessionDetail[] {
-  return [...(db.sessions[patientId] ?? [])].sort((a, b) => b.startedAt.localeCompare(a.startedAt));
+  return [...(db.sessions[patientId] ?? [])].sort((a, b) => (b.startedAt ?? '').localeCompare(a.startedAt ?? ''));
 }
 
 function progress(patient: MockUser): Progress {
   const sessions = sessionsNewestFirst(patient.id);
   return {
     sessionsCount: sessions.length,
-    levelReached: sessions.reduce((max, s) => Math.max(max, s.levelReached), 0),
+    levelReached: sessions.reduce((max, s) => Math.max(max, s.levelReached ?? 0), 0),
     lastSessions: sessions.slice(0, 10).map(summary),
     allowedStartLevel: patient.allowedStartLevel ?? 1,
   };

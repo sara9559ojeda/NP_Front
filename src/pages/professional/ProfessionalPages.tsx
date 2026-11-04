@@ -332,12 +332,13 @@ export function PatientNotesTab() {
 /** Allowed start level (PUT /patients/{id}/plan) and pairing code for the patient's headset (D20). */
 export function PatientPlanTab() {
   const { patientId, progress, reloadProgress } = useOutletContext<PatientContext>();
-  const [level, setLevel] = useState(String(progress.allowedStartLevel ?? 1));
+  const [level, setLevel] = useState(progress.allowedStartLevel === undefined ? '' : String(progress.allowedStartLevel));
   const [message, setMessage] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
   const [saving, setSaving] = useState(false);
 
   const save = async (event: FormEvent) => {
     event.preventDefault();
+    if (!level) return;
     setSaving(true);
     setMessage(null);
     try {
@@ -360,13 +361,14 @@ export function PatientPlanTab() {
         {message && <Alert tone={message.tone}>{message.text}</Alert>}
         <form onSubmit={save} className="form">
           <SelectField label={t('plan.select')} value={level} onChange={(e) => setLevel(e.target.value)}>
+            <option value="" disabled>{t('common.noData')}</option>
             {[1, 2, 3, 4, 5].map((n) => (
               <option key={n} value={n}>
                 {`${levelLabel(n)} · ${t(`level.${n as 1 | 2 | 3 | 4 | 5}.name`)}`}
               </option>
             ))}
           </SelectField>
-          <button type="submit" className="btn btn--primary" disabled={saving}>
+          <button type="submit" className="btn btn--primary" disabled={saving || !level}>
             {saving ? t('common.loading') : t('plan.save')}
           </button>
         </form>

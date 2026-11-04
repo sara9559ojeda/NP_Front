@@ -1,4 +1,5 @@
 import { request, requestRaw } from './client';
+import { named, mapPage, note, device, session, type WireMe, type WireNote, type WireDevice, type WireSession } from './adapters';
 import type {
   AdminUser,
   AdminUserQuery,
@@ -8,11 +9,8 @@ import type {
   CreateNoteRequest,
   CreateNoteResponse,
   CreateUserRequest,
-  Device,
   LoginRequest,
   LoginResponse,
-  Me,
-  Note,
   Page,
   PageQuery,
   PairingCode,
@@ -21,7 +19,6 @@ import type {
   Progress,
   RegisterRequest,
   RegisterResponse,
-  SessionDetail,
   SessionSummary,
   UpdateMeRequest,
   UpdateUserRequest,
@@ -41,34 +38,43 @@ export const auth = {
 
 // §4.3, §5.2, §6.1 Own data
 export const me = {
-  get: () => request<Me>('/me'),
-  update: (body: UpdateMeRequest) => request<Me>('/me', { method: 'PATCH', body }),
+  get: () => request<WireMe>('/me').then(named),
+  update: (body: UpdateMeRequest) => request<WireMe>('/me', { method: 'PATCH', body }).then(named),
   changePassword: (body: ChangePasswordRequest) => request<void>('/me/password', { method: 'PUT', body }),
   withdrawConsent: () => request<void>('/me/consents/withdraw', { method: 'POST' }),
-  progress: () => request<Progress>('/me/progress'),
+  progress: async () => {
+    const [progress, history] = await Promise.all([request<Progress>('/me/progress'), request<Page<SessionSummary>>('/me/sessions', { query: { limit: 5 } })]);
+    return { ...progress, lastSessions: history.items };
+  },
   sessions: (query?: PageQuery) => request<Page<SessionSummary>>('/me/sessions', { query: page(query) }),
-  session: (sessionId: Uuid) => request<SessionDetail>(`/me/sessions/${id(sessionId)}`),
-  devices: () => request<Page<Device>>('/me/devices'),
+  session: (sessionId: Uuid) => request<WireSession>(`/me/sessions/${id(sessionId)}`).then(session),
+  devices: () => request<Page<WireDevice>>('/me/devices').then(value => mapPage(value, device)),
   revokeDevice: (deviceId: Uuid) => request<void>(`/me/devices/${id(deviceId)}`, { method: 'DELETE' }),
   createPairingCode: () => request<PairingCode>('/pairing-codes', { method: 'POST' }),
 };
 
 // §5.1 Professional
 export const patients = {
-  list: (query?: PageQuery) => request<Page<PatientListItem>>('/patients', { query: page(query) }),
-  progress: (patientId: Uuid) => request<Progress>(`/patients/${id(patientId)}/progress`),
+  list: (query?: PageQuery) => request<Page<Omit<PatientListItem, 'fullName'> & { fullName: string | null }>>('/patients', { query: page(query) }).then(value => mapPage(value, named)),
+  progress: async (patientId: Uuid) => {
+    const [progress, history] = await Promise.all([
+      request<Progress>(`/patients/${id(patientId)}/progress`),
+      request<Page<SessionSummary>>(`/patients/${id(patientId)}/sessions`, { query: { limit: 5 } }),
+    ]);
+    return { ...progress, lastSessions: history.items };
+  },
   sessions: (patientId: Uuid, query?: PageQuery) =>
     request<Page<SessionSummary>>(`/patients/${id(patientId)}/sessions`, { query: page(query) }),
   session: (patientId: Uuid, sessionId: Uuid) =>
-    request<SessionDetail>(`/patients/${id(patientId)}/sessions/${id(sessionId)}`),
+    request<WireSession>(`/patients/${id(patientId)}/sessions/${id(sessionId)}`).then(session),
   setPlan: (patientId: Uuid, body: PlanRequest) =>
     request<void>(`/patients/${id(patientId)}/plan`, { method: 'PUT', body }),
   notes: (patientId: Uuid, query?: PageQuery) =>
-    request<Page<Note>>(`/patients/${id(patientId)}/notes`, { query: page(query) }),
+    request<Page<WireNote>>(`/patients/${id(patientId)}/notes`, { query: page(query) }).then(value => mapPage(value, note)),
   createNote: (patientId: Uuid, body: CreateNoteRequest) =>
     request<CreateNoteResponse>(`/patients/${id(patientId)}/notes`, { method: 'POST', body }),
   updateNote: (patientId: Uuid, noteId: Uuid, text: string) =>
-    request<Note>(`/patients/${id(patientId)}/notes/${id(noteId)}`, { method: 'PATCH', body: { text } }),
+    request<WireNote>(`/patients/${id(patientId)}/notes/${id(noteId)}`, { method: 'PATCH', body: { text } }).then(note),
   createPairingCode: (patientId: Uuid) =>
     request<PairingCode>(`/patients/${id(patientId)}/pairing-codes`, { method: 'POST' }),
 };
@@ -76,9 +82,9 @@ export const patients = {
 // §4.4 Administration (no clinical data)
 export const admin = {
   users: (query?: AdminUserQuery) =>
-    request<Page<AdminUser>>('/admin/users', {
+    request<Page<Omit<AdminUser, 'fullName'> & { fullName: string | null }>>('/admin/users', {
       query: { ...page(query), role: query?.role, active: query?.active, q: query?.q },
-    }),
+    }).then(value => mapPage(value, named)),
   createUser: (body: CreateUserRequest) => request<AdminUser>('/admin/users', { method: 'POST', body }),
   updateUser: (userId: Uuid, body: UpdateUserRequest) =>
     request<AdminUser>(`/admin/users/${id(userId)}`, { method: 'PATCH', body }),

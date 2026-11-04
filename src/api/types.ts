@@ -179,9 +179,9 @@ export interface Analysis {
 // §5.2
 export interface SessionSummary {
   sessionId: Uuid;
-  startedAt: IsoDate;
-  levelReached: number;
-  totalDurationSeconds: number;
+  startedAt: IsoDate | null;
+  levelReached: number | null;
+  totalDurationSeconds: number | null;
   recommendation: RecommendationValue | null;
   /** Assumed: the wireframe shows tolerance per session in the history. */
   toleranceIndex?: number | null;
@@ -189,7 +189,7 @@ export interface SessionSummary {
 
 export interface Progress {
   sessionsCount: number;
-  levelReached: number;
+  levelReached: number | null;
   lastSessions: SessionSummary[];
   /** Assumed: needed to show the current plan to the professional. */
   allowedStartLevel?: number;
@@ -215,7 +215,7 @@ export interface LevelRecord {
   criterionMet: boolean;
   permanenceSeconds: number;
   minDistanceM: number | null;
-  gaze: { coneDeg: number; onStimulusSeconds: number; meanAngleDeg: number };
+  gaze: { coneDeg: number | null; onStimulusSeconds: number | null; meanAngleDeg: number | null };
   avoidanceCount: number;
   suds: SudsEntry[];
 }
@@ -225,13 +225,13 @@ export type EndReason = 'completed' | 'user_finished' | 'safe_exit' | 'app_close
 /** Assumed shape: §5.1 says "sesión, registros por nivel, SUDS y análisis". */
 export interface SessionDetail {
   sessionId: Uuid;
-  startedAt: IsoDate;
+  startedAt: IsoDate | null;
   endedAt: IsoDate | null;
-  phobiaGrade: number;
+  phobiaGrade: number | null;
   testSession: boolean;
   endReason: EndReason | null;
-  levelReached: number;
-  totalDurationSeconds: number;
+  levelReached: number | null;
+  totalDurationSeconds: number | null;
   levels: LevelRecord[];
   analysis: Analysis | null;
 }
