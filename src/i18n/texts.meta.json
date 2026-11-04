@@ -1,0 +1,1577 @@
+{
+  "app.name": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "app.tagline": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "app.footer": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.skipToContent": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.primary": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.openMenu": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.closeMenu": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.info": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.register": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.login": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.logout": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.account": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.patient.progress": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.patient.sessions": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.patient.devices": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.professional.patients": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.admin.users": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.admin.assignments": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.admin.export": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "shell.greeting": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "role.patient": {
+    "tipo": "UI",
+    "fuente": "RQF004 y contrato §2.1",
+    "estado": "pendiente de validar"
+  },
+  "role.professional": {
+    "tipo": "UI",
+    "fuente": "RQF004 y contrato §2.1",
+    "estado": "pendiente de validar"
+  },
+  "role.admin": {
+    "tipo": "UI",
+    "fuente": "RQF004 y contrato §2.1",
+    "estado": "pendiente de validar"
+  },
+  "common.loading": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.save": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.cancel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.edit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.close": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.back": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.retry": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.loadMore": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.required": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.noData": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.saved": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "disclaimer.webTitle": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "disclaimer.body": {
+    "tipo": "SEG",
+    "fuente": "Texto exacto facilitado por Sara: propuesta APROBAR_R1 §9",
+    "estado": "pendiente de validar"
+  },
+  "home.lead": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.purpose.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.purpose.body": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.scope.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.scope.academic": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.scope.notDevice": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.scope.professional": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.scope.headset": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.levels.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.levels.lead": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.patient": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.professional": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.admin": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "level.number": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "level.1.name": {
+    "tipo": "CLÍN",
+    "fuente": "Nombres de niveles de los wireframes de Sara (resumen facilitado; documento original no disponible en este equipo)",
+    "estado": "pendiente de validar"
+  },
+  "level.2.name": {
+    "tipo": "CLÍN",
+    "fuente": "Nombres de niveles de los wireframes de Sara (resumen facilitado; documento original no disponible en este equipo)",
+    "estado": "pendiente de validar"
+  },
+  "level.3.name": {
+    "tipo": "CLÍN",
+    "fuente": "Nombres de niveles de los wireframes de Sara (resumen facilitado; documento original no disponible en este equipo)",
+    "estado": "pendiente de validar"
+  },
+  "level.4.name": {
+    "tipo": "CLÍN",
+    "fuente": "Nombres de niveles de los wireframes de Sara (resumen facilitado; documento original no disponible en este equipo)",
+    "estado": "pendiente de validar"
+  },
+  "level.5.name": {
+    "tipo": "CLÍN",
+    "fuente": "Nombres de niveles de los wireframes de Sara (resumen facilitado; documento original no disponible en este equipo)",
+    "estado": "pendiente de validar"
+  },
+  "register.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.fullName": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.fullName.placeholder": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.email": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.email.placeholder": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.password": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.password.hint": {
+    "tipo": "UI",
+    "fuente": "Política provisional de interfaz: mínimo 8 caracteres; pendiente de contrato",
+    "estado": "pendiente de validar"
+  },
+  "register.passwordConfirm": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.consent.label": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "register.consent.details": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "consent.body": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "register.submit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.haveAccount": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.loginLink": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.success.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.success.body": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.success.noProfessional": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.email": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.password": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.submit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.noAccount": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.registerLink": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "login.sessionExpired": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "validation.summary": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "validation.required": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "validation.email": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "validation.passwordLength": {
+    "tipo": "SEG",
+    "fuente": "Política provisional de interfaz: mínimo 8 caracteres; pendiente de contrato",
+    "estado": "pendiente de validar"
+  },
+  "validation.passwordMatch": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "validation.consent": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "validation.noteText": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.invalid_format": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.required": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.too_short": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.too_long": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.taken": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.wrong_password": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.default": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.BAD_REQUEST": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.UNAUTHENTICATED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.TOKEN_EXPIRED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.INVALID_CREDENTIALS": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.DEVICE_REVOKED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.FORBIDDEN": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.NOT_FOUND": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.PAIRING_CODE_INVALID": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.EMAIL_TAKEN": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.RECORD_CONFLICT": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.LAST_ADMIN": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.PAIRING_CODE_EXPIRED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.PAYLOAD_TOO_LARGE": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.VALIDATION_ERROR": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.CONSENT_REQUIRED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.ACCOUNT_DISABLED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.RATE_LIMITED": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.SERVER_ERROR": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.NETWORK_ERROR": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "forbidden.title": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "forbidden.body": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "forbidden.goHome": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "notFound.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notFound.body": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notFound.goHome": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.profile.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.profile.saved": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.password.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.password.current": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.password.new": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.password.confirm": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.password.submit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.password.done": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.consent.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.consent.granted": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.consent.withdrawnAt": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.button": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.warning": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.retention": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.confirmTitle": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.confirmCheck": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.confirm": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "account.withdraw.done": {
+    "tipo": "SEG",
+    "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
+    "estado": "pendiente de validar"
+  },
+  "progress.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "progress.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "stats.sessions": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "stats.levelReached": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "stats.lastRecommendation": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "stats.allowedStartLevel": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "sessions.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.myTitle": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.col.date": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.col.level": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.col.duration": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.col.tolerance": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.col.recommendation": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.col.detail": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.view": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.viewLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "sessions.empty": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "chart.tolerance.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "chart.tolerance.desc": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "chart.tolerance.empty": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "format.minutes": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "format.seconds": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "format.meters": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "format.percent": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "recommendation.advance": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "recommendation.repeat": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "recommendation.step_back": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "recommendation.none": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "clinical.pending": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "clinical.pending.explain": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.subtitle": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.backToList": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.phobiaGrade": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.duration": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.levelReached": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.endReason": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.test": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "endReason.completed": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "endReason.user_finished": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "endReason.safe_exit": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "endReason.app_closed": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.levels.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "session.levels.empty": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "level.attempt": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "outcome.completed": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "outcome.criterion_not_met": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "outcome.safe_exit": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "outcome.abandoned": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "metric.permanence": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "metric.minDistance": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "metric.headOnStimulus": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "metric.avoidance": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "suds.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §6.3; escala SUDS (Wolpe, 1969), según encargo",
+    "estado": "pendiente de validar"
+  },
+  "suds.phase.before": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §6.3; escala SUDS (Wolpe, 1969), según encargo",
+    "estado": "pendiente de validar"
+  },
+  "suds.phase.during": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §6.3; escala SUDS (Wolpe, 1969), según encargo",
+    "estado": "pendiente de validar"
+  },
+  "suds.phase.after": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §6.3; escala SUDS (Wolpe, 1969), según encargo",
+    "estado": "pendiente de validar"
+  },
+  "suds.source": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §6.3; escala SUDS (Wolpe, 1969), según encargo",
+    "estado": "pendiente de validar"
+  },
+  "analysis.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.tolerance": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.recommendation": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.method": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.basis.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.basis.feature": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.basis.value": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.basis.effect": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.feature.sudsDrop": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.feature.avoidanceCount": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.effect.favorable": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.effect.unfavorable": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.effect.neutral": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "analysis.none": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "devices.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "pairing.generate": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "pairing.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "pairing.instructions": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "pairing.expiresIn": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "pairing.expired": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.list.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.model": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.appVersion": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.pairedAt": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.status": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.active": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.revokedAt": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.revoke": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.revokeLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.revokeConfirm": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.revokeDone": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "devices.empty": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.listLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.empty": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.lastSession": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.noSessions": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patients.select": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patient.tabs": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patient.tab.summary": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patient.tab.sessions": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patient.tab.notes": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patient.tab.plan": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patient.summaryLine": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "plan.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.lead": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.select": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.current": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.save": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.saved": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.pairing.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "plan.pairing.lead": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "notes.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.new": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.session": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.session.none": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.session.option": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.text": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.text.placeholder": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.save": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.saved": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.previous": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.empty": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.createdAt": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.edited": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.editLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.saveEdit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "admin.noClinical": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "users.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.create": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.search": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.filter.role": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.filter.status": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.filter.all": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.col.name": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.col.email": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.col.role": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.col.status": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.col.actions": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "status.active": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "status.inactive": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.activate": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.deactivate": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.editLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.activateLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.deactivateLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.edit.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.edit.readonly": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.create.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.tempPassword": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.tempPassword.hint": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.created": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.updated": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.empty": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.count": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.professional": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.patient": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.since": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.choose": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.create": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.remove": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.removeLabel": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.created": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.removed": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.empty": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.unassigned": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "assignments.unknownUser": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "export.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "export.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "export.json": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "export.csv": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "export.done": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  }
+}
