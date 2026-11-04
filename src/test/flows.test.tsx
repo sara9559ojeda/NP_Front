@@ -33,7 +33,12 @@ describe('cuentas y navegación', () => {
   test('el error de credenciales permite reintentar sin volver a escribir el correo', async () => {
     page('/iniciar-sesion');
     const user = await fillLogin('incorrecta');
-    expect(await screen.findByRole('alert')).toHaveTextContent(t('error.INVALID_CREDENTIALS'));
+    const alert = await screen.findByRole('alert');
+    expect(alert).toHaveTextContent(t('error.INVALID_CREDENTIALS'));
+    // The UI moves focus to the error on the next animation frame. Wait for
+    // that accessible state before starting a new interaction; otherwise a
+    // faster CI runner can move focus away while userEvent is typing.
+    await waitFor(() => expect(alert).toHaveFocus());
     const password = screen.getByLabelText(t('login.password'), { exact: false });
     expect(password).toHaveValue('');
     await user.type(password, DEMO_PASSWORD);
