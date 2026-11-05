@@ -149,3 +149,16 @@ describe('iniciar terapia (BPMN: ajustar grado → comenzar)', () => {
     expect(screen.getByRole('slider', { name: t('therapy.grade.label') })).toBeDisabled();
   });
 });
+
+describe('retroalimentación para el profesional', () => {
+  test('lista las sesiones analizadas como pendientes de validar y filtra las notas por sesión', async () => {
+    await session('profesional@neurophobia.test');
+    page(`/profesional/pacientes/${IDS.ana}/retroalimentacion`);
+    const notesLinks = await screen.findAllByRole('link', { name: t('feedback.notesLink', { n: 1 }) });
+    expect(screen.getAllByText(t('clinical.pending')).length).toBeGreaterThanOrEqual(5);
+    await userEvent.click(notesLinks[0]!);
+    expect(await screen.findByRole('link', { name: t('notes.filter.clear') })).toBeInTheDocument();
+    expect(await screen.findByText(/29 de octubre/)).toBeInTheDocument();
+    expect(screen.queryByText(/21 de octubre/)).not.toBeInTheDocument();
+  });
+});

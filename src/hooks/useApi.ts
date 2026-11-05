@@ -68,6 +68,8 @@ interface PagedState<T> {
   hasMore: boolean;
   loadMore: () => void;
   reload: () => void;
+  /** Shows an item the API just created at the top, without fetching the page again. */
+  prepend: (item: T) => void;
 }
 
 /** Cursor pagination (§1): `{ items, nextCursor }`. */
@@ -121,5 +123,6 @@ export function usePaged<T>(load: (cursor: string | null) => Promise<Page<T>>, d
   }, [cursor]);
 
   const reload = useCallback(() => setVersion((v) => v + 1), []);
-  return { items, error, loading, hasMore: cursor !== null, loadMore, reload };
+  const prepend = useCallback((item: T) => setItems((current) => [item, ...current]), []);
+  return { items, error, loading, hasMore: cursor !== null, loadMore, reload, prepend };
 }

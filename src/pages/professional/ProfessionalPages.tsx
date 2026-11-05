@@ -1,13 +1,16 @@
-import { useRef, useState, type FormEvent } from 'react';
-import { Link, NavLink, Outlet, useOutletContext, useParams } from 'react-router';
+import { useRef, useState, type CSSProperties, type FormEvent } from 'react';
+import { Link, NavLink, Outlet, useOutletContext, useParams, useSearchParams } from 'react-router';
 import { patients } from '../../api/endpoints';
 import type { Note, PatientListItem, Progress, SessionSummary } from '../../api/types';
 import { useAuth } from '../../auth/AuthContext';
-import { levelLabel, RecommendationTag, SessionDetailView, SessionsTable, SummaryList, ToleranceChart } from '../../components/Clinical';
-import { Alert, EmptyState, ErrorState, Loading } from '../../components/ui/Feedback';
-import { SelectField, TextAreaField } from '../../components/ui/Field';
+import { FeedbackSummary, levelLabel, levelName, SessionDetailView, SessionsTable, SummaryList, ToleranceChart } from '../../components/Clinical';
 import { PageHeader, useDocumentTitle } from '../../components/Layout';
 import { PairingCodePanel } from '../../components/PairingCodePanel';
+import { LEVELS } from '../../components/signature/DistanceRuler';
+import { Alert, EmptyState, ErrorState, Loading } from '../../components/ui/Feedback';
+import { SelectField, TextAreaField } from '../../components/ui/Field';
+import { riseOrder } from '../../components/ui/rise';
+import { useToast } from '../../components/ui/Toast';
 import { errorMessage, fieldErrorsFrom, useApi, usePaged } from '../../hooks/useApi';
 import { formatDate, formatDateTime, t } from '../../i18n';
 
@@ -21,7 +24,21 @@ interface PatientContext {
   reloadProgress: () => void;
 }
 
+/** Query parameter that filters the notes tab by session (visible in the URL, so in Spanish). */
+const SESSION_PARAM = 'sesion';
+
 const base = (patientId: string) => `/profesional/pacientes/${patientId}`;
+const notesForSession = (patientId: string, sessionId: string) => `${base(patientId)}/notas?${SESSION_PARAM}=${encodeURIComponent(sessionId)}`;
+
+function initials(fullName: string): string {
+  return fullName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+}
 
 /** HU-12: only the patients assigned to this professional (RQFN004). */
 export function ProfessionalPatientsPage() {
@@ -32,37 +49,40 @@ export function ProfessionalPatientsPage() {
   return (
     <>
       <PageHeader title={t('patients.title')} lead={t('patients.lead')} />
-      <div className={`split${patientId ? ' split--detail' : ''}`}>
-        <nav className="split__list card" aria-label={t('patients.listLabel')}>
-          <h2 className="h-small">{t('patients.listLabel')}</h2>
+      <div className="pro-layout">
+        <nav className="rise" style={riseOrder(2)} aria-label={t('patients.listLabel')}>
           {loading && <Loading />}
           {Boolean(error) && <ErrorState error={error} onRetry={reload} />}
           {data && list.length === 0 && <EmptyState>{t('patients.empty')}</EmptyState>}
           <ul className="patient-list">
             {list.map((p) => (
               <li key={p.patientId}>
-                <NavLink to={base(p.patientId)} className="patient-link">
-                  <span className="patient-link__avatar" aria-hidden="true">
-                    {p.fullName.slice(0, 1)}
+                <NavLink to={base(p.patientId)} className="patient-link" viewTransition>
+                  <span className="avatar" aria-hidden="true">
+                    {initials(p.fullName)}
                   </span>
                   <span className="patient-link__body">
                     <span className="patient-link__name">{p.fullName}</span>
                     <span className="patient-link__meta">
                       {p.lastSessionAt ? t('patients.lastSession', { date: formatDate(p.lastSessionAt) }) : t('patients.noSessions')}
+                      {p.phobiaGrade != null && ` · ${t('patients.phobiaGrade', { n: p.phobiaGrade })}`}
                     </span>
+                    <span className="mini-ruler" aria-hidden="true">
+                      <span className="mini-ruler__fill" style={{ '--fill': `${((p.levelReached ?? 0) / LEVELS.length) * 100}%` } as CSSProperties} />
+                    </span>
+                    <span className="sr-only">{levelLabel(p.levelReached)}</span>
                   </span>
-                  <span className="patient-link__level">{levelLabel(p.levelReached)}</span>
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="split__detail">
+        <div className="pro-layout__detail">
           {patientId ? (
             <Outlet context={{ list } satisfies PatientsContext} />
           ) : (
-            <div className="card placeholder">
-              <p>{t('patients.select')}</p>
+            <div className="card empty-detail">
+              <p className="muted">{t('patients.select')}</p>
             </div>
           )}
         </div>
@@ -81,50 +101,73 @@ export function ProfessionalPatientDetail() {
   return (
     <div className="stack">
       <div className="detail-head">
-        <Link to="/profesional" className="back-link">
-          {t('common.back')}
-        </Link>
-        <h2 className="detail-head__name">{patient?.fullName ?? t('common.noData')}</h2>
-        {data && <p className="muted">{t('patient.summaryLine', { n: data.sessionsCount })}</p>}
+        <h2>{patient?.fullName ?? t('common.noData')}</h2>
+        {data && (
+          <SummaryList
+            items={[
+              { label: t('stats.sessions'), value: data.sessionsCount },
+              { label: t('stats.levelReached'), value: levelLabel(data.levelReached) },
+              { label: t('stats.allowedStartLevel'), value: levelLabel(data.allowedStartLevel) },
+              { label: t('session.phobiaGrade'), value: patient?.phobiaGrade ?? t('common.noData') },
+            ]}
+          />
+        )}
       </div>
       <nav aria-label={t('patient.tabs')} className="tabs">
-        <NavLink end to={base(patientId)} className="tabs__link">
+        <NavLink end to={base(patientId)} className="tabs__link" viewTransition>
           {t('patient.tab.summary')}
         </NavLink>
-        <NavLink to={`${base(patientId)}/sesiones`} className="tabs__link">
+        <NavLink to={`${base(patientId)}/retroalimentacion`} className="tabs__link" viewTransition>
+          {t('patient.tab.feedback')}
+        </NavLink>
+        <NavLink to={`${base(patientId)}/sesiones`} className="tabs__link" viewTransition>
           {t('patient.tab.sessions')}
         </NavLink>
-        <NavLink to={`${base(patientId)}/notas`} className="tabs__link">
+        <NavLink to={`${base(patientId)}/notas`} className="tabs__link" viewTransition>
           {t('patient.tab.notes')}
         </NavLink>
-        <NavLink to={`${base(patientId)}/plan`} className="tabs__link">
+        <NavLink to={`${base(patientId)}/plan`} className="tabs__link" viewTransition>
           {t('patient.tab.plan')}
         </NavLink>
       </nav>
-      {loading && <Loading />}
+      {loading && !data && <Loading />}
       {Boolean(error) && <ErrorState error={error} onRetry={reload} />}
       {data && <Outlet context={{ patientId, progress: data, reloadProgress: reload } satisfies PatientContext} />}
     </div>
   );
 }
 
+/** Latest AI feedback, with the professional's figures (sequence "Revisar avance → Consultar retroalimentación"). */
+function LatestFeedback({ patientId }: { patientId: string }) {
+  const { data, error, loading, reload } = useApi(() => patients.feedback(patientId, { limit: 1 }), [patientId]);
+  const latest = data?.items[0];
+  return (
+    <section className="card" aria-labelledby="latest-feedback-title">
+      <div className="card__head">
+        <h3 id="latest-feedback-title">{t('feedback.latestTitle')}</h3>
+        {latest && (
+          <Link to={`${base(patientId)}/retroalimentacion`} viewTransition>
+            {t('feedback.viewAll')}
+          </Link>
+        )}
+      </div>
+      {loading && !data && <Loading />}
+      {Boolean(error) && <ErrorState error={error} onRetry={reload} />}
+      {data && !latest && <EmptyState>{t('feedback.empty')}</EmptyState>}
+      {latest && <FeedbackSummary feedback={latest} audience="professional" />}
+    </section>
+  );
+}
+
 export function PatientSummaryTab() {
   const { patientId, progress } = useOutletContext<PatientContext>();
-  const lastRecommendation = progress.lastSessions.find((s) => s.recommendation)?.recommendation;
   return (
-    <div className="stack">
-      <SummaryList
-        items={[
-          { label: t('stats.lastRecommendation'), value: <RecommendationTag value={lastRecommendation} /> },
-          { label: t('stats.levelReached'), value: levelLabel(progress.levelReached) },
-          { label: t('stats.allowedStartLevel'), value: levelLabel(progress.allowedStartLevel) },
-        ]}
-      />
-      <p className="pending-note">{t('clinical.pending.explain')}</p>
-      <section className="card" aria-labelledby="pchart-title">
+    <div className="pro-summary">
+      <section className="card pro-summary__wide" aria-labelledby="pchart-title">
         <h3 id="pchart-title">{t('chart.tolerance.title')}</h3>
         <ToleranceChart sessions={progress.lastSessions} />
       </section>
+      <LatestFeedback patientId={patientId} />
       <section className="card" aria-labelledby="phistory-title">
         <h3 id="phistory-title">{t('sessions.title')}</h3>
         <SessionsTable sessions={progress.lastSessions} linkTo={(id) => `${base(patientId)}/sesiones/${id}`} caption={t('sessions.title')} />
@@ -133,11 +176,51 @@ export function PatientSummaryTab() {
   );
 }
 
+/** v1.1.0 GET /patients/{id}/feedback: every analysed session, newest first. */
+export function PatientFeedbackTab() {
+  const { patientId } = useOutletContext<PatientContext>();
+  const { items, error, loading, hasMore, loadMore, reload } = usePaged((cursor) => patients.feedback(patientId, { cursor }), [patientId]);
+  return (
+    <section className="stack" aria-labelledby="feedback-list-title">
+      <h3 id="feedback-list-title">{t('feedback.listTitle')}</h3>
+      {Boolean(error) && <ErrorState error={error} onRetry={reload} />}
+      {!loading && !error && items.length === 0 && <EmptyState>{t('feedback.empty')}</EmptyState>}
+      <ul className="feedback-list">
+        {items.map((item) => (
+          <li key={item.sessionId} className="card">
+            <FeedbackSummary feedback={item} audience="professional">
+              <div className="row">
+                <Link to={notesForSession(patientId, item.sessionId)} className="btn btn--sm" viewTransition>
+                  {t('feedback.notesLink', { n: item.notesCount })}
+                </Link>
+                <Link
+                  to={`${base(patientId)}/sesiones/${item.sessionId}`}
+                  className="btn btn--sm"
+                  aria-label={t('sessions.viewLabel', { date: formatDate(item.startedAt) })}
+                  viewTransition
+                >
+                  {t('feedback.viewSession')}
+                </Link>
+              </div>
+            </FeedbackSummary>
+          </li>
+        ))}
+      </ul>
+      {loading && <Loading />}
+      {hasMore && !loading && (
+        <button type="button" className="btn" onClick={loadMore}>
+          {t('common.loadMore')}
+        </button>
+      )}
+    </section>
+  );
+}
+
 export function PatientSessionsTab() {
   const { patientId } = useOutletContext<PatientContext>();
   const { items, error, loading, hasMore, loadMore, reload } = usePaged((cursor) => patients.sessions(patientId, { cursor }), [patientId]);
   return (
-    <section className="card" aria-labelledby="psessions-title">
+    <section className="card stack" aria-labelledby="psessions-title">
       <h3 id="psessions-title">{t('sessions.title')}</h3>
       {Boolean(error) && <ErrorState error={error} onRetry={reload} />}
       {!loading || items.length ? (
@@ -145,7 +228,7 @@ export function PatientSessionsTab() {
       ) : null}
       {loading && <Loading />}
       {hasMore && !loading && (
-        <button type="button" className="btn btn--ghost" onClick={loadMore}>
+        <button type="button" className="btn" onClick={loadMore}>
           {t('common.loadMore')}
         </button>
       )}
@@ -161,7 +244,7 @@ export function PatientSessionTab() {
     <div className="stack">
       <div className="row row--between">
         <h3>{data ? t('session.subtitle', { date: formatDate(data.startedAt) }) : t('session.title')}</h3>
-        <Link to={`${base(patientId)}/sesiones`} className="btn btn--ghost btn--sm">
+        <Link to={`${base(patientId)}/sesiones`} className="btn btn--sm" viewTransition>
           {t('session.backToList')}
         </Link>
       </div>
@@ -172,7 +255,15 @@ export function PatientSessionTab() {
   );
 }
 
-function NoteItem({ note, patientId, sessions, onSaved }: { note: Note; patientId: string; sessions: SessionSummary[]; onSaved: () => void }) {
+interface NoteItemProps {
+  note: Note;
+  patientId: string;
+  sessions: SessionSummary[];
+  isNew: boolean;
+  onSaved: () => void;
+}
+
+function NoteItem({ note, patientId, sessions, isNew, onSaved }: NoteItemProps) {
   const { user } = useAuth();
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(note.text);
@@ -195,20 +286,14 @@ function NoteItem({ note, patientId, sessions, onSaved }: { note: Note; patientI
   };
 
   return (
-    <li className="note">
+    <li className={`note${isNew ? ' note--new' : ''}`}>
       <header className="note__head">
-        <p className="note__date">
+        <p className="mono muted">
           {formatDateTime(note.createdAt)}
-          {note.sessionId && (
-            <span className="chip chip--muted">
-              {session ? t('notes.session.option', { date: formatDate(session.startedAt) }) : t('notes.session')}
-            </span>
-          )}
+          {note.authorName && ` · ${note.authorName}`}
         </p>
-        {user?.id === note.authorUserId && !editing && (
-          <button type="button" className="btn btn--ghost btn--sm" onClick={() => setEditing(true)} aria-label={t('notes.editLabel', { date: formatDateTime(note.createdAt) })}>
-            {t('common.edit')}
-          </button>
+        {note.sessionId && (
+          <span className="tag tag--muted">{session ? t('notes.session.option', { date: formatDate(session.startedAt) }) : t('notes.session')}</span>
         )}
       </header>
       {editing ? (
@@ -218,7 +303,7 @@ function NoteItem({ note, patientId, sessions, onSaved }: { note: Note; patientI
             <button type="submit" className="btn btn--primary btn--sm">
               {t('notes.saveEdit')}
             </button>
-            <button type="button" className="btn btn--ghost btn--sm" onClick={() => setEditing(false)}>
+            <button type="button" className="btn btn--sm" onClick={() => setEditing(false)}>
               {t('common.cancel')}
             </button>
           </div>
@@ -226,25 +311,37 @@ function NoteItem({ note, patientId, sessions, onSaved }: { note: Note; patientI
       ) : (
         <p className="note__text">{note.text}</p>
       )}
-      {note.editedAt && <p className="muted small">{t('notes.edited', { date: formatDateTime(note.editedAt) })}</p>}
+      <div className="row row--between">
+        {note.editedAt ? <p className="muted small">{t('notes.edited', { date: formatDateTime(note.editedAt) })}</p> : <span />}
+        {user?.id === note.authorUserId && !editing && (
+          <button type="button" className="btn btn--sm" onClick={() => setEditing(true)} aria-label={t('notes.editLabel', { date: formatDateTime(note.createdAt) })}>
+            {t('common.edit')}
+          </button>
+        )}
+      </div>
     </li>
   );
 }
 
-/** HU-13: dated notes linked to the patient and, optionally, to a session. */
+/** HU-13: dated notes linked to the patient and, optionally, to a session; `?sesion=` filters by session. */
 export function PatientNotesTab() {
   const { patientId, progress } = useOutletContext<PatientContext>();
+  const [searchParams] = useSearchParams();
+  const filterSessionId = searchParams.get(SESSION_PARAM) ?? '';
+  const toast = useToast();
   const formRef = useRef<HTMLFormElement>(null);
-  const notes = usePaged((cursor) => patients.notes(patientId, { cursor }), [patientId]);
+  const notes = usePaged((cursor) => patients.notes(patientId, { cursor, sessionId: filterSessionId || undefined }), [patientId, filterSessionId]);
   const [text, setText] = useState('');
-  const [sessionId, setSessionId] = useState('');
+  const [sessionId, setSessionId] = useState(filterSessionId);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [message, setMessage] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [newNoteId, setNewNoteId] = useState<string | null>(null);
+  const filterSession = progress.lastSessions.find((s) => s.sessionId === filterSessionId);
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    setMessage(null);
+    setFormError(null);
     if (!text.trim()) {
       setErrors({ text: t('validation.noteText') });
       formRef.current?.querySelector('textarea')?.focus();
@@ -252,26 +349,27 @@ export function PatientNotesTab() {
     }
     setSaving(true);
     try {
-      await patients.createNote(patientId, { text: text.trim(), ...(sessionId ? { sessionId } : {}) });
+      // v1.1.0: the 201 body is the whole note, so it goes straight into the list.
+      const created = await patients.createNote(patientId, { text: text.trim(), ...(sessionId ? { sessionId } : {}) });
+      if (!filterSessionId || created.sessionId === filterSessionId) notes.prepend(created);
+      setNewNoteId(created.noteId);
       setText('');
-      setSessionId('');
       setErrors({});
-      setMessage({ tone: 'success', text: t('notes.saved') });
-      notes.reload();
+      toast(t('notes.saved'));
     } catch (err) {
       setErrors(fieldErrorsFrom(err));
-      setMessage({ tone: 'error', text: errorMessage(err) });
+      setFormError(errorMessage(err));
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <div className="grid-notes">
+    <div className="notes-layout">
       <section className="card" aria-labelledby="new-note-title">
         <h3 id="new-note-title">{t('notes.new')}</h3>
-        {message && <Alert tone={message.tone}>{message.text}</Alert>}
         <form ref={formRef} onSubmit={submit} noValidate className="form">
+          {formError && <Alert tone="error">{formError}</Alert>}
           <SelectField label={t('notes.session')} value={sessionId} onChange={(e) => setSessionId(e.target.value)} error={errors.sessionId}>
             <option value="">{t('notes.session.none')}</option>
             {progress.lastSessions.map((s) => (
@@ -289,36 +387,44 @@ export function PatientNotesTab() {
             onChange={(e) => setText(e.target.value)}
             error={errors.text}
           />
-          <div className="row">
-            <button type="submit" className="btn btn--primary" disabled={saving}>
-              {saving ? t('common.loading') : t('notes.save')}
-            </button>
-            <button
-              type="button"
-              className="btn btn--ghost"
-              onClick={() => {
-                setText('');
-                setSessionId('');
-                setErrors({});
-              }}
-            >
-              {t('common.cancel')}
-            </button>
-          </div>
+          <button type="submit" className="btn btn--primary" disabled={saving}>
+            {saving ? t('common.loading') : t('notes.save')}
+          </button>
         </form>
       </section>
       <section aria-labelledby="notes-title" className="stack">
-        <h3 id="notes-title">{t('notes.previous')}</h3>
+        <div className="row row--between">
+          <h3 id="notes-title">{t('notes.previous')}</h3>
+          {filterSessionId && (
+            <Link to={`${base(patientId)}/notas`} viewTransition>
+              {t('notes.filter.clear')}
+            </Link>
+          )}
+        </div>
+        {filterSessionId && (
+          <p>
+            <span className="tag tag--muted">
+              {t('notes.filter.active', { date: filterSession ? formatDate(filterSession.startedAt) : t('common.noData') })}
+            </span>
+          </p>
+        )}
         {Boolean(notes.error) && <ErrorState error={notes.error} onRetry={notes.reload} />}
         {!notes.loading && notes.items.length === 0 && <EmptyState>{t('notes.empty')}</EmptyState>}
         <ul className="note-list">
           {notes.items.map((note) => (
-            <NoteItem key={note.noteId + (note.editedAt ?? '')} note={note} patientId={patientId} sessions={progress.lastSessions} onSaved={notes.reload} />
+            <NoteItem
+              key={note.noteId + (note.editedAt ?? '')}
+              note={note}
+              patientId={patientId}
+              sessions={progress.lastSessions}
+              isNew={note.noteId === newNoteId}
+              onSaved={notes.reload}
+            />
           ))}
         </ul>
         {notes.loading && <Loading />}
         {notes.hasMore && !notes.loading && (
-          <button type="button" className="btn btn--ghost" onClick={notes.loadMore}>
+          <button type="button" className="btn" onClick={notes.loadMore}>
             {t('common.loadMore')}
           </button>
         )}
@@ -330,21 +436,22 @@ export function PatientNotesTab() {
 /** Allowed start level (PUT /patients/{id}/plan) and pairing code for the patient's headset (D20). */
 export function PatientPlanTab() {
   const { patientId, progress, reloadProgress } = useOutletContext<PatientContext>();
+  const toast = useToast();
   const [level, setLevel] = useState(progress.allowedStartLevel === undefined ? '' : String(progress.allowedStartLevel));
-  const [message, setMessage] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   const save = async (event: FormEvent) => {
     event.preventDefault();
     if (!level) return;
     setSaving(true);
-    setMessage(null);
+    setError(null);
     try {
       await patients.setPlan(patientId, { allowedStartLevel: Number(level) });
-      setMessage({ tone: 'success', text: t('plan.saved') });
+      toast(t('plan.saved'));
       reloadProgress();
     } catch (err) {
-      setMessage({ tone: 'error', text: errorMessage(err) });
+      setError(errorMessage(err));
     } finally {
       setSaving(false);
     }
@@ -352,17 +459,21 @@ export function PatientPlanTab() {
 
   return (
     <div className="grid-2">
-      <section className="card" aria-labelledby="plan-title">
-        <h3 id="plan-title">{t('plan.title')}</h3>
-        <p className="muted">{t('plan.lead')}</p>
+      <section className="card stack" aria-labelledby="plan-title">
+        <div>
+          <h3 id="plan-title">{t('plan.title')}</h3>
+          <p className="muted">{t('plan.lead')}</p>
+        </div>
         {progress.allowedStartLevel !== undefined && <p>{t('plan.current', { n: progress.allowedStartLevel })}</p>}
-        {message && <Alert tone={message.tone}>{message.text}</Alert>}
+        {error && <Alert tone="error">{error}</Alert>}
         <form onSubmit={save} className="form">
           <SelectField label={t('plan.select')} value={level} onChange={(e) => setLevel(e.target.value)}>
-            <option value="" disabled>{t('common.noData')}</option>
-            {[1, 2, 3, 4, 5].map((n) => (
+            <option value="" disabled>
+              {t('common.noData')}
+            </option>
+            {LEVELS.map((n) => (
               <option key={n} value={n}>
-                {`${levelLabel(n)} · ${t(`level.${n as 1 | 2 | 3 | 4 | 5}.name`)}`}
+                {`${levelLabel(n)} · ${levelName(n)}`}
               </option>
             ))}
           </SelectField>
@@ -373,7 +484,7 @@ export function PatientPlanTab() {
       </section>
       <section className="card" aria-labelledby="ppairing-title">
         <h3 id="ppairing-title">{t('plan.pairing.title')}</h3>
-        <p className="muted">{t('plan.pairing.lead')}</p>
+        <p className="muted card__sub">{t('plan.pairing.lead')}</p>
         <PairingCodePanel create={() => patients.createPairingCode(patientId)} />
       </section>
     </div>

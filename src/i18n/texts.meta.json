@@ -1259,6 +1259,36 @@
     "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
     "estado": "pendiente de validar"
   },
+  "feedback.listTitle": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.latestTitle": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.viewAll": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.empty": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.notesLink": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.viewSession": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
   "therapy.title": {
     "tipo": "CLÍN",
     "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
@@ -1554,6 +1584,11 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
+  "patients.phobiaGrade": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
   "patients.select": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -1569,6 +1604,11 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
+  "patient.tab.feedback": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
   "patient.tab.sessions": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -1580,11 +1620,6 @@
     "estado": "pendiente de validar"
   },
   "patient.tab.plan": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
-  "patient.summaryLine": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
@@ -1700,6 +1735,16 @@
     "estado": "pendiente de validar"
   },
   "notes.saveEdit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.filter.active": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "notes.filter.clear": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"

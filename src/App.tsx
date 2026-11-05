@@ -6,6 +6,7 @@ import { AdminAssignmentsPage, AdminExportPage, AdminUsersPage } from './pages/a
 import { NotFoundPage } from './pages/ErrorPages';
 import { PatientDevicesPage, PatientHomePage, PatientSessionPage, PatientSessionsPage } from './pages/patient/PatientPages';
 import {
+  PatientFeedbackTab,
   PatientNotesTab,
   PatientPlanTab,
   PatientSessionsTab,
@@ -67,6 +68,7 @@ export function AppRoutes() {
             <Route index element={<PatientSummaryTab />} />
             <Route path="sesiones" element={<PatientSessionsTab />} />
             <Route path="sesiones/:sessionId" element={<PatientSessionTab />} />
+            <Route path="retroalimentacion" element={<PatientFeedbackTab />} />
             <Route path="notas" element={<PatientNotesTab />} />
             <Route path="plan" element={<PatientPlanTab />} />
           </Route>
