@@ -189,7 +189,7 @@ export function HomePage() {
 
       {product.data && <ProductSummary product={product.data} />}
 
-      <section className="roles home__section" aria-labelledby="roles-title">
+      <section className="home__section" aria-labelledby="roles-title">
         <h2 id="roles-title">{t('home.roles.title')}</h2>
         <dl className="roles__list">
           {ROLES.map((role) => (

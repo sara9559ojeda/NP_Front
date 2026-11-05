@@ -124,16 +124,6 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "common.close": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
-  "common.back": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
   "common.retry": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -150,11 +140,6 @@
     "estado": "pendiente de validar"
   },
   "common.noData": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
-  "common.saved": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
@@ -880,11 +865,6 @@
     "estado": "pendiente de validar"
   },
   "stats.latestTolerance": {
-    "tipo": "CLÍN",
-    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
-    "estado": "pendiente de validar"
-  },
-  "stats.lastRecommendation": {
     "tipo": "CLÍN",
     "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
     "estado": "pendiente de validar"
@@ -1664,11 +1644,6 @@
     "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
     "estado": "pendiente de validar"
   },
-  "notes.title": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
   "notes.new": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -1715,11 +1690,6 @@
     "estado": "pendiente de validar"
   },
   "notes.empty": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
-  "notes.createdAt": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"

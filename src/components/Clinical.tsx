@@ -253,7 +253,7 @@ const PHASES: SudsPhase[] = ['before', 'during', 'after'];
 
 function SudsBars({ record }: { record: LevelRecord }) {
   return (
-    <div className="suds">
+    <div>
       <p className="suds__title">{t('suds.title')}</p>
       <dl className="suds__list">
         {PHASES.map((phase) => {

@@ -27,13 +27,10 @@
   "common.save": "Guardar",
   "common.cancel": "Cancelar",
   "common.edit": "Editar",
-  "common.close": "Cerrar",
-  "common.back": "Volver",
   "common.retry": "Reintentar",
   "common.loadMore": "Cargar más",
   "common.required": "obligatorio",
   "common.noData": "Sin datos",
-  "common.saved": "Cambios guardados.",
   "common.yes": "Sí",
   "common.no": "No",
 
@@ -189,7 +186,6 @@
   "stats.sessions": "Sesiones",
   "stats.levelReached": "Nivel alcanzado",
   "stats.latestTolerance": "Índice de tolerancia más reciente",
-  "stats.lastRecommendation": "Última recomendación",
   "stats.allowedStartLevel": "Nivel inicial permitido",
 
   "sessions.title": "Historial de sesiones",
@@ -353,7 +349,6 @@
   "plan.pairing.title": "Vincular el visor del paciente",
   "plan.pairing.lead": "Genera un código para vincular el visor durante la consulta.",
 
-  "notes.title": "Notas de terapia",
   "notes.new": "Nueva nota",
   "notes.session": "Sesión asociada",
   "notes.session.none": "Sin sesión asociada",
@@ -364,7 +359,6 @@
   "notes.saved": "Nota guardada.",
   "notes.previous": "Notas anteriores",
   "notes.empty": "Todavía no hay notas.",
-  "notes.createdAt": "{date}",
   "notes.edited": "Editada el {date}",
   "notes.editLabel": "Editar la nota del {date}",
   "notes.saveEdit": "Guardar cambios",

@@ -94,7 +94,7 @@ export function SelectField({ label, hint, error, required, children, ...rest }:
     <FieldShell id={id} label={label} required={required} hint={hint} error={error}>
       <select
         id={id}
-        className="input input--select"
+        className="input"
         required={required}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy(id, hint, error)}
