@@ -87,15 +87,13 @@ El token de acceso vive exclusivamente en memoria. Las peticiones usan `credenti
 
 ## Tipos y versión del contrato
 
-La especificación fijada es **NP_Back@contrato-v1.0.0**, aprobada el 30-10-2026. Los tipos actuales están escritos desde el contrato en `src/api/types.ts`. Los campos no definidos completamente están marcados como `Assumed`/`assumed`; las formas elegidas por el simulador están pendientes de aprobación.
-
-Cuando se publique el OpenAPI aprobado, guarda su copia en `docs/api/openapi.json` y ejecuta en una rama de integración:
+La especificación fijada es **NP_Back@contrato-v1.1.0** (rama `feature/diagramas-uml`, pendiente de aprobación por Sara). `docs/api/openapi.json` y `docs/api/CONTRATO_API_v1.md` son copias de NP_Back. Para regenerar los tipos tras un cambio de contrato:
 
 ```sh
 npm run gen:api-types
 ```
 
-La salida será `src/api/generated/openapi.ts`; después adapta los alias y valida cliente y simulador contra el backend. El comando no puede ejecutarse aún porque el OpenAPI no está incluido.
+La salida es `src/api/generated/openapi.ts`. Las rutas de v1.1.0 usan alias directos a esos esquemas en `src/api/types.ts`; los tipos anteriores siguen escritos a mano y `src/api/adapters.ts` normaliza las diferencias de forma.
 
 ## Estructura
 
