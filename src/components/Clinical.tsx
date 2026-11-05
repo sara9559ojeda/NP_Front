@@ -231,7 +231,7 @@ function AnalysisPanel({ analysis }: { analysis: Analysis | null }) {
             {analysis.basis.map((b) => (
               <tr key={b.feature}>
                 <td data-label={t('analysis.basis.feature')}>{featureText(b.feature)}</td>
-                <td data-label={t('analysis.basis.value')}>{formatNumber(b.value, 2)}</td>
+                <td data-label={t('analysis.basis.value')}>{typeof b.value === 'boolean' ? t(b.value ? 'common.yes' : 'common.no') : formatNumber(b.value, 2)}</td>
                 <td data-label={t('analysis.basis.effect')}>
                   <span className={`chip chip--effect-${b.effect}`}>{tDynamic(`analysis.effect.${b.effect}`, 'common.noData')}</span>
                 </td>

@@ -169,6 +169,16 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
+  "common.yes": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "common.no": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
   "disclaimer.webTitle": {
     "tipo": "SEG",
     "fuente": "Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)",
@@ -474,6 +484,21 @@
     "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
     "estado": "pendiente de validar"
   },
+  "fieldError.out_of_range": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.invalid_type": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "fieldError.withdrawn": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
   "fieldError.default": {
     "tipo": "SEG",
     "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
@@ -570,6 +595,11 @@
     "estado": "pendiente de validar"
   },
   "error.NETWORK_ERROR": {
+    "tipo": "SEG",
+    "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "error.STORAGE_UNAVAILABLE": {
     "tipo": "SEG",
     "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
     "estado": "pendiente de validar"

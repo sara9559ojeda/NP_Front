@@ -1,9 +1,21 @@
-// Simulated API v1 server (MSW). Follows docs/api/CONTRATO_API_v1.md: routes, role matrix
-// (§2.3, including 404 for patients that are not assigned), pagination (§1) and the
-// problem+json errors of §8.
+// Simulated API v1 server (MSW). Follows docs/api/CONTRATO_API_v1.md (contract v1.1.0):
+// routes, role matrix (§2.3, including 404 for patients that are not assigned), pagination
+// (§1) and the problem+json errors of §8.
 import { http, HttpResponse, type HttpHandler } from 'msw';
-import type { ErrorCode, FieldError, Page, PatientListItem, Progress, Role, SessionDetail, SessionSummary } from '../api/types';
-import { CONSENT_VERSION, createDb, type MockDb, type MockUser } from './fixtures';
+import type {
+  ErrorCode,
+  FieldError,
+  Page,
+  PatientFeedback,
+  PatientListItem,
+  Progress,
+  Role,
+  SessionDetail,
+  SessionFeedback,
+  SessionSummary,
+  TherapyState,
+} from '../api/types';
+import { CONSENT_VERSION, createDb, PRODUCT_INFO, type MockDb, type MockNote, type MockUser } from './fixtures';
 
 const BASE = '*/api/v1';
 const ACCESS_TTL_SECONDS = 900;
@@ -31,6 +43,7 @@ const TITLES: Record<number, string> = {
   423: 'Cuenta desactivada',
   429: 'Demasiados intentos',
   500: 'Error interno',
+  503: 'Almacenamiento no disponible',
 };
 
 function problem(status: number, code: ErrorCode, errors?: FieldError[]) {
@@ -135,6 +148,52 @@ function progress(patient: MockUser): Progress {
   };
 }
 
+/** Closed, non-test sessions that already have their analysis saved (newest first). */
+function analysedSessions(patientId: string): (SessionDetail & { analysis: NonNullable<SessionDetail['analysis']> })[] {
+  return sessionsNewestFirst(patientId).filter(
+    (s): s is SessionDetail & { analysis: NonNullable<SessionDetail['analysis']> } => !s.testSession && s.analysis !== null,
+  );
+}
+
+function sessionFeedback(s: SessionDetail & { analysis: NonNullable<SessionDetail['analysis']> }): SessionFeedback {
+  return {
+    sessionId: s.sessionId,
+    startedAt: s.startedAt,
+    endedAt: s.endedAt,
+    phobiaGrade: s.phobiaGrade,
+    levelReached: s.levelReached,
+    endReason: s.endReason,
+    analysis: { ...s.analysis, createdAt: s.analysis.createdAt ?? s.endedAt ?? now() },
+  };
+}
+
+function therapy(patient: MockUser): TherapyState {
+  const closed = sessionsNewestFirst(patient.id).filter((s) => !s.testSession);
+  const last = closed[0];
+  const lastAnalysed = analysedSessions(patient.id)[0];
+  return {
+    phobiaGrade: patient.phobiaGrade ?? null,
+    phobiaGradeUpdatedAt: patient.phobiaGradeUpdatedAt ?? null,
+    allowedStartLevel: patient.allowedStartLevel ?? 1,
+    pairedDevices: (db.devices[patient.id] ?? []).filter((d) => !d.revokedAt).length,
+    openSession: db.openSessions[patient.id] ?? null,
+    lastSession: last
+      ? {
+          sessionId: last.sessionId,
+          startedAt: last.startedAt,
+          levelReached: last.levelReached,
+          totalDurationSeconds: last.totalDurationSeconds,
+          recommendation: last.analysis?.recommendation ?? null,
+        }
+      : null,
+    lastFeedback: lastAnalysed ? sessionFeedback(lastAnalysed) : null,
+  };
+}
+
+function adminView({ id, fullName, email, role, active }: MockUser) {
+  return { id, fullName, email, role, active };
+}
+
 function pairingCode() {
   const pick = () => PAIRING_ALPHABET[Math.floor(Math.random() * PAIRING_ALPHABET.length)];
   const code = `${pick()}${pick()}${pick()}-${pick()}${pick()}${pick()}`;
@@ -160,7 +219,12 @@ function emailTaken(email: string, exceptId?: string): boolean {
 }
 
 export const handlers: HttpHandler[] = [
-  http.get(`${BASE}/health`, () => HttpResponse.json({ status: 'ok', version: 'mock-0.1.0' })),
+  http.get(`${BASE}/health`, () => HttpResponse.json({ status: 'ok', version: 'mock-0.2.0' })),
+
+  // v1.1.0 product information, public
+  http.get(`${BASE}/public/product-info`, () =>
+    HttpResponse.json(PRODUCT_INFO, { headers: { 'Cache-Control': 'public, max-age=300' } }),
+  ),
 
   // §4.1
   http.post(`${BASE}/auth/register`, async ({ request }) => {
@@ -280,6 +344,29 @@ export const handlers: HttpHandler[] = [
     return HttpResponse.json(progress(auth.user));
   }),
 
+  // v1.1.0 therapy state and phobia grade (BPMN "Ajustar grado de fobia" before "Comenzar")
+  http.get(`${BASE}/me/therapy`, ({ request }) => {
+    const auth = authenticate(request, ['patient']);
+    if ('response' in auth) return auth.response;
+    return HttpResponse.json(therapy(auth.user));
+  }),
+
+  http.put(`${BASE}/me/phobia-grade`, async ({ request }) => {
+    const auth = authenticate(request, ['patient']);
+    if ('response' in auth) return auth.response;
+    const body = await readJson<{ phobiaGrade?: unknown }>(request);
+    if (!body) return problem(400, 'BAD_REQUEST');
+    const grade = body.phobiaGrade;
+    if (grade === undefined || grade === null) return problem(422, 'VALIDATION_ERROR', [{ field: 'phobiaGrade', code: 'required' }]);
+    if (typeof grade !== 'number' || !Number.isInteger(grade)) {
+      return problem(422, 'VALIDATION_ERROR', [{ field: 'phobiaGrade', code: 'invalid_type' }]);
+    }
+    if (grade < 1 || grade > 5) return problem(422, 'VALIDATION_ERROR', [{ field: 'phobiaGrade', code: 'out_of_range' }]);
+    auth.user.phobiaGrade = grade;
+    auth.user.phobiaGradeUpdatedAt = now();
+    return HttpResponse.json({ phobiaGrade: grade, updatedAt: auth.user.phobiaGradeUpdatedAt });
+  }),
+
   http.get(`${BASE}/me/sessions`, ({ request }) => {
     const auth = authenticate(request, ['patient']);
     if ('response' in auth) return auth.response;
@@ -330,6 +417,7 @@ export const handlers: HttpHandler[] = [
           lastSessionAt: last?.startedAt ?? null,
           levelReached: last ? progress(u).levelReached : null,
           lastRecommendation: sessionsNewestFirst(u.id).find((s) => s.analysis)?.analysis?.recommendation ?? null,
+          phobiaGrade: u.phobiaGrade ?? null,
         };
       });
     return HttpResponse.json(paginate(items, new URL(request.url)));
@@ -358,6 +446,20 @@ export const handlers: HttpHandler[] = [
     return found ? HttpResponse.json(found) : problem(404, 'NOT_FOUND');
   }),
 
+  // v1.1.0 AI feedback per session, newest first; only sessions with a saved analysis
+  http.get(`${BASE}/patients/:patientId/feedback`, ({ request, params }) => {
+    const auth = authenticate(request, ['professional']);
+    if ('response' in auth) return auth.response;
+    const patient = patientFor(auth.user, String(params.patientId));
+    if (!patient) return problem(404, 'NOT_FOUND');
+    const notes = db.notes[patient.id] ?? [];
+    const items: PatientFeedback[] = analysedSessions(patient.id).map((s) => ({
+      ...sessionFeedback(s),
+      notesCount: notes.filter((n) => n.sessionId === s.sessionId).length,
+    }));
+    return HttpResponse.json(paginate(items, new URL(request.url)));
+  }),
+
   http.put(`${BASE}/patients/:patientId/plan`, async ({ request, params }) => {
     const auth = authenticate(request, ['professional']);
     if ('response' in auth) return auth.response;
@@ -369,7 +471,7 @@ export const handlers: HttpHandler[] = [
       return problem(422, 'VALIDATION_ERROR', [{ field: 'allowedStartLevel', code: 'out_of_range' }]);
     }
     patient.allowedStartLevel = level;
-    return new HttpResponse(null, { status: 204 });
+    return HttpResponse.json({ patientId: patient.id, allowedStartLevel: level, updatedAt: now() });
   }),
 
   http.get(`${BASE}/patients/:patientId/notes`, ({ request, params }) => {
@@ -377,8 +479,12 @@ export const handlers: HttpHandler[] = [
     if ('response' in auth) return auth.response;
     const patient = patientFor(auth.user, String(params.patientId));
     if (!patient) return problem(404, 'NOT_FOUND');
-    const notes = [...(db.notes[patient.id] ?? [])].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-    return HttpResponse.json(paginate(notes, new URL(request.url)));
+    const url = new URL(request.url);
+    const sessionId = url.searchParams.get('sessionId');
+    const notes = [...(db.notes[patient.id] ?? [])]
+      .filter((n) => !sessionId || n.sessionId === sessionId)
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    return HttpResponse.json(paginate(notes, url));
   }),
 
   http.post(`${BASE}/patients/:patientId/notes`, async ({ request, params }) => {
@@ -394,9 +500,18 @@ export const handlers: HttpHandler[] = [
       errors.push({ field: 'sessionId', code: 'invalid_format' });
     }
     if (errors.length) return problem(422, 'VALIDATION_ERROR', errors);
-    const note = { noteId: uuid(), text: body.text!.trim(), sessionId: body.sessionId ?? null, authorUserId: auth.user.id, createdAt: now(), editedAt: null };
+    const note: MockNote = {
+      noteId: uuid(),
+      text: body.text!.trim(),
+      sessionId: body.sessionId ?? null,
+      authorId: auth.user.id,
+      authorName: auth.user.fullName,
+      createdAt: now(),
+      editedAt: null,
+    };
     (db.notes[patient.id] ??= []).push(note);
-    return HttpResponse.json({ noteId: note.noteId, createdAt: note.createdAt }, { status: 201 });
+    // v1.1.0: 201 returns the whole stored note.
+    return HttpResponse.json(note, { status: 201 });
   }),
 
   http.patch(`${BASE}/patients/:patientId/notes/:noteId`, async ({ request, params }) => {
@@ -405,7 +520,7 @@ export const handlers: HttpHandler[] = [
     const patient = patientFor(auth.user, String(params.patientId));
     const note = patient && (db.notes[patient.id] ?? []).find((n) => n.noteId === params.noteId);
     if (!note) return problem(404, 'NOT_FOUND');
-    if (note.authorUserId !== auth.user.id) return problem(403, 'FORBIDDEN');
+    if (note.authorId !== auth.user.id) return problem(403, 'FORBIDDEN');
     const body = await readJson<{ text?: string }>(request);
     if (typeof body?.text !== 'string' || body.text.trim().length === 0) {
       return problem(422, 'VALIDATION_ERROR', [{ field: 'text', code: 'required' }]);
@@ -435,7 +550,7 @@ export const handlers: HttpHandler[] = [
       .filter((u) => !role || u.role === role)
       .filter((u) => active === null || String(u.active) === active)
       .filter((u) => !q || u.fullName.toLowerCase().includes(q) || u.email.toLowerCase().includes(q))
-      .map(({ id, fullName, email, role: r, active: a }) => ({ id, fullName, email, role: r, active: a }));
+      .map(adminView);
     return HttpResponse.json(paginate(items, url));
   }),
 
@@ -461,7 +576,34 @@ export const handlers: HttpHandler[] = [
     };
     db.users.push(user);
     if (user.role === 'patient') db.sessions[user.id] = [];
-    return HttpResponse.json({ id: user.id, fullName: user.fullName, email: user.email, role: user.role, active: user.active }, { status: 201 });
+    return HttpResponse.json(adminView(user), { status: 201 });
+  }),
+
+  // v1.1.0 full profile for "Gestionar perfiles"
+  http.get(`${BASE}/admin/users/:userId`, ({ request, params }) => {
+    const auth = authenticate(request, ['admin']);
+    if ('response' in auth) return auth.response;
+    const user = db.users.find((u) => u.id === params.userId);
+    return user ? HttpResponse.json(adminView(user)) : problem(404, 'NOT_FOUND');
+  }),
+
+  // v1.1.0 temporary password; closes every web session of that user
+  http.put(`${BASE}/admin/users/:userId/password`, async ({ request, params }) => {
+    const auth = authenticate(request, ['admin']);
+    if ('response' in auth) return auth.response;
+    const user = db.users.find((u) => u.id === params.userId);
+    if (!user) return problem(404, 'NOT_FOUND');
+    if (user.consents.some((c) => c.withdrawnAt)) return problem(422, 'VALIDATION_ERROR', [{ field: 'userId', code: 'withdrawn' }]);
+    const body = await readJson<{ temporaryPassword?: unknown }>(request);
+    const password = body?.temporaryPassword;
+    if (typeof password !== 'string' || password.length < 8) {
+      return problem(422, 'VALIDATION_ERROR', [{ field: 'temporaryPassword', code: 'too_short' }]);
+    }
+    if (password.length > 128) return problem(422, 'VALIDATION_ERROR', [{ field: 'temporaryPassword', code: 'too_long' }]);
+    user.password = password;
+    for (const [token, owner] of db.accessTokens) if (owner === user.id) db.accessTokens.delete(token);
+    for (const token of db.refreshTokens) if (token.split('.')[1] === user.id) db.refreshTokens.delete(token);
+    return new HttpResponse(null, { status: 204 });
   }),
 
   http.patch(`${BASE}/admin/users/:userId`, async ({ request, params }) => {
@@ -469,18 +611,22 @@ export const handlers: HttpHandler[] = [
     if ('response' in auth) return auth.response;
     const user = db.users.find((u) => u.id === params.userId);
     if (!user) return problem(404, 'NOT_FOUND');
-    const body = await readJson<{ role?: Role; active?: boolean }>(request);
+    const body = await readJson<{ role?: Role; active?: boolean; fullName?: string; email?: string }>(request);
     if (!body) return problem(400, 'BAD_REQUEST');
+    const errors = validateProfile(body, false);
     if (body.role !== undefined && !['patient', 'professional', 'admin'].includes(body.role)) {
-      return problem(422, 'VALIDATION_ERROR', [{ field: 'role', code: 'invalid_format' }]);
+      errors.push({ field: 'role', code: 'invalid_format' });
     }
+    if (errors.length) return problem(422, 'VALIDATION_ERROR', errors);
+    if (body.email && emailTaken(body.email, user.id)) return problem(409, 'EMAIL_TAKEN');
     const losesAdmin = user.role === 'admin' && user.active && ((body.role && body.role !== 'admin') || body.active === false);
     const activeAdmins = db.users.filter((u) => u.role === 'admin' && u.active).length;
     if (losesAdmin && activeAdmins <= 1) return problem(409, 'LAST_ADMIN');
     if (body.role !== undefined) user.role = body.role;
     if (body.active !== undefined) user.active = body.active;
-    const { id, fullName, email, role, active } = user;
-    return HttpResponse.json({ id, fullName, email, role, active });
+    if (body.fullName !== undefined) user.fullName = body.fullName.trim();
+    if (body.email !== undefined) user.email = body.email.trim();
+    return HttpResponse.json(adminView(user));
   }),
 
   http.get(`${BASE}/admin/assignments`, ({ request }) => {

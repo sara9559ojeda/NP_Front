@@ -36,6 +36,8 @@
   "common.required": "obligatorio",
   "common.noData": "Sin datos",
   "common.saved": "Cambios guardados.",
+  "common.yes": "Sí",
+  "common.no": "No",
 
   "disclaimer.webTitle": "Aviso",
   "disclaimer.body": "NEUROPHOBIA es un prototipo académico de apoyo. No sustituye a un terapeuta ni a un tratamiento clínico. Úsalo solo con el acompañamiento de un profesional de la salud.",
@@ -103,6 +105,9 @@
   "fieldError.too_long": "Es demasiado largo.",
   "fieldError.taken": "Ya está en uso.",
   "fieldError.wrong_password": "La contraseña actual no es correcta.",
+  "fieldError.out_of_range": "El valor está fuera del rango permitido.",
+  "fieldError.invalid_type": "El valor no tiene el tipo esperado.",
+  "fieldError.withdrawn": "Esta persona retiró su consentimiento; su cuenta no se puede reactivar.",
   "fieldError.default": "Este dato no es válido.",
 
   "error.BAD_REQUEST": "La solicitud no es válida.",
@@ -124,6 +129,7 @@
   "error.RATE_LIMITED": "Demasiados intentos. Espera unos minutos y vuelve a intentarlo.",
   "error.SERVER_ERROR": "Algo salió mal. Inténtalo de nuevo más tarde.",
   "error.NETWORK_ERROR": "No hay conexión con el servidor. Comprueba tu red e inténtalo de nuevo.",
+  "error.STORAGE_UNAVAILABLE": "No pudimos guardar ni cargar los datos. Inténtalo de nuevo en unos segundos.",
 
   "forbidden.title": "Acceso restringido",
   "forbidden.body": "Tu rol no tiene permiso para ver esta página.",
