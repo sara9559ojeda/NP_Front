@@ -1849,7 +1849,22 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "users.edit.readonly": {
+  "users.resetPassword.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.resetPassword.lead": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.resetPassword.submit": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "users.resetPassword.done": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"

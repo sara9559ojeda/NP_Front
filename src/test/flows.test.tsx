@@ -162,3 +162,26 @@ describe('retroalimentación para el profesional', () => {
     expect(screen.queryByText(/21 de octubre/)).not.toBeInTheDocument();
   });
 });
+
+describe('gestión de perfiles (administrador)', () => {
+  test('edita el nombre y el correo de un perfil y asigna una contraseña temporal', async () => {
+    const user = userEvent.setup();
+    await session('admin@neurophobia.test');
+    page('/admin');
+    await user.click(await screen.findByRole('button', { name: t('users.editLabel', { name: 'Carlos Ruiz' }) }));
+    const email = await screen.findByLabelText(t('register.email'), { exact: false, selector: 'aside input' });
+    await user.clear(email);
+    await user.type(email, 'ana@example.com');
+    await user.click(screen.getByRole('button', { name: t('common.save') }));
+    expect(await screen.findByText(t('error.EMAIL_TAKEN'), { selector: '.field__error' })).toBeInTheDocument();
+    await user.clear(email);
+    await user.type(email, 'carlos.ruiz@neurophobia.test');
+    await user.click(screen.getByRole('button', { name: t('common.save') }));
+    expect(await screen.findByText('carlos.ruiz@neurophobia.test')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: t('users.editLabel', { name: 'Carlos Ruiz' }) }));
+    await user.type(await screen.findByLabelText(t('users.tempPassword'), { exact: false, selector: 'input' }), 'temporal-2026');
+    await user.click(screen.getByRole('button', { name: t('users.resetPassword.submit') }));
+    expect(await screen.findByText(t('users.resetPassword.done'))).toBeInTheDocument();
+  });
+});
