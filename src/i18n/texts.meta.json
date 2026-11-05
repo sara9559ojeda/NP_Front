@@ -4,11 +4,6 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "app.tagline": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
   "app.footer": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -189,37 +184,37 @@
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
-  "home.purpose.title": {
+  "home.hero.eyebrow": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
-  "home.purpose.body": {
+  "home.hero.titleStart": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
-  "home.scope.title": {
+  "home.hero.titleEmphasis": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
-  "home.scope.academic": {
+  "home.hero.titleEnd": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.cta.register": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.cta.levels": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
   "home.scope.notDevice": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.scope.professional": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.scope.headset": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
@@ -234,7 +229,72 @@
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
+  "home.levels.pick": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.levels.detail": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.how.eyebrow": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.how.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.product.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.product.audience": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.requirements.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.requirements.headsets": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.requirements.web": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.contentStatus.pending": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
   "home.roles.title": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.patientTitle": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.professionalTitle": {
+    "tipo": "UI",
+    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
+    "estado": "pendiente de validar"
+  },
+  "home.roles.adminTitle": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
@@ -282,6 +342,61 @@
   "level.5.name": {
     "tipo": "CLÍN",
     "fuente": "Nombres de niveles de los wireframes de Sara (resumen facilitado; documento original no disponible en este equipo)",
+    "estado": "pendiente de validar"
+  },
+  "level.1.detail": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "level.2.detail": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "level.3.detail": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "level.4.detail": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "level.5.detail": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "ruler.you": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "ruler.gap.1": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "ruler.gap.2": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "ruler.gap.3": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "ruler.gap.4": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "ruler.gap.5": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
   "register.title": {
@@ -399,6 +514,11 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
+  "login.submitting": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
   "login.noAccount": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -412,6 +532,11 @@
   "login.sessionExpired": {
     "tipo": "SEG",
     "fuente": "Contrato §2.3, §4 y §8; mensajes de interfaz propuestos",
+    "estado": "pendiente de validar"
+  },
+  "login.breath": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
   "validation.summary": {

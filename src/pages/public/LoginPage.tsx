@@ -7,6 +7,7 @@ import { useDocumentTitle } from '../../components/Layout';
 import { compact, emailError, focusFirstInvalid, requiredError } from '../../components/ui/validation';
 import { errorMessage } from '../../hooks/useApi';
 import { t } from '../../i18n';
+import { riseOrder } from '../../components/ui/rise';
 
 export function LoginPage() {
   useDocumentTitle(t('login.title'));
@@ -49,10 +50,20 @@ export function LoginPage() {
   };
 
   return (
-    <section className="auth-page">
-      <div className="card auth-card">
-        <h1>{t('login.title')}</h1>
-        <p className="lead">{t('login.lead')}</p>
+    <section className="wrap auth" aria-labelledby="login-title">
+      <div className="auth__aside">
+        <h1 id="login-title" className="auth__title rise">
+          {t('login.title')}
+        </h1>
+        <p className="muted rise" style={riseOrder(1)}>
+          {t('login.lead')}
+        </p>
+        <p className="breath rise" style={riseOrder(2)}>
+          <span className="breath__circle" aria-hidden="true" />
+          {t('login.breath')}
+        </p>
+      </div>
+      <div className="panel stack rise" style={riseOrder(1)}>
         {notice && <Alert tone="success">{notice}</Alert>}
         {sessionExpired && !formError && <Alert tone="info">{t('login.sessionExpired')}</Alert>}
         {formError && (
@@ -79,12 +90,15 @@ export function LoginPage() {
             onChange={(event) => setPassword(event.target.value)}
             error={errors.password}
           />
-          <button type="submit" className="btn btn--primary btn--block btn--lg" disabled={submitting}>
-            {submitting ? t('common.loading') : t('login.submit')}
+          <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
+            {submitting ? t('login.submitting') : t('login.submit')}
           </button>
         </form>
-        <p className="auth-card__alt">
-          {t('login.noAccount')} <Link to="/registro">{t('login.registerLink')}</Link>
+        <p className="small muted">
+          {t('login.noAccount')}{' '}
+          <Link to="/registro" viewTransition>
+            {t('login.registerLink')}
+          </Link>
         </p>
       </div>
     </section>

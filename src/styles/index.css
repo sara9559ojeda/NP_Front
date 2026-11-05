@@ -5,3 +5,5 @@
 @import './motion.css';
 @import './components/ui.css';
 @import './components/layout.css';
+@import './components/ruler.css';
+@import './components/public.css';

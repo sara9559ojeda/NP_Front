@@ -1,0 +1,94 @@
+/*
+ * Signature: the distance ruler. "You" on the left, the stimulus as a breathing ring.
+ * The ring position comes from --ring-position (set per level in DistanceRuler.tsx).
+ */
+.ruler {
+  --track-height: 120px;
+  --ring-size: 64px;
+  --inset: 28px;
+  position: relative;
+  height: var(--track-height);
+}
+
+.ruler--compact {
+  --track-height: 96px;
+  --ring-size: 52px;
+}
+
+.ruler__line {
+  position: absolute;
+  left: var(--inset);
+  right: var(--inset);
+  top: 50%;
+  border-top: 1.5px dashed var(--color-line);
+}
+
+.ruler__you,
+.ruler__ring {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ruler__you {
+  left: var(--inset);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-text);
+}
+
+.ruler__you-label {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.ruler__ring {
+  left: var(--ring-position, 90%);
+  width: var(--ring-size);
+  height: var(--ring-size);
+  transition: left var(--duration-slow) var(--ease-glide);
+}
+
+.ruler__breath {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-accent-soft) 0 38%, transparent 39%);
+  animation: breathe 10s ease-in-out infinite;
+}
+
+.ruler__breath--outer {
+  inset: -14px;
+  border-color: var(--color-line);
+  background: none;
+  animation-delay: -0.6s;
+}
+
+.ruler__gap {
+  position: absolute;
+  top: calc(50% + 26px);
+  left: var(--inset);
+  width: calc(var(--ring-position, 90%) - var(--inset) - var(--ring-size) / 2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  transition: width var(--duration-slow) var(--ease-glide);
+}
+
+@media (max-width: 860px) {
+  .ruler {
+    --ring-size: 48px;
+  }
+
+  .ruler--compact {
+    --ring-size: 44px;
+  }
+}

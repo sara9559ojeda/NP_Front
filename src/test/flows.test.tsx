@@ -88,7 +88,7 @@ describe('cuentas y navegación', () => {
 
 describe('accesibilidad de pantallas principales', () => {
   test.each([
-    ['/', null, 'app.tagline'],
+    ['/', null, 'home.levels.title'],
     ['/iniciar-sesion', null, 'login.title'],
     ['/registro', null, 'register.title'],
     ['/paciente', 'ana@example.com', 'progress.title'],

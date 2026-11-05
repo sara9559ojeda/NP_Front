@@ -8,6 +8,7 @@ import { useDocumentTitle } from '../../components/Layout';
 import { compact, emailError, focusFirstInvalid, matchError, passwordError, requiredError } from '../../components/ui/validation';
 import { errorMessage, fieldErrorsFrom } from '../../hooks/useApi';
 import { t } from '../../i18n';
+import { riseOrder } from '../../components/ui/rise';
 
 /** Version of the consent text the person accepts (contract §4.1 example). */
 export const CONSENT_VERSION = '2026-10-v1';
@@ -65,14 +66,20 @@ export function RegisterPage() {
 
   if (done) {
     return (
-      <section className="auth-page">
-        <div className="card auth-card">
-          <h1>{t('register.success.title')}</h1>
+      <section className="wrap auth" aria-labelledby="register-done-title">
+        <div className="auth__aside">
+          <h1 id="register-done-title" className="auth__title rise">
+            {t('register.success.title')}
+          </h1>
+          <p className="muted rise" style={riseOrder(1)}>
+            {t('register.success.noProfessional')}
+          </p>
+        </div>
+        <div className="panel stack rise" style={riseOrder(1)}>
           <Alert tone="success">
             <p>{t('register.success.body')}</p>
           </Alert>
-          <p>{t('register.success.noProfessional')}</p>
-          <Link to="/iniciar-sesion" className="btn btn--primary btn--block">
+          <Link to="/iniciar-sesion" className="btn btn--primary btn--block" viewTransition>
             {t('nav.login')}
           </Link>
         </div>
@@ -81,10 +88,16 @@ export function RegisterPage() {
   }
 
   return (
-    <section className="auth-page">
-      <div className="card auth-card">
-        <h1>{t('register.title')}</h1>
-        <p className="lead">{t('register.lead')}</p>
+    <section className="wrap auth" aria-labelledby="register-title">
+      <div className="auth__aside">
+        <h1 id="register-title" className="auth__title rise">
+          {t('register.title')}
+        </h1>
+        <p className="muted rise" style={riseOrder(1)}>
+          {t('register.lead')}
+        </p>
+      </div>
+      <div className="panel stack rise" style={riseOrder(1)}>
         {formError && <Alert tone="error">{formError}</Alert>}
         <form ref={formRef} onSubmit={handleSubmit} noValidate className="form">
           <TextField
@@ -146,12 +159,15 @@ export function RegisterPage() {
               {errors.consent}
             </p>
           )}
-          <button type="submit" className="btn btn--primary btn--block btn--lg" disabled={submitting}>
+          <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
             {submitting ? t('common.loading') : t('register.submit')}
           </button>
         </form>
-        <p className="auth-card__alt">
-          {t('register.haveAccount')} <Link to="/iniciar-sesion">{t('register.loginLink')}</Link>
+        <p className="small muted">
+          {t('register.haveAccount')}{' '}
+          <Link to="/iniciar-sesion" viewTransition>
+            {t('register.loginLink')}
+          </Link>
         </p>
       </div>
     </section>
