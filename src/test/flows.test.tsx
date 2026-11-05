@@ -82,7 +82,7 @@ describe('cuentas y navegación', () => {
     await userEvent.type(field, 'Observación ficticia de prueba.');
     await userEvent.click(screen.getByRole('button', { name: t('notes.save') }));
     expect(await screen.findByText('Observación ficticia de prueba.')).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent(t('notes.saved'));
+    expect(screen.getAllByRole('status').some((region) => region.textContent?.includes(t('notes.saved')))).toBe(true);
   });
 });
 

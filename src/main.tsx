@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { AppRoutes } from './App';
 import { AuthProvider } from './auth/AuthContext';
-import './styles/global.css';
+import './styles/index.css';
 
 async function start() {
   // The simulated server runs only when asked for (default in development). See README.

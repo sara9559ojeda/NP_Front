@@ -2,10 +2,10 @@ import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { Link } from 'react-router';
 import { ApiError } from '../../api/client';
 import { auth } from '../../api/endpoints';
-import { Alert } from '../../components/Feedback';
-import { TextField } from '../../components/Field';
+import { Alert } from '../../components/ui/Feedback';
+import { TextField } from '../../components/ui/Field';
 import { useDocumentTitle } from '../../components/Layout';
-import { compact, emailError, focusFirstInvalid, matchError, passwordError, requiredError } from '../../components/validation';
+import { compact, emailError, focusFirstInvalid, matchError, passwordError, requiredError } from '../../components/ui/validation';
 import { errorMessage, fieldErrorsFrom } from '../../hooks/useApi';
 import { t } from '../../i18n';
 

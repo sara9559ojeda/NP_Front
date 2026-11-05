@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router';
 import type { Analysis, LevelRecord, RecommendationValue, SessionDetail, SessionSummary, SudsPhase } from '../api/types';
 import { formatDate, formatDateTime, formatMinutes, formatNumber, formatPercent, t, tDynamic, type TextKey } from '../i18n';
-import { EmptyState, PendingBadge } from './Feedback';
+import { EmptyState, PendingTag } from './ui/Feedback';
 
 export function levelLabel(level: number | null | undefined): string {
   if (!level) return t('common.noData');
@@ -19,7 +19,7 @@ export function RecommendationTag({ value }: { value: RecommendationValue | null
   return (
     <span className="rec">
       <span className={`chip chip--${value}`}>{tDynamic(`recommendation.${value}`, 'recommendation.none')}</span>
-      <PendingBadge />
+      <PendingTag />
     </span>
   );
 }
@@ -204,7 +204,7 @@ function AnalysisPanel({ analysis }: { analysis: Analysis | null }) {
     <section className="card card--analysis" aria-labelledby="analysis-title">
       <div className="card__head">
         <h3 id="analysis-title">{t('analysis.title')}</h3>
-        <PendingBadge />
+        <PendingTag />
       </div>
       <div className="analysis-grid">
         <StatCard label={t('analysis.tolerance')} value={formatPercent(analysis.toleranceIndex)}>

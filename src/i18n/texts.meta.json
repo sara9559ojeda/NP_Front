@@ -24,17 +24,12 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "nav.openMenu": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
-  "nav.closeMenu": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
   "nav.info": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.howItWorks": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
@@ -59,7 +54,7 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "nav.patient.progress": {
+  "nav.patient.home": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"

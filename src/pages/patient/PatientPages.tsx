@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { me } from '../../api/endpoints';
 import { levelLabel, RecommendationTag, SessionDetailView, SessionsTable, StatCard, ToleranceChart } from '../../components/Clinical';
-import { Alert, EmptyState, ErrorState, Loading } from '../../components/Feedback';
+import { Alert, EmptyState, ErrorState, Loading } from '../../components/ui/Feedback';
 import { PageHeader } from '../../components/Layout';
 import { PairingCodePanel } from '../../components/PairingCodePanel';
 import { errorMessage, useApi, usePaged } from '../../hooks/useApi';

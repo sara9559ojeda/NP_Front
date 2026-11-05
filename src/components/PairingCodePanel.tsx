@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { PairingCode } from '../api/types';
 import { errorMessage } from '../hooks/useApi';
 import { t } from '../i18n';
-import { Alert } from './Feedback';
+import { Alert } from './ui/Feedback';
 
 function remaining(expiresAt: string): number {
   return Math.max(0, Math.floor((new Date(expiresAt).getTime() - Date.now()) / 1000));

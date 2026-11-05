@@ -1,5 +1,5 @@
 import { useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
-import { t } from '../i18n';
+import { t } from '../../i18n';
 
 interface FieldShellProps {
   id: string;

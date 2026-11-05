@@ -1,10 +1,10 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router';
 import { HOME_BY_ROLE, useAuth } from '../../auth/AuthContext';
-import { Alert } from '../../components/Feedback';
-import { TextField } from '../../components/Field';
+import { Alert } from '../../components/ui/Feedback';
+import { TextField } from '../../components/ui/Field';
 import { useDocumentTitle } from '../../components/Layout';
-import { compact, emailError, focusFirstInvalid, requiredError } from '../../components/validation';
+import { compact, emailError, focusFirstInvalid, requiredError } from '../../components/ui/validation';
 import { errorMessage } from '../../hooks/useApi';
 import { t } from '../../i18n';
 

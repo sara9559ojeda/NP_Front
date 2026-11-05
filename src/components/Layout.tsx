@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import type { Role } from '../api/types';
 import { HOME_BY_ROLE, useAuth } from '../auth/AuthContext';
 import { t, type TextKey } from '../i18n';
+import { riseOrder } from './ui/rise';
+import { ToastProvider } from './ui/Toast';
 
 export function useDocumentTitle(title: string): void {
   useEffect(() => {
@@ -25,11 +27,16 @@ function useFocusMainOnNavigate() {
   return mainRef;
 }
 
+/** The brand mark repeats the product's motif: you, a dashed distance, the stimulus as a ring. */
 function Brand({ to }: { to: string }) {
   return (
-    <Link to={to} className="brand">
-      <span className="brand__mark" aria-hidden="true" />
-      <span className="brand__name">{t('app.name')}</span>
+    <Link to={to} className="brand" viewTransition>
+      <svg className="brand__mark" width="34" height="20" viewBox="0 0 34 20" aria-hidden="true">
+        <circle cx="5" cy="10" r="4" fill="currentColor" />
+        <line x1="12" y1="10" x2="20" y2="10" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 3" />
+        <circle cx="27" cy="10" r="6" fill="none" stroke="var(--color-accent)" strokeWidth="1.6" />
+      </svg>
+      <span>{t('app.name')}</span>
     </Link>
   );
 }
@@ -42,44 +49,51 @@ function SkipLink() {
   );
 }
 
+function Footer() {
+  return (
+    <div className="wrap">
+      <footer className="site-footer">
+        <span>{t('app.footer')}</span>
+        <span className="mono">{t('home.scope.notDevice')}</span>
+      </footer>
+    </div>
+  );
+}
+
 export function PublicLayout() {
   const mainRef = useFocusMainOnNavigate();
   const { status, user } = useAuth();
   return (
-    <div className="public">
+    <div className="shell">
       <SkipLink />
-      <header className="topbar">
-        <div className="container topbar__inner">
+      <div className="wrap">
+        <header className="site-header">
           <Brand to="/" />
-          <nav aria-label={t('nav.primary')} className="topnav">
-            <NavLink to="/" end className="topnav__link">
-              {t('nav.info')}
-            </NavLink>
+          <nav aria-label={t('nav.primary')} className="site-nav">
+            <Link to={{ pathname: '/', hash: '#como-funciona' }} className="site-nav__link site-nav__link--optional">
+              {t('nav.howItWorks')}
+            </Link>
             {status === 'authenticated' && user ? (
-              <NavLink to={HOME_BY_ROLE[user.role]} className="btn btn--primary btn--sm">
+              <NavLink to={HOME_BY_ROLE[user.role]} className="btn btn--primary" viewTransition>
                 {t(NAV_BY_ROLE[user.role][0]!.label)}
               </NavLink>
             ) : (
               <>
-                <NavLink to="/registro" className="topnav__link">
-                  {t('nav.register')}
-                </NavLink>
-                <NavLink to="/iniciar-sesion" className="btn btn--primary btn--sm">
+                <NavLink to="/iniciar-sesion" className="site-nav__link" viewTransition>
                   {t('nav.login')}
+                </NavLink>
+                <NavLink to="/registro" className="btn btn--primary" viewTransition>
+                  {t('nav.register')}
                 </NavLink>
               </>
             )}
           </nav>
-        </div>
-      </header>
-      <main id="main" ref={mainRef} tabIndex={-1} className="public__main">
+        </header>
+      </div>
+      <main id="main" ref={mainRef} tabIndex={-1} className="shell__main">
         <Outlet />
       </main>
-      <footer className="footer">
-        <div className="container">
-          <p>{t('app.footer')}</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
@@ -92,7 +106,7 @@ interface NavItem {
 
 export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
   patient: [
-    { to: '/paciente', label: 'nav.patient.progress', end: true },
+    { to: '/paciente', label: 'nav.patient.home', end: true },
     { to: '/paciente/sesiones', label: 'nav.patient.sessions' },
     { to: '/paciente/visor', label: 'nav.patient.devices' },
     { to: '/cuenta', label: 'nav.account' },
@@ -112,14 +126,9 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
 export function AppLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const mainRef = useFocusMainOnNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => setMenuOpen(false), [pathname]);
 
   if (!user) return null;
-  const items = NAV_BY_ROLE[user.role];
 
   const handleLogout = async () => {
     await logout();
@@ -127,57 +136,64 @@ export function AppLayout() {
   };
 
   return (
-    <div className="app">
-      <SkipLink />
-      <header className="topbar topbar--app">
-        <div className="topbar__inner topbar__inner--app">
-          <button
-            type="button"
-            className="menu-toggle"
-            aria-expanded={menuOpen}
-            aria-controls="app-nav"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <span className="menu-toggle__bars" aria-hidden="true" />
-            <span className="sr-only">{menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}</span>
-          </button>
-          <Brand to={HOME_BY_ROLE[user.role]} />
-          <div className="whoami">
-            <span className="whoami__name">{t('shell.greeting', { name: user.fullName })}</span>
-            <span className={`role-pill role-pill--${user.role}`}>{t(`role.${user.role}`)}</span>
-          </div>
+    <ToastProvider>
+      <div className="shell">
+        <SkipLink />
+        <div className="wrap">
+          <header className="site-header">
+            <Brand to={HOME_BY_ROLE[user.role]} />
+            <div className="whoami">
+              <span className="whoami__name">{t('shell.greeting', { name: user.fullName })}</span>
+              <span className="role-chip">{t(`role.${user.role}`)}</span>
+              <button type="button" className="btn btn--sm" onClick={handleLogout}>
+                {t('nav.logout')}
+              </button>
+            </div>
+          </header>
         </div>
-      </header>
-      <div className="app__body">
-        <nav id="app-nav" aria-label={t('nav.primary')} className={`sidebar${menuOpen ? ' sidebar--open' : ''}`}>
-          <ul className="sidebar__list">
-            {items.map((item) => (
-              <li key={item.to}>
-                <NavLink to={item.to} end={item.end} className="sidebar__link">
-                  {t(item.label)}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-          <button type="button" className="btn btn--ghost sidebar__logout" onClick={handleLogout}>
-            {t('nav.logout')}
-          </button>
+        <nav aria-label={t('nav.primary')} className="app-nav">
+          <div className="wrap">
+            <ul className="app-nav__list">
+              {NAV_BY_ROLE[user.role].map((item) => (
+                <li key={item.to}>
+                  <NavLink to={item.to} end={item.end} className="app-nav__link" viewTransition>
+                    {t(item.label)}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
         </nav>
-        <main id="main" ref={mainRef} tabIndex={-1} className="app__main">
+        <main id="main" ref={mainRef} tabIndex={-1} className="shell__main wrap page">
           <Outlet />
         </main>
+        <Footer />
       </div>
-    </div>
+    </ToastProvider>
   );
 }
 
-export function PageHeader({ title, lead, actions }: { title: string; lead?: string; actions?: ReactNode }) {
+interface PageHeaderProps {
+  title: string;
+  eyebrow?: string;
+  lead?: string;
+  actions?: ReactNode;
+}
+
+export function PageHeader({ title, eyebrow, lead, actions }: PageHeaderProps) {
   useDocumentTitle(title);
   return (
     <div className="page-header">
-      <div>
-        <h1>{title}</h1>
-        {lead && <p className="lead">{lead}</p>}
+      <div className="page-header__text">
+        {eyebrow && <p className="eyebrow rise">{eyebrow}</p>}
+        <h1 className="rise" style={riseOrder(1)}>
+          {title}
+        </h1>
+        {lead && (
+          <p className="page-header__lead rise" style={riseOrder(2)}>
+            {lead}
+          </p>
+        )}
       </div>
       {actions && <div className="page-header__actions">{actions}</div>}
     </div>

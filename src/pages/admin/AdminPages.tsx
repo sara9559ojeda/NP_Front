@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { admin } from '../../api/endpoints';
 import type { AdminUser, Role } from '../../api/types';
-import { Alert, EmptyState, ErrorState, Loading } from '../../components/Feedback';
-import { SelectField, TextField } from '../../components/Field';
+import { Alert, EmptyState, ErrorState, Loading } from '../../components/ui/Feedback';
+import { SelectField, TextField } from '../../components/ui/Field';
 import { PageHeader } from '../../components/Layout';
-import { compact, emailError, focusFirstInvalid, passwordError, requiredError } from '../../components/validation';
+import { compact, emailError, focusFirstInvalid, passwordError, requiredError } from '../../components/ui/validation';
 import { errorMessage, fieldErrorsFrom, useApi } from '../../hooks/useApi';
 import { formatDate, t } from '../../i18n';
 import { ApiError } from '../../api/client';
