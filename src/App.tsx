@@ -4,8 +4,9 @@ import { AppLayout, PublicLayout } from './components/Layout';
 import { AccountPage } from './pages/AccountPage';
 import { AdminAssignmentsPage, AdminExportPage, AdminUsersPage } from './pages/admin/AdminPages';
 import { NotFoundPage } from './pages/ErrorPages';
-import { PatientDevicesPage, PatientProgressPage, PatientSessionPage, PatientSessionsPage } from './pages/patient/PatientPages';
+import { PatientDevicesPage, PatientHomePage, PatientSessionPage, PatientSessionsPage } from './pages/patient/PatientPages';
 import {
+  PatientFeedbackTab,
   PatientNotesTab,
   PatientPlanTab,
   PatientSessionsTab,
@@ -47,7 +48,7 @@ export function AppRoutes() {
           </RequireRole>
         }
       >
-        <Route index element={<PatientProgressPage />} />
+        <Route index element={<PatientHomePage />} />
         <Route path="sesiones" element={<PatientSessionsPage />} />
         <Route path="sesiones/:sessionId" element={<PatientSessionPage />} />
         <Route path="visor" element={<PatientDevicesPage />} />
@@ -67,6 +68,7 @@ export function AppRoutes() {
             <Route index element={<PatientSummaryTab />} />
             <Route path="sesiones" element={<PatientSessionsTab />} />
             <Route path="sesiones/:sessionId" element={<PatientSessionTab />} />
+            <Route path="retroalimentacion" element={<PatientFeedbackTab />} />
             <Route path="notas" element={<PatientNotesTab />} />
             <Route path="plan" element={<PatientPlanTab />} />
           </Route>

@@ -1,8 +1,10 @@
-// Types for API v1, written by hand from docs/api/CONTRATO_API_v1.md (approved 2026-10-30).
-// When the backend publishes docs/api/openapi.json, run `npm run gen:api-types` and
-// replace these with aliases to src/api/generated/openapi.ts (see README).
-// Fields marked "assumed" are not spelled out in the contract; they are listed as
-// contract-change proposals in the report.
+// Types for API v1. Routes added in contract v1.1.0 alias the schemas generated from
+// docs/api/openapi.json (`npm run gen:api-types`). The older view models below were
+// written by hand from docs/api/CONTRATO_API_v1.md; src/api/adapters.ts maps the wire
+// shapes onto them. Fields marked "assumed" are not spelled out in the contract.
+import type { components } from './generated/openapi';
+
+type Schemas = components['schemas'];
 
 export type Uuid = string;
 /** ISO 8601 in UTC with Z. */
@@ -39,7 +41,8 @@ export type ErrorCode =
   | 'CONSENT_REQUIRED'
   | 'ACCOUNT_DISABLED'
   | 'RATE_LIMITED'
-  | 'SERVER_ERROR';
+  | 'SERVER_ERROR'
+  | 'STORAGE_UNAVAILABLE';
 
 export interface FieldError {
   field: string;
@@ -138,10 +141,15 @@ export interface CreateUserRequest {
   temporaryPassword: string;
 }
 
+/** v1.1.0: role, status, name and email are all optional. */
 export interface UpdateUserRequest {
   role?: Role;
   active?: boolean;
+  fullName?: string;
+  email?: string;
 }
+
+export type AdminPasswordResetRequest = Schemas['AdminPasswordReset'];
 
 /** Assumed shape: the contract only names the route. */
 export interface Assignment {
@@ -158,14 +166,8 @@ export interface CreateAssignmentRequest {
 
 // §7
 export type RecommendationValue = 'advance' | 'repeat' | 'step_back';
-export type ClinicalStatus = 'pendiente_de_validar' | (string & {});
-export type BasisEffect = 'favorable' | 'unfavorable' | 'neutral' | (string & {});
-
-export interface AnalysisBasis {
-  feature: string;
-  value: number;
-  effect: BasisEffect;
-}
+/** One variable behind a recommendation; `value` may be a count, a flag or missing. */
+export type AnalysisBasis = Schemas['BasisItem'];
 
 export interface Analysis {
   toleranceIndex: number;
@@ -173,7 +175,10 @@ export interface Analysis {
   method: string;
   methodVersion: string;
   basis: AnalysisBasis[];
-  clinicalStatus: ClinicalStatus;
+  /** "pendiente_de_validar" until a professional validates the method. */
+  clinicalStatus: string;
+  /** v1.1.0. */
+  createdAt?: IsoDate;
 }
 
 // §5.2
@@ -243,6 +248,8 @@ export interface PatientListItem {
   lastSessionAt: IsoDate | null;
   levelReached: number | null;
   lastRecommendation: RecommendationValue | null;
+  /** v1.1.0: last self-reported phobia grade (1-5). */
+  phobiaGrade?: number | null;
 }
 
 export interface PlanRequest {
@@ -255,6 +262,7 @@ export interface Note {
   text: string;
   sessionId: Uuid | null;
   authorUserId: Uuid;
+  authorName: string | null;
   createdAt: IsoDate;
   editedAt: IsoDate | null;
 }
@@ -264,10 +272,21 @@ export interface CreateNoteRequest {
   sessionId?: Uuid;
 }
 
-export interface CreateNoteResponse {
-  noteId: Uuid;
-  createdAt: IsoDate;
+export interface NoteQuery extends PageQuery {
+  sessionId?: Uuid;
 }
+
+// v1.1.0: public product information
+export type ProductInfo = Schemas['ProductInfoOut'];
+
+// v1.1.0: patient therapy state and phobia grade (BPMN "Ajustar grado de fobia")
+export type TherapyState = Schemas['TherapyStateOut'];
+export type SessionFeedback = Schemas['SessionFeedbackItem'];
+export type PhobiaGradeRequest = Schemas['PhobiaGradeIn'];
+export type PhobiaGradeResponse = Schemas['PhobiaGradeOut'];
+
+// v1.1.0: professional view of the AI feedback per session
+export type PatientFeedback = Schemas['ProfessionalFeedbackItem'];
 
 // §6.1
 export interface PairingCode {

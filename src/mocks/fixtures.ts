@@ -1,12 +1,13 @@
 // Fictional data for the simulated server. Shapes and example values follow
 // docs/api/CONTRATO_API_v1.md (§4–§7). Nothing here is real personal or clinical data.
+import type { WireNote } from '../api/adapters';
 import type {
   Analysis,
   Assignment,
   Consent,
   Device,
   LevelRecord,
-  Note,
+  ProductInfo,
   RecommendationValue,
   Role,
   SessionDetail,
@@ -30,13 +31,20 @@ export interface MockUser {
   consents: Consent[];
   /** Clinical side (patients only). */
   allowedStartLevel?: number;
+  phobiaGrade?: number | null;
+  phobiaGradeUpdatedAt?: string | null;
 }
+
+/** Notes are stored as the backend sends them (v1.1.0 `NoteOut`). */
+export type MockNote = Required<Pick<WireNote, 'authorId'>> & Omit<WireNote, 'authorUserId'> & { authorName: string | null };
 
 export interface MockDb {
   users: MockUser[];
   assignments: Assignment[];
   sessions: Record<string, SessionDetail[]>;
-  notes: Record<string, Note[]>;
+  /** Session started in the headset and not closed yet, per patient. */
+  openSessions: Record<string, { sessionId: string; startedAt: string }>;
+  notes: Record<string, MockNote[]>;
   devices: Record<string, Device[]>;
   refreshTokens: Set<string>;
   accessTokens: Map<string, string>;
@@ -62,16 +70,16 @@ function seedUsers(): MockUser[] {
     { ...base, id: IDS.admin, email: 'admin@neurophobia.test', fullName: 'Valeria Rosero', role: 'admin', consents: granted('2026-10-01T14:00:00Z') },
     { ...base, id: IDS.professional, email: 'profesional@neurophobia.test', fullName: 'Marta Gómez', role: 'professional', consents: granted('2026-10-02T14:00:00Z') },
     { ...base, id: IDS.professional2, email: 'profesional2@neurophobia.test', fullName: 'Andrés Benavides', role: 'professional', consents: granted('2026-10-02T15:00:00Z') },
-    { ...base, id: IDS.ana, email: 'ana@example.com', fullName: 'Ana Pérez', role: 'patient', consents: granted('2026-10-05T16:00:00Z'), allowedStartLevel: 2 },
-    { ...base, id: IDS.carlos, email: 'carlos@neurophobia.test', fullName: 'Carlos Ruiz', role: 'patient', consents: granted('2026-10-08T16:00:00Z'), allowedStartLevel: 1 },
-    { ...base, id: IDS.lucia, email: 'lucia@neurophobia.test', fullName: 'Lucía Chamorro', role: 'patient', consents: granted('2026-10-09T16:00:00Z'), allowedStartLevel: 1 },
+    { ...base, id: IDS.ana, email: 'ana@example.com', fullName: 'Ana Pérez', role: 'patient', consents: granted('2026-10-05T16:00:00Z'), allowedStartLevel: 2, phobiaGrade: 3, phobiaGradeUpdatedAt: '2026-10-29T19:55:00Z' },
+    { ...base, id: IDS.carlos, email: 'carlos@neurophobia.test', fullName: 'Carlos Ruiz', role: 'patient', consents: granted('2026-10-08T16:00:00Z'), allowedStartLevel: 1, phobiaGrade: 4, phobiaGradeUpdatedAt: '2026-10-27T14:50:00Z' },
+    { ...base, id: IDS.lucia, email: 'lucia@neurophobia.test', fullName: 'Lucía Chamorro', role: 'patient', consents: granted('2026-10-09T16:00:00Z'), allowedStartLevel: 1, phobiaGrade: 2, phobiaGradeUpdatedAt: '2026-10-25T17:50:00Z' },
     { ...base, id: IDS.julian, email: 'julian@neurophobia.test', fullName: 'Julián Ortega', role: 'patient', consents: granted('2026-10-28T16:00:00Z'), allowedStartLevel: 1 },
     { ...base, id: IDS.pedro, email: 'inactivo@neurophobia.test', fullName: 'Pedro Erazo', role: 'patient', active: false, consents: granted('2026-10-10T16:00:00Z'), allowedStartLevel: 1 },
   ];
 }
 
 // Contract §7 example, used as the template for every analysis.
-function analysis(toleranceIndex: number, recommendation: RecommendationValue, sudsDrop: number, avoidance: number): Analysis {
+function analysis(toleranceIndex: number, recommendation: RecommendationValue, sudsDrop: number, avoidance: number, createdAt: string): Analysis {
   return {
     toleranceIndex,
     recommendation,
@@ -82,6 +90,7 @@ function analysis(toleranceIndex: number, recommendation: RecommendationValue, s
       { feature: 'avoidanceCount', value: avoidance, effect: avoidance > 1 ? 'unfavorable' : 'favorable' },
     ],
     clinicalStatus: 'pendiente_de_validar',
+    createdAt,
   };
 }
 
@@ -137,10 +146,11 @@ function session(seed: SessionSeed): SessionDetail {
   const firstLevel = levels[0];
   const lastLevel = levels[levels.length - 1];
   const sudsDrop = firstLevel && lastLevel ? (firstLevel.suds[0]?.value ?? 0) - (lastLevel.suds[2]?.value ?? 0) : 0;
+  const endedAt = addSeconds(seed.startedAt, total);
   return {
     sessionId: seed.id,
     startedAt: seed.startedAt,
-    endedAt: addSeconds(seed.startedAt, total),
+    endedAt,
     phobiaGrade: seed.phobiaGrade,
     testSession: seed.testSession ?? false,
     endReason: seed.lastLevelMet === false ? 'user_finished' : 'completed',
@@ -150,7 +160,7 @@ function session(seed: SessionSeed): SessionDetail {
     analysis:
       seed.tolerance === null || seed.recommendation === null || seed.testSession
         ? null
-        : analysis(seed.tolerance, seed.recommendation, sudsDrop, lastLevel?.avoidanceCount ?? 0),
+        : analysis(seed.tolerance, seed.recommendation, sudsDrop, lastLevel?.avoidanceCount ?? 0, addSeconds(endedAt, 2)),
   };
 }
 
@@ -176,12 +186,13 @@ function seedSessions(): Record<string, SessionDetail[]> {
   };
 }
 
-function seedNotes(): Record<string, Note[]> {
-  const note = (n: number, text: string, sessionId: string | null, createdAt: string): Note => ({
+function seedNotes(): Record<string, MockNote[]> {
+  const note = (n: number, text: string, sessionId: string | null, createdAt: string): MockNote => ({
     noteId: `f0e1d2c3-0004-4b5a-9c8d-00000000000${n}`,
     text,
     sessionId,
-    authorUserId: IDS.professional,
+    authorId: IDS.professional,
+    authorName: 'Marta Gómez',
     createdAt,
     editedAt: null,
   });
@@ -203,6 +214,37 @@ function seedDevices(): Record<string, Device[]> {
   };
 }
 
+/** Contract v1.1.0 example `product_info.response.200.json`. */
+export const PRODUCT_INFO: ProductInfo = {
+  name: 'NEUROPHOBIA',
+  tagline: 'Terapia de exposición a la aracnofobia en realidad virtual, acompañada por tu profesional.',
+  description:
+    'NEUROPHOBIA es un prototipo académico de exposición gradual a arañas en realidad virtual (Meta Quest). Cada sesión avanza por niveles, registra cómo respondes y genera una retroalimentación que revisa tu profesional de la salud.',
+  audience: 'Personas con miedo a las arañas que siguen un proceso con un profesional de la salud.',
+  features: [
+    { title: 'Exposición gradual', description: 'Cinco niveles de exposición; empiezas en el que autorice tu profesional.' },
+    { title: 'Tú controlas', description: 'Puedes pausar o salir de forma segura en cualquier momento.' },
+    { title: 'Seguimiento', description: 'Tu profesional ve tu avance, la retroalimentación de cada sesión y deja notas.' },
+    { title: 'Privacidad', description: 'Los datos de las sesiones se guardan separados de tu identidad.' },
+  ],
+  howItWorks: [
+    { order: 1, title: 'Regístrate', description: 'Crea tu cuenta y acepta el consentimiento informado.' },
+    { order: 2, title: 'Empareja el visor', description: 'Genera un código en la web y escríbelo en las gafas.' },
+    { order: 3, title: 'Ajusta tu grado de fobia', description: 'Indica del 1 al 5 cuánto miedo sientes hoy.' },
+    { order: 4, title: 'Inicia la terapia', description: 'Pulsa «Comenzar» en el Refugio y avanza a tu ritmo.' },
+    { order: 5, title: 'Revisa tu avance', description: 'Consulta tus sesiones; tu profesional revisa la retroalimentación.' },
+  ],
+  requirements: {
+    headsets: ['Meta Quest 2', 'Meta Quest 3', 'Meta Quest 3S'],
+    web: 'Navegador actualizado (Chrome, Edge, Firefox o Safari).',
+  },
+  disclaimer:
+    'NEUROPHOBIA es un prototipo académico y no sustituye un diagnóstico ni un tratamiento profesional. Si sientes malestar intenso, detén la sesión y consulta con tu profesional de la salud.',
+  contentVersion: '2026-11-04',
+  contentStatus: 'pendiente_de_aprobacion',
+  apiVersion: '0.2.0',
+};
+
 export function createDb(): MockDb {
   return {
     users: seedUsers(),
@@ -212,6 +254,7 @@ export function createDb(): MockDb {
       { assignmentId: 'b1a2c3d4-0006-4f5e-8d7c-000000000003', professionalId: IDS.professional2, patientId: IDS.lucia, createdAt: '2026-10-09T17:00:00Z' },
     ],
     sessions: seedSessions(),
+    openSessions: {},
     notes: seedNotes(),
     devices: seedDevices(),
     refreshTokens: new Set(),

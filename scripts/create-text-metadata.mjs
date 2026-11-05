@@ -7,7 +7,7 @@ function metadata(key) {
     tipo = 'SEG'; fuente = 'Decisiones D19, D23; contrato §3, §4.1; texto propuesto de APROBAR_R1 §9 (resumen facilitado por Sara)';
   } else if (/^(error|fieldError|validation|login\.sessionExpired|forbidden|admin\.noClinical)/.test(key)) {
     tipo = 'SEG'; fuente = 'Contrato §2.3, §4 y §8; mensajes de interfaz propuestos';
-  } else if (/^(clinical|recommendation|analysis|chart|suds|metric|outcome|endReason|session\.|stats\.|plan\.)/.test(key)) {
+  } else if (/^(clinical|recommendation|analysis|chart|suds|metric|outcome|endReason|session\.|stats\.|plan\.|therapy\.|feedback\.|phobiaGrade\.)/.test(key)) {
     tipo = 'CLÍN'; fuente = 'Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas';
     if (key.startsWith('suds.')) fuente = 'Contrato §6.3; escala SUDS (Wolpe, 1969), según encargo';
   } else if (/^level\.[1-5]\.name$/.test(key)) {

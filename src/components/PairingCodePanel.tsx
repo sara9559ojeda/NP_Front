@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { PairingCode } from '../api/types';
 import { errorMessage } from '../hooks/useApi';
 import { t } from '../i18n';
-import { Alert } from './Feedback';
+import { Alert } from './ui/Feedback';
 
 function remaining(expiresAt: string): number {
   return Math.max(0, Math.floor((new Date(expiresAt).getTime() - Date.now()) / 1000));
@@ -47,8 +47,9 @@ export function PairingCodePanel({ create }: { create: () => Promise<PairingCode
       {code && !expired && (
         <div className="pairing__code" role="status" aria-live="polite">
           <p className="pairing__label">{t('pairing.title')}</p>
-          <p className="pairing__value" aria-label={code.code.split('').join(' ')}>
-            {code.code}
+          <p className="pairing__value">
+            <span aria-hidden="true">{code.code}</span>
+            <span className="sr-only">{code.code.split('').join(' ')}</span>
           </p>
           <p className="pairing__timer">{t('pairing.expiresIn', { time: mmss(left) })}</p>
           <p className="muted">{t('pairing.instructions')}</p>

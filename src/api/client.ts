@@ -57,6 +57,7 @@ const FALLBACK_CODE_BY_STATUS: Record<number, ErrorCode> = {
   422: 'VALIDATION_ERROR',
   423: 'ACCOUNT_DISABLED',
   429: 'RATE_LIMITED',
+  503: 'STORAGE_UNAVAILABLE',
 };
 
 async function toApiError(response: Response): Promise<ApiError> {

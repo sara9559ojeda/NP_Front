@@ -9,8 +9,16 @@ export function mapPage<T, U>(page: Page<T>, map: (item: T) => U): Page<U> {
   return { ...page, nextCursor: page.nextCursor ?? null, items: page.items.map(map) };
 }
 export type WireMe = Omit<Me, 'fullName'> & { fullName: string | null };
-export type WireNote = Omit<Note, 'authorUserId'> & { authorId?: string; authorUserId?: string };
-export const note = (value: WireNote): Note => ({ ...value, authorUserId: value.authorId ?? value.authorUserId ?? '' });
+export type WireNote = Omit<Note, 'authorUserId' | 'authorName'> & {
+  authorId?: string;
+  authorUserId?: string;
+  authorName?: string | null;
+};
+export const note = ({ authorId, authorUserId, authorName, ...value }: WireNote): Note => ({
+  ...value,
+  authorUserId: authorId ?? authorUserId ?? '',
+  authorName: authorName ?? null,
+});
 export type WireDevice = Omit<Device, 'model'> & { deviceModel?: string; model?: string };
 export const device = (value: WireDevice): Device => ({ ...value, model: value.deviceModel ?? value.model ?? t('common.noData') });
 type WireLevel = Omit<LevelRecord, 'gaze' | 'levelDefinitionVersion'> & {

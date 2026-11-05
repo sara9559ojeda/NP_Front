@@ -1,4 +1,4 @@
-import { t } from '../i18n';
+import { t } from '../../i18n';
 
 // Client-side checks mirror what the contract asks for; the backend validates again (§8).
 export const PASSWORD_MIN_LENGTH = 8;

@@ -1,0 +1,45 @@
+/* Administration and account: profiles with a side panel, assignments, export, consent. */
+.scope-note {
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  border-left: 2px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--color-surface);
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.admin-layout--panel {
+  grid-template-columns: minmax(0, 1fr) 360px;
+}
+
+.admin-layout__panel {
+  animation: settle var(--duration-mid) var(--ease-out);
+}
+
+.reset-password {
+  padding-top: 22px;
+  border-top: 1px solid var(--color-line);
+}
+
+.consent-list {
+  display: grid;
+  gap: 6px;
+}
+
+.page > .alert {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1100px) {
+  .admin-layout--panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

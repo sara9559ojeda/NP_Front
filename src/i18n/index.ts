@@ -40,6 +40,16 @@ export function formatDateTime(iso: string | null | undefined): string {
   return new Intl.DateTimeFormat(LOCALE, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso));
 }
 
+export function formatTime(iso: string | null | undefined): string {
+  if (!iso) return t('common.noData');
+  return new Intl.DateTimeFormat(LOCALE, { timeStyle: 'short' }).format(new Date(iso));
+}
+
+/** "miércoles, 4 de noviembre" for page eyebrows. */
+export function formatLongDate(date: Date): string {
+  return new Intl.DateTimeFormat(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' }).format(date);
+}
+
 export function formatNumber(value: number | null | undefined, maximumFractionDigits = 1): string {
   if (value == null) return t('common.noData');
   return new Intl.NumberFormat(LOCALE, { maximumFractionDigits }).format(value);

@@ -2,10 +2,10 @@ import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { useNavigate } from 'react-router';
 import { me as meApi } from '../api/endpoints';
 import { useAuth } from '../auth/AuthContext';
-import { Alert } from '../components/Feedback';
-import { TextField } from '../components/Field';
+import { Alert } from '../components/ui/Feedback';
+import { TextField } from '../components/ui/Field';
 import { PageHeader } from '../components/Layout';
-import { compact, emailError, focusFirstInvalid, matchError, passwordError, requiredError } from '../components/validation';
+import { compact, emailError, focusFirstInvalid, matchError, passwordError, requiredError } from '../components/ui/validation';
 import { errorMessage, fieldErrorsFrom } from '../hooks/useApi';
 import { formatDate, t } from '../i18n';
 import { ApiError } from '../api/client';
@@ -46,7 +46,7 @@ function ProfileForm() {
   };
 
   return (
-    <section className="card" aria-labelledby="profile-title">
+    <section className="card stack" aria-labelledby="profile-title">
       <h2 id="profile-title">{t('account.profile.title')}</h2>
       {message && <Alert tone={message.tone}>{message.text}</Alert>}
       <form ref={formRef} onSubmit={handleSubmit} noValidate className="form">
@@ -98,7 +98,7 @@ function PasswordForm() {
   const set = (field: keyof typeof empty) => (e: ChangeEvent<HTMLInputElement>) => setValues((v) => ({ ...v, [field]: e.target.value }));
 
   return (
-    <section className="card" aria-labelledby="password-title">
+    <section className="card stack" aria-labelledby="password-title">
       <h2 id="password-title">{t('account.password.title')}</h2>
       {message && <Alert tone={message.tone}>{message.text}</Alert>}
       <form ref={formRef} onSubmit={handleSubmit} noValidate className="form">
@@ -143,9 +143,9 @@ function ConsentSection() {
   };
 
   return (
-    <section className="card card--danger" aria-labelledby="consent-title">
+    <section className="card card--danger stack" aria-labelledby="consent-title">
       <h2 id="consent-title">{t('account.consent.title')}</h2>
-      <ul className="plain-list">
+      <ul className="consent-list">
         {user.consents.map((consent) => (
           <li key={consent.consentVersion + consent.grantedAt}>
             {t('account.consent.granted', { version: consent.consentVersion, date: formatDate(consent.grantedAt) })}
@@ -175,7 +175,7 @@ function ConsentSection() {
                 <button type="button" className="btn btn--danger" disabled={!understood || working} onClick={withdraw}>
                   {working ? t('common.loading') : t('account.withdraw.confirm')}
                 </button>
-                <button type="button" className="btn btn--ghost" onClick={() => setConfirming(false)}>
+                <button type="button" className="btn" onClick={() => setConfirming(false)}>
                   {t('common.cancel')}
                 </button>
               </div>
@@ -191,11 +191,13 @@ export function AccountPage() {
   return (
     <>
       <PageHeader title={t('account.title')} lead={t('account.lead')} />
-      <div className="grid-2">
-        <ProfileForm />
-        <PasswordForm />
+      <div className="stack">
+        <div className="grid-2">
+          <ProfileForm />
+          <PasswordForm />
+        </div>
+        <ConsentSection />
       </div>
-      <ConsentSection />
     </>
   );
 }

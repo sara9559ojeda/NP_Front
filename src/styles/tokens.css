@@ -1,0 +1,72 @@
+/*
+ * Design tokens, direction A "Distancia".
+ * A light, airy page with one motif: the distance between "you" and the stimulus.
+ * Light values live on :root; dark values follow the system setting unless
+ * data-theme="light" is forced, and data-theme="dark" forces them.
+ */
+:root {
+  --color-bg: #edf1ef;
+  --color-surface: #fafcfb;
+  --color-text: #16302d;
+  --color-text-muted: #55686a;
+  --color-accent: #3d6753;
+  --color-accent-soft: #d9e8dc;
+  --color-pending: #8a5a0e;
+  --color-pending-soft: #f5e7cc;
+  --color-error: #9b3a2a;
+  --color-error-soft: #f7e2dc;
+  --color-line: #cbd6d1;
+  --color-on-accent: #ffffff;
+
+  --font-display: 'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-glide: cubic-bezier(0.33, 0.86, 0.3, 1);
+  --duration-fast: 140ms;
+  --duration-mid: 280ms;
+  --duration-slow: 700ms;
+
+  --radius-sm: 12px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --content-width: 1160px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0f1816;
+    --color-surface: #16211e;
+    --color-text: #e2ebe6;
+    --color-text-muted: #97a8a3;
+    --color-accent: #93c4a8;
+    --color-accent-soft: #213730;
+    --color-pending: #e5b465;
+    --color-pending-soft: #3a2e19;
+    --color-error: #ee9a86;
+    --color-error-soft: #3d221c;
+    --color-line: #2b3b37;
+    --color-on-accent: #0f1816;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0f1816;
+  --color-surface: #16211e;
+  --color-text: #e2ebe6;
+  --color-text-muted: #97a8a3;
+  --color-accent: #93c4a8;
+  --color-accent-soft: #213730;
+  --color-pending: #e5b465;
+  --color-pending-soft: #3a2e19;
+  --color-error: #ee9a86;
+  --color-error-soft: #3d221c;
+  --color-line: #2b3b37;
+  --color-on-accent: #0f1816;
+  color-scheme: dark;
+}

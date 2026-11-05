@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router';
 import type { Role } from '../api/types';
-import { Loading } from '../components/Feedback';
+import { Loading } from '../components/ui/Feedback';
 import { ForbiddenPage } from '../pages/ErrorPages';
 import { useAuth } from './AuthContext';
 

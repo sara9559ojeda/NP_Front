@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { admin } from '../../api/endpoints';
 import type { AdminUser, Role } from '../../api/types';
-import { Alert, EmptyState, ErrorState, Loading } from '../../components/Feedback';
-import { SelectField, TextField } from '../../components/Field';
+import { Alert, EmptyState, ErrorState, Loading } from '../../components/ui/Feedback';
+import { SelectField, TextField } from '../../components/ui/Field';
 import { PageHeader } from '../../components/Layout';
-import { compact, emailError, focusFirstInvalid, passwordError, requiredError } from '../../components/validation';
+import { compact, emailError, focusFirstInvalid, passwordError, requiredError } from '../../components/ui/validation';
 import { errorMessage, fieldErrorsFrom, useApi } from '../../hooks/useApi';
 import { formatDate, t } from '../../i18n';
 import { ApiError } from '../../api/client';
@@ -21,10 +21,10 @@ function useDebounced<T>(value: T, ms: number): T {
 }
 
 function NoClinicalNote() {
-  return <p className="note-banner">{t('admin.noClinical')}</p>;
+  return <p className="scope-note">{t('admin.noClinical')}</p>;
 }
 
-type Panel = { mode: 'create' } | { mode: 'edit'; user: AdminUser } | null;
+type Panel = { mode: 'create' } | { mode: 'edit'; userId: string } | null;
 
 function CreateUserForm({ onDone, onCancel }: { onDone: (text: string) => void; onCancel: () => void }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -89,7 +89,7 @@ function CreateUserForm({ onDone, onCancel }: { onDone: (text: string) => void; 
         <button type="submit" className="btn btn--primary" disabled={saving}>
           {saving ? t('common.loading') : t('common.save')}
         </button>
-        <button type="button" className="btn btn--ghost" onClick={onCancel}>
+        <button type="button" className="btn" onClick={onCancel}>
           {t('common.cancel')}
         </button>
       </div>
@@ -97,40 +97,76 @@ function CreateUserForm({ onDone, onCancel }: { onDone: (text: string) => void; 
   );
 }
 
-function EditUserForm({ user, onDone, onCancel }: { user: AdminUser; onDone: (text: string) => void; onCancel: () => void }) {
-  const [role, setRole] = useState<Role>(user.role);
-  const [active, setActive] = useState(user.active ? 'true' : 'false');
+interface EditUserFormProps {
+  userId: string;
+  onDone: (text: string) => void;
+  onCancel: () => void;
+}
+
+/** v1.1.0: the admin loads the full profile and can change name, email, role and status. */
+function EditUserForm({ userId, onDone, onCancel }: EditUserFormProps) {
+  const profile = useApi(() => admin.user(userId), [userId]);
+  if (profile.loading && !profile.data) return <Loading />;
+  if (!profile.data) return <ErrorState error={profile.error} onRetry={profile.reload} />;
+  return (
+    <div className="stack">
+      <ProfileFields user={profile.data} onDone={onDone} onCancel={onCancel} />
+      <TemporaryPasswordForm user={profile.data} />
+    </div>
+  );
+}
+
+function ProfileFields({ user, onDone, onCancel }: { user: AdminUser; onDone: (text: string) => void; onCancel: () => void }) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [values, setValues] = useState({ fullName: user.fullName, email: user.email, role: user.role, active: user.active ? 'true' : 'false' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    setSaving(true);
     setFormError(null);
+    const found = compact({ fullName: requiredError(values.fullName), email: emailError(values.email) });
+    setErrors(found);
+    if (Object.keys(found).length) {
+      setFormError(t('validation.summary'));
+      focusFirstInvalid(formRef.current);
+      return;
+    }
+    setSaving(true);
     try {
-      await admin.updateUser(user.id, { role, active: active === 'true' });
+      await admin.updateUser(user.id, {
+        fullName: values.fullName.trim(),
+        email: values.email.trim(),
+        role: values.role,
+        active: values.active === 'true',
+      });
       onDone(t('users.updated'));
     } catch (err) {
+      const fieldErrors = fieldErrorsFrom(err);
+      if (err instanceof ApiError && err.code === 'EMAIL_TAKEN') fieldErrors.email = t('error.EMAIL_TAKEN');
+      setErrors(fieldErrors);
       setFormError(errorMessage(err));
+      focusFirstInvalid(formRef.current);
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <form onSubmit={submit} className="form">
+    <form ref={formRef} onSubmit={submit} noValidate className="form">
       <h2>{t('users.edit.title')}</h2>
       {formError && <Alert tone="error">{formError}</Alert>}
-      <TextField label={t('register.fullName')} value={user.fullName} readOnly />
-      <TextField label={t('register.email')} value={user.email} readOnly hint={t('users.edit.readonly')} />
-      <SelectField label={t('users.col.role')} value={role} onChange={(e) => setRole(e.target.value as Role)}>
+      <TextField label={t('register.fullName')} required value={values.fullName} onChange={(e) => setValues({ ...values, fullName: e.target.value })} error={errors.fullName} />
+      <TextField label={t('register.email')} type="email" required value={values.email} onChange={(e) => setValues({ ...values, email: e.target.value })} error={errors.email} />
+      <SelectField label={t('users.col.role')} value={values.role} onChange={(e) => setValues({ ...values, role: e.target.value as Role })} error={errors.role}>
         {ROLES.map((r) => (
           <option key={r} value={r}>
             {t(`role.${r}`)}
           </option>
         ))}
       </SelectField>
-      <SelectField label={t('users.col.status')} value={active} onChange={(e) => setActive(e.target.value)}>
+      <SelectField label={t('users.col.status')} value={values.active} onChange={(e) => setValues({ ...values, active: e.target.value })}>
         <option value="true">{t('status.active')}</option>
         <option value="false">{t('status.inactive')}</option>
       </SelectField>
@@ -138,10 +174,59 @@ function EditUserForm({ user, onDone, onCancel }: { user: AdminUser; onDone: (te
         <button type="submit" className="btn btn--primary" disabled={saving}>
           {saving ? t('common.loading') : t('common.save')}
         </button>
-        <button type="button" className="btn btn--ghost" onClick={onCancel}>
+        <button type="button" className="btn" onClick={onCancel}>
           {t('common.cancel')}
         </button>
       </div>
+    </form>
+  );
+}
+
+/** v1.1.0 PUT /admin/users/{id}/password: sets a temporary password and closes that user's web sessions. */
+function TemporaryPasswordForm({ user }: { user: AdminUser }) {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | undefined>();
+  const [message, setMessage] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const submit = async (event: FormEvent) => {
+    event.preventDefault();
+    setMessage(null);
+    const found = passwordError(password);
+    setError(found);
+    if (found) return;
+    setSaving(true);
+    try {
+      await admin.resetPassword(user.id, { temporaryPassword: password });
+      setPassword('');
+      setMessage({ tone: 'success', text: t('users.resetPassword.done') });
+    } catch (err) {
+      const fieldErrors = fieldErrorsFrom(err);
+      setError(fieldErrors.temporaryPassword);
+      setMessage({ tone: 'error', text: fieldErrors.userId ?? errorMessage(err) });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <form onSubmit={submit} noValidate className="form reset-password" aria-labelledby="reset-password-title">
+      <h3 id="reset-password-title">{t('users.resetPassword.title')}</h3>
+      <p className="muted small">{t('users.resetPassword.lead')}</p>
+      {message && <Alert tone={message.tone}>{message.text}</Alert>}
+      <TextField
+        label={t('users.tempPassword')}
+        type="password"
+        autoComplete="new-password"
+        required
+        hint={t('users.tempPassword.hint')}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        error={error}
+      />
+      <button type="submit" className="btn" disabled={saving}>
+        {saving ? t('common.loading') : t('users.resetPassword.submit')}
+      </button>
     </form>
   );
 }
@@ -190,7 +275,7 @@ export function AdminUsersPage() {
       />
       <NoClinicalNote />
       {notice && <Alert tone={notice.tone}>{notice.text}</Alert>}
-      <div className={`split split--admin${panel ? ' split--panel' : ''}`}>
+      <div className={`admin-layout${panel ? ' admin-layout--panel' : ''}`}>
         <section className="card">
           <div className="filters">
             <TextField label={t('users.search')} type="search" value={query} onChange={(e) => setQuery(e.target.value)} />
@@ -232,19 +317,19 @@ export function AdminUsersPage() {
                         {user.email}
                       </td>
                       <td data-label={t('users.col.role')}>
-                        <span className={`role-pill role-pill--${user.role}`}>{t(`role.${user.role}`)}</span>
+                        <span className="role-chip">{t(`role.${user.role}`)}</span>
                       </td>
                       <td data-label={t('users.col.status')}>
-                        <span className={`chip ${user.active ? 'chip--ok' : 'chip--muted'}`}>{user.active ? t('status.active') : t('status.inactive')}</span>
+                        <span className={`tag${user.active ? '' : ' tag--muted'}`}>{user.active ? t('status.active') : t('status.inactive')}</span>
                       </td>
                       <td>
                         <div className="row row--tight">
-                          <button type="button" className="btn btn--ghost btn--sm" onClick={() => setPanel({ mode: 'edit', user })} aria-label={t('users.editLabel', { name: user.fullName })}>
+                          <button type="button" className="btn btn--sm" onClick={() => setPanel({ mode: 'edit', userId: user.id })} aria-label={t('users.editLabel', { name: user.fullName })}>
                             {t('common.edit')}
                           </button>
                           <button
                             type="button"
-                            className="btn btn--outline btn--sm"
+                            className="btn btn--sm"
                             onClick={() => toggle(user)}
                             aria-label={user.active ? t('users.deactivateLabel', { name: user.fullName }) : t('users.activateLabel', { name: user.fullName })}
                           >
@@ -260,11 +345,11 @@ export function AdminUsersPage() {
           )}
         </section>
         {panel && (
-          <aside className="card side-panel">
+          <aside className="card admin-layout__panel">
             {panel.mode === 'create' ? (
               <CreateUserForm onDone={done} onCancel={() => setPanel(null)} />
             ) : (
-              <EditUserForm key={panel.user.id} user={panel.user} onDone={done} onCancel={() => setPanel(null)} />
+              <EditUserForm key={panel.userId} userId={panel.userId} onDone={done} onCancel={() => setPanel(null)} />
             )}
           </aside>
         )}
@@ -321,7 +406,7 @@ export function AdminAssignmentsPage() {
       <PageHeader title={t('assignments.title')} lead={t('assignments.lead')} />
       <NoClinicalNote />
       {notice && <Alert tone={notice.tone}>{notice.text}</Alert>}
-      <div className="grid-notes">
+      <div className="notes-layout">
         <section className="card" aria-labelledby="assign-title">
           <h2 id="assign-title">{t('assignments.create')}</h2>
           {users.data && <p className="muted">{t('assignments.unassigned', { n: unassigned })}</p>}
@@ -374,7 +459,7 @@ export function AdminAssignmentsPage() {
                       <td>
                         <button
                           type="button"
-                          className="btn btn--outline btn--sm"
+                          className="btn btn--sm"
                           onClick={() => remove(a.assignmentId)}
                           aria-label={t('assignments.removeLabel', { patient: nameOf(a.patientId), professional: nameOf(a.professionalId) })}
                         >
@@ -421,14 +506,14 @@ export function AdminExportPage() {
     <>
       <PageHeader title={t('export.title')} />
       <NoClinicalNote />
-      <section className="card card--narrow-left">
+      <section className="card card--narrow stack">
         <p>{t('export.lead')}</p>
         {notice && <Alert tone={notice.tone}>{notice.text}</Alert>}
         <div className="row">
           <button type="button" className="btn btn--primary" onClick={() => download('json')} disabled={working !== null}>
             {working === 'json' ? t('common.loading') : t('export.json')}
           </button>
-          <button type="button" className="btn btn--ghost" onClick={() => download('csv')} disabled={working !== null}>
+          <button type="button" className="btn" onClick={() => download('csv')} disabled={working !== null}>
             {working === 'csv' ? t('common.loading') : t('export.csv')}
           </button>
         </div>
