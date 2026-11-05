@@ -1,11 +1,13 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, test } from 'vitest';
 import axe from 'axe-core';
 import { AppRoutes } from '../App';
 import { AuthProvider } from '../auth/AuthContext';
-import { auth } from '../api/endpoints';
+import { http, HttpResponse } from 'msw';
+import { auth, me } from '../api/endpoints';
+import { server } from '../mocks/server';
 import { DEMO_PASSWORD, IDS } from '../mocks/fixtures';
 import { t } from '../i18n';
 
@@ -101,5 +103,49 @@ describe('accesibilidad de pantallas principales', () => {
     await waitFor(() => expect(screen.queryByText(t('common.loading'))).not.toBeInTheDocument());
     const result = await axe.run(container, { rules: { 'color-contrast': { enabled: false } } });
     expect(result.violations.filter(v => v.impact === 'critical' || v.impact === 'serious')).toEqual([]);
+  });
+});
+
+describe('iniciar terapia (BPMN: ajustar grado → comenzar)', () => {
+  const storageUnavailable = () =>
+    HttpResponse.json(
+      { type: 'https://neurophobia/errors/storage-unavailable', title: 'Almacenamiento no disponible', status: 503, code: 'STORAGE_UNAVAILABLE' },
+      { status: 503, headers: { 'Content-Type': 'application/problem+json', 'Retry-After': '5' } },
+    );
+
+  test('el paciente guarda su grado de fobia y queda listo para el visor', async () => {
+    await session();
+    page('/paciente');
+    const slider = await screen.findByRole('slider', { name: t('therapy.grade.label') });
+    fireEvent.change(slider, { target: { value: '4' } });
+    expect(slider).toHaveAttribute('aria-valuetext', expect.stringContaining('4'));
+    await userEvent.click(screen.getByRole('button', { name: t('therapy.action.save') }));
+    expect(await screen.findByText(t('therapy.status.ready.title'))).toBeInTheDocument();
+    expect(await me.therapy()).toMatchObject({ phobiaGrade: 4 });
+  });
+  test('un 503 al guardar muestra el mensaje de almacenamiento y permite reintentar', async () => {
+    await session();
+    server.use(http.put('*/api/v1/me/phobia-grade', storageUnavailable, { once: true }));
+    page('/paciente');
+    await userEvent.click(await screen.findByRole('button', { name: t('therapy.action.save') }));
+    expect(await screen.findByText(t('error.STORAGE_UNAVAILABLE'))).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: t('common.retry') }));
+    expect(await screen.findByText(t('therapy.status.ready.title'))).toBeInTheDocument();
+  });
+  test('sin visor vinculado invita a vincularlo antes de comenzar', async () => {
+    await session();
+    const base = await me.therapy();
+    server.use(http.get('*/api/v1/me/therapy', () => HttpResponse.json({ ...base, pairedDevices: 0 })));
+    page('/paciente');
+    expect(await screen.findByRole('link', { name: t('therapy.action.pair') })).toHaveAttribute('href', '/paciente/visor');
+    expect(screen.queryByRole('button', { name: t('therapy.action.save') })).not.toBeInTheDocument();
+  });
+  test('una sesión abierta en el visor se muestra en curso', async () => {
+    await session();
+    const base = await me.therapy();
+    server.use(http.get('*/api/v1/me/therapy', () => HttpResponse.json({ ...base, openSession: { sessionId: 'abierta', startedAt: '2026-11-05T15:00:00Z' } })));
+    page('/paciente');
+    expect(await screen.findByText(t('therapy.status.running.title'))).toBeInTheDocument();
+    expect(screen.getByRole('slider', { name: t('therapy.grade.label') })).toBeDisabled();
   });
 });

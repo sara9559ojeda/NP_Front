@@ -859,7 +859,12 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "progress.lead": {
+  "patientHome.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "patientHome.lead": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
@@ -870,6 +875,11 @@
     "estado": "pendiente de validar"
   },
   "stats.levelReached": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "stats.latestTolerance": {
     "tipo": "CLÍN",
     "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
     "estado": "pendiente de validar"
@@ -1210,6 +1220,211 @@
     "estado": "pendiente de validar"
   },
   "analysis.none": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.lastTitle": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.none": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.sessionLine": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.phrase.advance": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.phrase.repeat": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.phrase.step_back": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "feedback.patientExplain": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.lead": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.startLevel": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.grade.label": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.grade.value": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.grade.updated": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.grade.never": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "phobiaGrade.1": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "phobiaGrade.2": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "phobiaGrade.3": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "phobiaGrade.4": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "phobiaGrade.5": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.gradeSaved": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.needsDevice.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.needsDevice.body": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.idle.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.idle.body": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.saving.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.saving.body": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.ready.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.ready.body": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.running.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.running.body": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.done.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.done.body": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.status.error.title": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.action.pair": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.action.save": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.action.saving": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.action.refresh": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.action.change": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.devices.count": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.devices.none": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
+    "estado": "pendiente de validar"
+  },
+  "therapy.devices.manage": {
     "tipo": "CLÍN",
     "fuente": "Contrato §5–§7; HU-11 a HU-13; etiquetas propuestas",
     "estado": "pendiente de validar"

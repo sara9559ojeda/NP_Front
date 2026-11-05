@@ -7,3 +7,5 @@
 @import './components/layout.css';
 @import './components/ruler.css';
 @import './components/public.css';
+@import './components/clinical.css';
+@import './components/patient.css';

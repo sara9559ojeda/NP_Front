@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 import { Link } from 'react-router';
-import type { Analysis, LevelRecord, RecommendationValue, SessionDetail, SessionSummary, SudsPhase } from '../api/types';
+import type { Analysis, AnalysisBasis, LevelRecord, RecommendationValue, SessionDetail, SessionFeedback, SessionSummary, SudsPhase } from '../api/types';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { formatDate, formatDateTime, formatMinutes, formatNumber, formatPercent, t, tDynamic, type TextKey } from '../i18n';
 import { EmptyState, PendingTag } from './ui/Feedback';
 
@@ -17,31 +18,42 @@ export function levelName(level: number): string {
 export function RecommendationTag({ value }: { value: RecommendationValue | null | undefined }) {
   if (!value) return <span className="muted">{t('recommendation.none')}</span>;
   return (
-    <span className="rec">
-      <span className={`chip chip--${value}`}>{tDynamic(`recommendation.${value}`, 'recommendation.none')}</span>
+    <span className="tag-group">
+      <span className="tag">{tDynamic(`recommendation.${value}`, 'recommendation.none')}</span>
       <PendingTag />
     </span>
   );
 }
 
-export function StatCard({ label, value, children }: { label: string; value?: string; children?: ReactNode }) {
+export interface SummaryItem {
+  label: string;
+  value: ReactNode;
+}
+
+/** Inline key figures ("6 sesiones · Nivel alcanzado 2 …"). */
+export function SummaryList({ items }: { items: SummaryItem[] }) {
   return (
-    <div className="stat">
-      <p className="stat__label">{label}</p>
-      {value !== undefined && <p className="stat__value">{value}</p>}
-      {children}
-    </div>
+    <dl className="summary">
+      {items.map((item) => (
+        <div key={item.label} className="summary__item">
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 
-const CHART_W = 560;
-const CHART_H = 220;
-const PAD = { top: 16, right: 16, bottom: 32, left: 40 };
+const CHART_W = 640;
+const CHART_H = 230;
+const PAD = { top: 14, right: 16, bottom: 34, left: 40 };
 
-/** Line chart of the tolerance index per session (oldest to newest). Values also appear in the table. */
+/** Tolerance index per session on a single 0–1 scale (oldest to newest). Values also appear in the table. */
 export function ToleranceChart({ sessions }: { sessions: SessionSummary[] }) {
+  const descId = useId();
+  const reducedMotion = usePrefersReducedMotion();
   const points = sessions
-    .filter((s) => typeof s.toleranceIndex === 'number')
+    .filter((s): s is SessionSummary & { toleranceIndex: number } => typeof s.toleranceIndex === 'number')
     .sort((a, b) => (a.startedAt ?? '').localeCompare(b.startedAt ?? ''));
 
   if (points.length === 0) return <EmptyState>{t('chart.tolerance.empty')}</EmptyState>;
@@ -50,20 +62,13 @@ export function ToleranceChart({ sessions }: { sessions: SessionSummary[] }) {
   const innerH = CHART_H - PAD.top - PAD.bottom;
   const x = (i: number) => PAD.left + (points.length === 1 ? innerW / 2 : (i * innerW) / (points.length - 1));
   const y = (v: number) => PAD.top + innerH - v * innerH;
-  const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i)},${y(p.toleranceIndex ?? 0)}`).join(' ');
-  const area = `${path} L${x(points.length - 1)},${PAD.top + innerH} L${x(0)},${PAD.top + innerH} Z`;
-  const descId = 'tolerance-chart-desc';
+  const line = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i)},${y(p.toleranceIndex)}`).join(' ');
+  const area = `${line} L${x(points.length - 1)},${y(0)} L${x(0)},${y(0)} Z`;
 
   return (
-    <figure className="chart">
+    <figure className={`chart${reducedMotion ? '' : ' chart--draw'}`}>
       <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} role="img" aria-label={t('chart.tolerance.title')} aria-describedby={descId}>
         <desc id={descId}>{t('chart.tolerance.desc', { n: points.length })}</desc>
-        <defs>
-          <linearGradient id="tolerance-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
         {[0, 0.25, 0.5, 0.75, 1].map((v) => (
           <g key={v}>
             <line x1={PAD.left} x2={CHART_W - PAD.right} y1={y(v)} y2={y(v)} className="chart__grid" />
@@ -72,11 +77,17 @@ export function ToleranceChart({ sessions }: { sessions: SessionSummary[] }) {
             </text>
           </g>
         ))}
-        <path d={area} fill="url(#tolerance-fill)" />
-        <path d={path} className="chart__line" />
+        <path d={area} className="chart__area" />
+        <path d={line} className="chart__line" pathLength={1} />
         {points.map((p, i) => (
           <g key={p.sessionId}>
-            <circle cx={x(i)} cy={y(p.toleranceIndex ?? 0)} r={5} className="chart__dot">
+            <circle
+              cx={x(i)}
+              cy={y(p.toleranceIndex)}
+              r={5}
+              className={`chart__point${i === points.length - 1 ? ' chart__point--last' : ''}`}
+              style={{ animationDelay: `${600 + i * 70}ms` }}
+            >
               <title>{`${formatDate(p.startedAt)} · ${formatPercent(p.toleranceIndex)}`}</title>
             </circle>
             <text x={x(i)} y={CHART_H - 10} className="chart__axis" textAnchor="middle">
@@ -110,7 +121,9 @@ export function SessionsTable({ sessions, linkTo, caption }: { sessions: Session
         <tbody>
           {sessions.map((s) => (
             <tr key={s.sessionId}>
-              <td data-label={t('sessions.col.date')}>{formatDate(s.startedAt)}</td>
+              <td data-label={t('sessions.col.date')} className="mono">
+                {formatDate(s.startedAt)}
+              </td>
               <td data-label={t('sessions.col.level')}>{levelLabel(s.levelReached)}</td>
               <td data-label={t('sessions.col.duration')}>{formatMinutes(s.totalDurationSeconds)}</td>
               <td data-label={t('sessions.col.tolerance')}>{formatPercent(s.toleranceIndex)}</td>
@@ -118,7 +131,7 @@ export function SessionsTable({ sessions, linkTo, caption }: { sessions: Session
                 <RecommendationTag value={s.recommendation} />
               </td>
               <td>
-                <Link className="btn btn--ghost btn--sm" to={linkTo(s.sessionId)} aria-label={t('sessions.viewLabel', { date: formatDate(s.startedAt) })}>
+                <Link className="btn btn--sm" to={linkTo(s.sessionId)} aria-label={t('sessions.viewLabel', { date: formatDate(s.startedAt) })} viewTransition>
                   {t('sessions.view')}
                 </Link>
               </td>
@@ -126,6 +139,112 @@ export function SessionsTable({ sessions, linkTo, caption }: { sessions: Session
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+/** "Repetir el nivel 2": the recommendation phrased with the level it points to. */
+export function recommendationPhrase(value: RecommendationValue, levelReached: number | null): string {
+  if (!levelReached) return tDynamic(`recommendation.${value}`, 'recommendation.none');
+  const target = value === 'advance' ? Math.min(levelReached + 1, 5) : value === 'step_back' ? Math.max(levelReached - 1, 1) : levelReached;
+  return t(`feedback.phrase.${value}`, { n: target });
+}
+
+function durationSeconds(startedAt: string | null, endedAt: string | null): number | null {
+  if (!startedAt || !endedAt) return null;
+  return (new Date(endedAt).getTime() - new Date(startedAt).getTime()) / 1000;
+}
+
+function basisValue(value: AnalysisBasis['value']): string {
+  if (typeof value === 'boolean') return t(value ? 'common.yes' : 'common.no');
+  return formatNumber(value, 2);
+}
+
+function featureText(feature: string): string {
+  // Unknown features (new backend versions) show their technical name instead of failing.
+  const key = `analysis.feature.${feature}`;
+  const text = tDynamic(key, 'common.noData');
+  return text === t('common.noData') ? feature : text;
+}
+
+export function BasisTable({ basis }: { basis: AnalysisBasis[] }) {
+  return (
+    <div className="table-wrap">
+      <table className="table table--compact">
+        <caption className="sr-only">{t('analysis.basis.title')}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{t('analysis.basis.feature')}</th>
+            <th scope="col">{t('analysis.basis.value')}</th>
+            <th scope="col">{t('analysis.basis.effect')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {basis.map((b) => (
+            <tr key={b.feature}>
+              <td data-label={t('analysis.basis.feature')}>{featureText(b.feature)}</td>
+              <td data-label={t('analysis.basis.value')}>{basisValue(b.value)}</td>
+              <td data-label={t('analysis.basis.effect')}>
+                <span className={`tag${b.effect === 'unfavorable' ? ' tag--error' : b.effect === 'neutral' ? ' tag--muted' : ''}`}>
+                  {tDynamic(`analysis.effect.${b.effect}`, 'common.noData')}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+interface FeedbackSummaryProps {
+  feedback: SessionFeedback;
+  /** Patients get a plain explanation; professionals also see the figures behind it. */
+  audience: 'patient' | 'professional';
+  children?: ReactNode;
+}
+
+/** One session's AI feedback: the recommendation in words, its pending status and what it rests on. */
+export function FeedbackSummary({ feedback, audience, children }: FeedbackSummaryProps) {
+  const { analysis } = feedback;
+  return (
+    <div className="feedback">
+      <p className="mono muted">
+        {t('feedback.sessionLine', {
+          date: formatDate(feedback.startedAt),
+          level: levelLabel(feedback.levelReached),
+          duration: formatMinutes(durationSeconds(feedback.startedAt, feedback.endedAt)),
+        })}
+      </p>
+      <p className="feedback__phrase">{recommendationPhrase(analysis.recommendation, feedback.levelReached)}</p>
+      <p>
+        <PendingTag />
+      </p>
+      {audience === 'professional' && (
+        <>
+          <dl className="metrics">
+            <div>
+              <dt>{t('analysis.tolerance')}</dt>
+              <dd>{formatNumber(analysis.toleranceIndex, 2)}</dd>
+            </div>
+            <div>
+              <dt>{t('session.phobiaGrade')}</dt>
+              <dd>{feedback.phobiaGrade ?? t('common.noData')}</dd>
+            </div>
+            <div>
+              <dt>{t('session.endReason')}</dt>
+              <dd>{feedback.endReason ? tDynamic(`endReason.${feedback.endReason}`, 'common.noData') : t('common.noData')}</dd>
+            </div>
+          </dl>
+          <details className="feedback__basis">
+            <summary>{t('analysis.basis.title')}</summary>
+            <BasisTable basis={analysis.basis} />
+            <p className="muted small">{t('analysis.method', { method: analysis.method, version: analysis.methodVersion })}</p>
+          </details>
+        </>
+      )}
+      <p className="feedback__why">{t(audience === 'patient' ? 'feedback.patientExplain' : 'clinical.pending.explain')}</p>
+      {children}
     </div>
   );
 }
@@ -143,8 +262,8 @@ function SudsBars({ record }: { record: LevelRecord }) {
             <div key={phase} className="suds__row">
               <dt>{t(`suds.phase.${phase}` as TextKey)}</dt>
               <dd>
-                <span className="suds__bar" aria-hidden="true">
-                  <span className={`suds__fill suds__fill--${phase}`} style={{ width: `${entry?.value ?? 0}%` }} />
+                <span className="meter" aria-hidden="true">
+                  <span className={`meter__fill meter__fill--${phase}`} style={{ width: `${entry?.value ?? 0}%` }} />
                 </span>
                 <span className="suds__value">{entry ? entry.value : t('common.noData')}</span>
               </dd>
@@ -159,16 +278,16 @@ function SudsBars({ record }: { record: LevelRecord }) {
 function LevelCard({ record }: { record: LevelRecord }) {
   return (
     <article className="level-card">
-      <header className="level-card__head">
+      <header className="card__head">
         <div>
           <h4>
             {levelLabel(record.level)} · {levelName(record.level)}
           </h4>
-          <p className="muted">{t('level.attempt', { n: record.attempt })}</p>
+          <p className="muted small">{t('level.attempt', { n: record.attempt })}</p>
         </div>
-        <span className={`chip chip--outcome-${record.outcome}`}>{tDynamic(`outcome.${record.outcome}`, 'common.noData')}</span>
+        <span className={`tag${record.outcome === 'completed' ? '' : ' tag--muted'}`}>{tDynamic(`outcome.${record.outcome}`, 'common.noData')}</span>
       </header>
-      <dl className="metrics">
+      <dl className="metrics metrics--two">
         <div>
           <dt>{t('metric.permanence')}</dt>
           <dd>{t('format.seconds', { n: formatNumber(record.permanenceSeconds, 0) })}</dd>
@@ -201,74 +320,45 @@ function AnalysisPanel({ analysis }: { analysis: Analysis | null }) {
     );
   }
   return (
-    <section className="card card--analysis" aria-labelledby="analysis-title">
+    <section className="card stack" aria-labelledby="analysis-title">
       <div className="card__head">
         <h3 id="analysis-title">{t('analysis.title')}</h3>
         <PendingTag />
       </div>
-      <div className="analysis-grid">
-        <StatCard label={t('analysis.tolerance')} value={formatPercent(analysis.toleranceIndex)}>
-          <span className="meter" aria-hidden="true">
-            <span className="meter__fill" style={{ width: `${analysis.toleranceIndex * 100}%` }} />
-          </span>
-        </StatCard>
-        <StatCard label={t('analysis.recommendation')}>
-          <p className="stat__value">{tDynamic(`recommendation.${analysis.recommendation}`, 'recommendation.none')}</p>
-        </StatCard>
-      </div>
-      <p className="pending-note">{t('clinical.pending.explain')}</p>
+      <dl className="metrics">
+        <div>
+          <dt>{t('analysis.tolerance')}</dt>
+          <dd>{formatPercent(analysis.toleranceIndex)}</dd>
+        </div>
+        <div>
+          <dt>{t('analysis.recommendation')}</dt>
+          <dd>{tDynamic(`recommendation.${analysis.recommendation}`, 'recommendation.none')}</dd>
+        </div>
+      </dl>
+      <p className="feedback__why">{t('clinical.pending.explain')}</p>
       <h4>{t('analysis.basis.title')}</h4>
-      <div className="table-wrap">
-        <table className="table table--compact">
-          <thead>
-            <tr>
-              <th scope="col">{t('analysis.basis.feature')}</th>
-              <th scope="col">{t('analysis.basis.value')}</th>
-              <th scope="col">{t('analysis.basis.effect')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {analysis.basis.map((b) => (
-              <tr key={b.feature}>
-                <td data-label={t('analysis.basis.feature')}>{featureText(b.feature)}</td>
-                <td data-label={t('analysis.basis.value')}>{typeof b.value === 'boolean' ? t(b.value ? 'common.yes' : 'common.no') : formatNumber(b.value, 2)}</td>
-                <td data-label={t('analysis.basis.effect')}>
-                  <span className={`chip chip--effect-${b.effect}`}>{tDynamic(`analysis.effect.${b.effect}`, 'common.noData')}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <BasisTable basis={analysis.basis} />
       <p className="muted small">{t('analysis.method', { method: analysis.method, version: analysis.methodVersion })}</p>
     </section>
   );
-}
-
-function featureText(feature: string): string {
-  // Unknown features (new backend versions) show their technical name instead of failing.
-  const key = `analysis.feature.${feature}`;
-  const text = tDynamic(key, 'common.noData');
-  return text === t('common.noData') ? feature : text;
 }
 
 export function SessionDetailView({ detail }: { detail: SessionDetail }) {
   return (
     <div className="stack">
       {detail.testSession && (
-        <p className="badge badge--test" role="note">
+        <p className="tag tag--muted" role="note">
           {t('session.test')}
         </p>
       )}
-      <div className="stats">
-        <StatCard label={t('session.levelReached')} value={levelLabel(detail.levelReached)} />
-        <StatCard label={t('session.duration')} value={formatMinutes(detail.totalDurationSeconds)} />
-        <StatCard label={t('session.phobiaGrade')} value={detail.phobiaGrade == null ? t('common.noData') : String(detail.phobiaGrade)} />
-        <StatCard
-          label={t('session.endReason')}
-          value={detail.endReason ? tDynamic(`endReason.${detail.endReason}`, 'common.noData') : t('common.noData')}
-        />
-      </div>
+      <SummaryList
+        items={[
+          { label: t('session.levelReached'), value: levelLabel(detail.levelReached) },
+          { label: t('session.duration'), value: formatMinutes(detail.totalDurationSeconds) },
+          { label: t('session.phobiaGrade'), value: detail.phobiaGrade ?? t('common.noData') },
+          { label: t('session.endReason'), value: detail.endReason ? tDynamic(`endReason.${detail.endReason}`, 'common.noData') : t('common.noData') },
+        ]}
+      />
       <AnalysisPanel analysis={detail.analysis} />
       <section aria-labelledby="levels-title" className="stack">
         <h3 id="levels-title">{t('session.levels.title')}</h3>

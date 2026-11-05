@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useOutletContext, useParams } from 'react-router
 import { patients } from '../../api/endpoints';
 import type { Note, PatientListItem, Progress, SessionSummary } from '../../api/types';
 import { useAuth } from '../../auth/AuthContext';
-import { levelLabel, RecommendationTag, SessionDetailView, SessionsTable, StatCard, ToleranceChart } from '../../components/Clinical';
+import { levelLabel, RecommendationTag, SessionDetailView, SessionsTable, SummaryList, ToleranceChart } from '../../components/Clinical';
 import { Alert, EmptyState, ErrorState, Loading } from '../../components/ui/Feedback';
 import { SelectField, TextAreaField } from '../../components/ui/Field';
 import { PageHeader, useDocumentTitle } from '../../components/Layout';
@@ -113,15 +113,13 @@ export function PatientSummaryTab() {
   const lastRecommendation = progress.lastSessions.find((s) => s.recommendation)?.recommendation;
   return (
     <div className="stack">
-      <div className="stats">
-        <StatCard label={t('stats.lastRecommendation')}>
-          <RecommendationTag value={lastRecommendation} />
-        </StatCard>
-        <StatCard label={t('stats.levelReached')} value={levelLabel(progress.levelReached)} />
-        {progress.allowedStartLevel !== undefined && (
-          <StatCard label={t('stats.allowedStartLevel')} value={levelLabel(progress.allowedStartLevel)} />
-        )}
-      </div>
+      <SummaryList
+        items={[
+          { label: t('stats.lastRecommendation'), value: <RecommendationTag value={lastRecommendation} /> },
+          { label: t('stats.levelReached'), value: levelLabel(progress.levelReached) },
+          { label: t('stats.allowedStartLevel'), value: levelLabel(progress.allowedStartLevel) },
+        ]}
+      />
       <p className="pending-note">{t('clinical.pending.explain')}</p>
       <section className="card" aria-labelledby="pchart-title">
         <h3 id="pchart-title">{t('chart.tolerance.title')}</h3>

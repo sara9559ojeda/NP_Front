@@ -4,7 +4,7 @@ import { AppLayout, PublicLayout } from './components/Layout';
 import { AccountPage } from './pages/AccountPage';
 import { AdminAssignmentsPage, AdminExportPage, AdminUsersPage } from './pages/admin/AdminPages';
 import { NotFoundPage } from './pages/ErrorPages';
-import { PatientDevicesPage, PatientProgressPage, PatientSessionPage, PatientSessionsPage } from './pages/patient/PatientPages';
+import { PatientDevicesPage, PatientHomePage, PatientSessionPage, PatientSessionsPage } from './pages/patient/PatientPages';
 import {
   PatientNotesTab,
   PatientPlanTab,
@@ -47,7 +47,7 @@ export function AppRoutes() {
           </RequireRole>
         }
       >
-        <Route index element={<PatientProgressPage />} />
+        <Route index element={<PatientHomePage />} />
         <Route path="sesiones" element={<PatientSessionsPage />} />
         <Route path="sesiones/:sessionId" element={<PatientSessionPage />} />
         <Route path="visor" element={<PatientDevicesPage />} />
