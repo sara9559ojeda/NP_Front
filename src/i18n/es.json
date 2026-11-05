@@ -276,7 +276,7 @@
   "therapy.startLevel": "Tu punto de partida: {level} · {name}. Lo autoriza tu profesional.",
   "therapy.grade.label": "¿Cuánto miedo sientes hoy?",
   "therapy.grade.value": "{n} de {max} · {name}",
-  "therapy.grade.updated": "Lo ajustaste por última vez el {date}.",
+  "therapy.grade.updated": "Último ajuste: {date}",
   "therapy.grade.never": "Aún no has indicado tu grado de fobia.",
   "phobiaGrade.1": "Muy leve",
   "phobiaGrade.2": "Leve",

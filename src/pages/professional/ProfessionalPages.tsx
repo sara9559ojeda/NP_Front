@@ -168,7 +168,7 @@ export function PatientSummaryTab() {
         <ToleranceChart sessions={progress.lastSessions} />
       </section>
       <LatestFeedback patientId={patientId} />
-      <section className="card" aria-labelledby="phistory-title">
+      <section className="card pro-summary__wide" aria-labelledby="phistory-title">
         <h3 id="phistory-title">{t('sessions.title')}</h3>
         <SessionsTable sessions={progress.lastSessions} linkTo={(id) => `${base(patientId)}/sesiones/${id}`} caption={t('sessions.title')} />
       </section>

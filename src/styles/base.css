@@ -182,6 +182,11 @@ main:focus {
   min-width: 0;
 }
 
+/* Grid items default to min-width: auto; without this a wide table would widen the page. */
+.stack > * {
+  min-width: 0;
+}
+
 .stack--tight {
   gap: 12px;
 }

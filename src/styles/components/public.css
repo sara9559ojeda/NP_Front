@@ -213,6 +213,10 @@
   max-width: 75ch;
 }
 
+.notice .tag {
+  white-space: normal;
+}
+
 /* ---- Sign in and registration ---- */
 .auth {
   display: grid;
@@ -289,8 +293,14 @@
     gap: 4px;
   }
 
+  .stop {
+    min-width: 0;
+  }
+
   .stop__name {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
+    hyphens: auto;
+    overflow-wrap: anywhere;
   }
 
   .auth {
