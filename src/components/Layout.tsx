@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import type { Role } from '../api/types';
 import { HOME_BY_ROLE, useAuth } from '../auth/AuthContext';
 import { t, type TextKey } from '../i18n';
+import { AmbientBackdrop } from '../scene/AmbientBackdrop';
 import { riseOrder } from './ui/rise';
 import { ToastProvider } from './ui/Toast';
 
@@ -16,13 +17,12 @@ export function useDocumentTitle(title: string): void {
 function useFocusMainOnNavigate() {
   const mainRef = useRef<HTMLElement>(null);
   const { pathname } = useLocation();
-  const first = useRef(true);
+  // Compare with the previous path (not a "first run" flag): StrictMode runs effects twice.
+  const previous = useRef(pathname);
   useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
-    mainRef.current?.focus();
+    if (previous.current === pathname) return;
+    previous.current = pathname;
+    mainRef.current?.focus({ preventScroll: true });
   }, [pathname]);
   return mainRef;
 }
@@ -51,7 +51,7 @@ function SkipLink() {
 
 function Footer() {
   return (
-    <div className="wrap">
+    <div className="wrap wrap--wide">
       <footer className="site-footer">
         <span>{t('app.footer')}</span>
         <span className="mono">{t('home.scope.notDevice')}</span>
@@ -63,18 +63,19 @@ function Footer() {
 export function PublicLayout() {
   const mainRef = useFocusMainOnNavigate();
   const { status, user } = useAuth();
+  const { pathname } = useLocation();
+  // The landing follows the scroll; sign in, registration and errors keep a still frame.
+  const isLanding = pathname === '/';
   return (
-    <div className="shell">
+    <div className={`shell shell--public${isLanding ? ' shell--landing' : ''}`}>
+      <AmbientBackdrop mode="immersive" fixedProgress={isLanding ? undefined : 0.42} dim={!isLanding} />
       <SkipLink />
-      <div className="wrap">
-        <header className="site-header">
+      <div className="wrap wrap--wide">
+        <header className="site-header site-header--overlay">
           <Brand to="/" />
-          <nav aria-label={t('nav.primary')} className="site-nav">
-            <Link to={{ pathname: '/', hash: '#como-funciona' }} className="site-nav__link site-nav__link--optional">
-              {t('nav.howItWorks')}
-            </Link>
+          <nav aria-label={t('nav.session')} className="site-nav">
             {status === 'authenticated' && user ? (
-              <NavLink to={HOME_BY_ROLE[user.role]} className="btn btn--primary" viewTransition>
+              <NavLink to={HOME_BY_ROLE[user.role]} className="btn btn--primary btn--sm" viewTransition>
                 {t(NAV_BY_ROLE[user.role][0]!.label)}
               </NavLink>
             ) : (
@@ -82,7 +83,7 @@ export function PublicLayout() {
                 <NavLink to="/iniciar-sesion" className="site-nav__link" viewTransition>
                   {t('nav.login')}
                 </NavLink>
-                <NavLink to="/registro" className="btn btn--primary" viewTransition>
+                <NavLink to="/registro" className="btn btn--sm" viewTransition>
                   {t('nav.register')}
                 </NavLink>
               </>
@@ -137,9 +138,10 @@ export function AppLayout() {
 
   return (
     <ToastProvider>
-      <div className="shell">
+      <div className="shell shell--app">
+        <AmbientBackdrop mode="calm" />
         <SkipLink />
-        <div className="wrap">
+        <div className="wrap wrap--wide">
           <header className="site-header">
             <Brand to={HOME_BY_ROLE[user.role]} />
             <div className="whoami">
@@ -151,22 +153,23 @@ export function AppLayout() {
             </div>
           </header>
         </div>
-        <nav aria-label={t('nav.primary')} className="app-nav">
-          <div className="wrap">
+        <div className="wrap wrap--wide app-frame">
+          <nav aria-label={t('nav.primary')} className="app-nav">
             <ul className="app-nav__list">
               {NAV_BY_ROLE[user.role].map((item) => (
                 <li key={item.to}>
                   <NavLink to={item.to} end={item.end} className="app-nav__link" viewTransition>
+                    <span className="app-nav__marker" aria-hidden="true" />
                     {t(item.label)}
                   </NavLink>
                 </li>
               ))}
             </ul>
-          </div>
-        </nav>
-        <main id="main" ref={mainRef} tabIndex={-1} className="shell__main wrap page">
-          <Outlet />
-        </main>
+          </nav>
+          <main id="main" ref={mainRef} tabIndex={-1} className="shell__main page app-panel">
+            <Outlet />
+          </main>
+        </div>
         <Footer />
       </div>
     </ToastProvider>

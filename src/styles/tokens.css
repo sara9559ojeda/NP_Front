@@ -1,22 +1,28 @@
 /*
- * Design tokens, direction A "Distancia".
- * A light, airy page with one motif: the distance between "you" and the stimulus.
- * Light values live on :root; dark values follow the system setting unless
- * data-theme="light" is forced, and data-theme="dark" forces them.
+ * Design tokens, direction "Refugio".
+ * A refuge between mountains and forest at first light: deep blue, pine green, mineral
+ * greys and warm white. The luminous accent is reserved for actions and active states.
+ * One dark theme only: the landscape behind the interface is part of the identity.
+ * Text colours meet WCAG AA on --color-bg, --color-surface and --color-surface-raised.
  */
 :root {
-  --color-bg: #edf1ef;
-  --color-surface: #fafcfb;
-  --color-text: #16302d;
-  --color-text-muted: #55686a;
-  --color-accent: #3d6753;
-  --color-accent-soft: #d9e8dc;
-  --color-pending: #8a5a0e;
-  --color-pending-soft: #f5e7cc;
-  --color-error: #9b3a2a;
-  --color-error-soft: #f7e2dc;
-  --color-line: #cbd6d1;
-  --color-on-accent: #ffffff;
+  --color-bg: #0a1622;
+  --color-surface: #102131;
+  --color-surface-raised: #152a3c;
+  --color-text: #f3ede2;
+  --color-text-muted: #a9b9bf;
+  --color-accent: #9ddcbf;
+  --color-accent-soft: #1b3a34;
+  --color-pine: #2c5546;
+  --color-mineral: #6f8894;
+  --color-lantern: #ffd99a;
+  --color-pending: #ecc27a;
+  --color-pending-soft: #3a2f1a;
+  --color-error: #f2a591;
+  --color-error-soft: #3d231d;
+  --color-line: #26394b;
+  --color-line-strong: #3a5266;
+  --color-on-accent: #0a1622;
 
   --font-display: 'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -28,45 +34,14 @@
   --duration-mid: 280ms;
   --duration-slow: 700ms;
 
-  --radius-sm: 12px;
-  --radius: 14px;
-  --radius-lg: 20px;
+  --radius-sm: 10px;
+  --radius: 12px;
+  --radius-lg: 18px;
   --gutter: max(16px, env(safe-area-inset-left, 0px));
   --content-width: 1160px;
+  --wide-width: 1360px;
 
-  color-scheme: light;
-}
+  --shadow-panel: 0 24px 60px -36px rgb(0 0 0 / 0.7);
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --color-bg: #0f1816;
-    --color-surface: #16211e;
-    --color-text: #e2ebe6;
-    --color-text-muted: #97a8a3;
-    --color-accent: #93c4a8;
-    --color-accent-soft: #213730;
-    --color-pending: #e5b465;
-    --color-pending-soft: #3a2e19;
-    --color-error: #ee9a86;
-    --color-error-soft: #3d221c;
-    --color-line: #2b3b37;
-    --color-on-accent: #0f1816;
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme='dark'] {
-  --color-bg: #0f1816;
-  --color-surface: #16211e;
-  --color-text: #e2ebe6;
-  --color-text-muted: #97a8a3;
-  --color-accent: #93c4a8;
-  --color-accent-soft: #213730;
-  --color-pending: #e5b465;
-  --color-pending-soft: #3a2e19;
-  --color-error: #ee9a86;
-  --color-error-soft: #3d221c;
-  --color-line: #2b3b37;
-  --color-on-accent: #0f1816;
   color-scheme: dark;
 }

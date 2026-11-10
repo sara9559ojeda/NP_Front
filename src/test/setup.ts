@@ -5,6 +5,15 @@ import { server } from '../mocks/server';
 import { resetDb } from '../mocks/handlers';
 import { setAccessToken, setSessionLostHandler } from '../api/client';
 
+// Node 25+ defines its own global localStorage/sessionStorage (undefined without
+// --localstorage-file), which hides jsdom's. Use the jsdom storages instead.
+const dom = (globalThis as { jsdom?: { window: Window } }).jsdom;
+for (const name of ['localStorage', 'sessionStorage'] as const) {
+  if (dom && globalThis[name] === undefined) {
+    Object.defineProperty(globalThis, name, { value: dom.window[name], configurable: true });
+  }
+}
+
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterEach(() => {
   cleanup();

@@ -13,7 +13,7 @@ Interfaz web del sistema NEUROPHOBIA, prototipo académico de realidad virtual p
 
 ## Tecnologías
 
-React con TypeScript (Vite), Vitest y Testing Library, y un servidor simulado (MSW) para desarrollar sin backend.
+React con TypeScript (Vite), Vitest y Testing Library, y un servidor simulado (MSW) para desarrollar sin backend. El fondo ambiental de las páginas públicas usa Three.js, cargado de forma diferida; ver [Dirección visual «Refugio»](docs/DISENO_REFUGIO.md).
 
 ## Contrato de la API
 
@@ -105,6 +105,7 @@ src/hooks/        Carga, errores y paginación
 src/i18n/         Textos y fuentes para aprobación
 src/mocks/        Datos ficticios y handlers MSW
 src/pages/        Vistas públicas y por rol
+src/scene/        Paisaje ambiental (WebGL diferido y respaldo SVG estático)
 src/styles/       Tema oscuro, escritorio y móvil
 src/test/         Pruebas de flujo, API, accesibilidad y textos
 scripts/          Tabla de textos y comprobación UTF-8
