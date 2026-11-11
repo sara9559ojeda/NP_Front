@@ -10,6 +10,11 @@
   flex: 1;
 }
 
+.site-header--overlay {
+  position: relative;
+  z-index: 6;
+}
+
 .site-header {
   display: flex;
   flex-wrap: wrap;
@@ -61,22 +66,95 @@
   color: var(--color-text-muted);
 }
 
-/* Role navigation: one row of tabs under the header, scrolls sideways on small screens. */
+/* Inner panels: a vertical menu with a selection marker beside a solid reading panel. */
+.app-frame {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  flex: 1;
+}
+
 .app-nav {
-  border-bottom: 1px solid var(--color-line);
+  position: sticky;
+  top: 24px;
+  padding-top: 32px;
 }
 
 .app-nav__list {
-  display: flex;
-  gap: 4px;
+  display: grid;
+  gap: 2px;
   margin: 0;
   padding: 0;
-  overflow-x: auto;
   list-style: none;
-  scrollbar-width: thin;
 }
 
-.app-nav__link,
+.app-nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 10px 14px 10px 18px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-weight: 560;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition:
+    color var(--duration-mid),
+    background-color var(--duration-mid),
+    transform var(--duration-mid) var(--ease-glide);
+}
+
+.app-nav__marker {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--color-line-strong);
+  transform: scaleY(0);
+  transition: transform var(--duration-mid) var(--ease-glide);
+}
+
+.app-nav__link:hover,
+.app-nav__link:focus-visible {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.app-nav__link:hover .app-nav__marker,
+.app-nav__link:focus-visible .app-nav__marker {
+  transform: scaleY(1);
+}
+
+.app-nav__link.active {
+  color: var(--color-text);
+  background: var(--color-surface);
+  transform: translateX(4px);
+}
+
+.app-nav__link.active .app-nav__marker {
+  background: var(--color-accent);
+  transform: scaleY(1);
+}
+
+/* The reading panel: opaque, so tables, notes and metrics never sit on the landscape. */
+.app-panel {
+  min-width: 0;
+  margin-bottom: 48px;
+  padding: 0 clamp(18px, 3vw, 40px) 40px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-panel);
+}
+
 .tabs__link {
   display: block;
   padding: 12px 14px;
@@ -89,12 +167,10 @@
     border-color var(--duration-mid);
 }
 
-.app-nav__link:hover,
 .tabs__link:hover {
   color: var(--color-text);
 }
 
-.app-nav__link.active,
 .tabs__link.active {
   border-bottom-color: var(--color-accent);
   color: var(--color-text);
@@ -170,7 +246,6 @@
     padding-block: 16px;
   }
 
-  .site-nav__link--optional,
   .whoami__name {
     display: none;
   }
@@ -191,5 +266,60 @@
 
   .page-header {
     padding-block: 28px 20px;
+  }
+}
+
+@media (max-width: 980px) {
+  .app-frame {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .app-nav {
+    position: static;
+    padding-top: 0;
+    margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .app-nav__list {
+    display: flex;
+    gap: 2px;
+    padding: 4px 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .app-nav__link {
+    min-height: 44px;
+    padding: 10px 12px;
+    white-space: nowrap;
+    font-size: 0.82rem;
+  }
+
+  .app-nav__link.active {
+    transform: none;
+  }
+
+  .app-nav__marker {
+    top: auto;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    height: 2px;
+    transform: scaleX(0);
+  }
+
+  .app-nav__link:hover .app-nav__marker,
+  .app-nav__link:focus-visible .app-nav__marker,
+  .app-nav__link.active .app-nav__marker {
+    transform: scaleX(1);
+  }
+
+  .app-panel {
+    margin-top: 16px;
+    padding-inline: 16px;
+    border-radius: var(--radius);
   }
 }

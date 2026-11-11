@@ -24,11 +24,6 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
-  "nav.howItWorks": {
-    "tipo": "UI",
-    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
-    "estado": "pendiente de validar"
-  },
   "nav.register": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -194,11 +189,6 @@
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
-  "home.cta.levels": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
   "home.scope.notDevice": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
@@ -224,27 +214,12 @@
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
-  "home.how.eyebrow": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.how.title": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
   "home.product.title": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
   },
   "home.product.audience": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.requirements.title": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
@@ -260,21 +235,6 @@
     "estado": "pendiente de validar"
   },
   "home.contentStatus.pending": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.roles.title": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.roles.patientTitle": {
-    "tipo": "UI",
-    "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
-    "estado": "pendiente de validar"
-  },
-  "home.roles.professionalTitle": {
     "tipo": "UI",
     "fuente": "Resumen facilitado por Sara: metodología §1.6.1, §1.7, §1.8 y wireframe 11; originales no disponibles en este equipo",
     "estado": "pendiente de validar"
@@ -1967,6 +1927,161 @@
   "export.done": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "nav.session": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: etiqueta accesible de la navegación de cabecera",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.label": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: etiqueta accesible del menú lateral de la portada",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.about": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; HU-14 (información del producto)",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.about.hint": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; HU-14 y delimitación 1.8",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.how": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; contrato §6.1 (emparejamiento)",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.how.hint": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; contrato §6.1",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.vr": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; RQF009 (niveles)",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.vr.hint": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; RQF009 y wireframes de Sara",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.care": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; HU-12 y HU-05",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.care.hint": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; RQF004 (roles)",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.access": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; RQF001 y RQF003",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.access.hint": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; información pública del producto (requisitos)",
+    "estado": "pendiente de validar"
+  },
+  "home.menu.login.hint": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: menú lateral; RQF003 (inicio de sesión por rol)",
+    "estado": "pendiente de validar"
+  },
+  "home.cta.explore": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: acción principal de la portada",
+    "estado": "pendiente de validar"
+  },
+  "home.cta.access": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: acción secundaria de la portada; HU-07",
+    "estado": "pendiente de validar"
+  },
+  "home.hero.scroll": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: indicación de lectura por scroll",
+    "estado": "pendiente de validar"
+  },
+  "home.connect.title": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: narrativa; contrato §6.1",
+    "estado": "pendiente de validar"
+  },
+  "home.connect.lead": {
+    "tipo": "UI",
+    "fuente": "Contrato §6.1 (emparejamiento) y §5.2 (sesiones del paciente)",
+    "estado": "pendiente de validar"
+  },
+  "home.vr.safety": {
+    "tipo": "SEG",
+    "fuente": "RQF010 (interrupción segura) y RQF008; característica «Tú controlas» de la información pública",
+    "estado": "pendiente de validar"
+  },
+  "home.care.title": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: narrativa; HU-12 y HU-13",
+    "estado": "pendiente de validar"
+  },
+  "home.care.plan": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §7 y §5.1 (PUT /patients/{id}/plan); clinical.pending.explain",
+    "estado": "pendiente de validar"
+  },
+  "home.care.history": {
+    "tipo": "UI",
+    "fuente": "HU-12 y RQF014; contrato v1.1.0 (retroalimentación por sesión)",
+    "estado": "pendiente de validar"
+  },
+  "home.care.notes": {
+    "tipo": "UI",
+    "fuente": "HU-13 y RQF015",
+    "estado": "pendiente de validar"
+  },
+  "home.care.assigned": {
+    "tipo": "SEG",
+    "fuente": "RQFN004 y contrato §2.3",
+    "estado": "pendiente de validar"
+  },
+  "home.patient.title": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: narrativa; HU-05 y HU-09",
+    "estado": "pendiente de validar"
+  },
+  "home.patient.today": {
+    "tipo": "UI",
+    "fuente": "Contrato v1.1.0 (estado de terapia y grado de fobia); HU-08",
+    "estado": "pendiente de validar"
+  },
+  "home.patient.history": {
+    "tipo": "UI",
+    "fuente": "HU-05 y RQF013",
+    "estado": "pendiente de validar"
+  },
+  "home.patient.feedback": {
+    "tipo": "CLÍN",
+    "fuente": "Contrato §7 (clinicalStatus pendiente_de_validar)",
+    "estado": "pendiente de validar"
+  },
+  "home.patient.data": {
+    "tipo": "SEG",
+    "fuente": "HU-09, contrato §4.3 y §6.1; Ley 1581 de 2012",
+    "estado": "pendiente de validar"
+  },
+  "home.access.title": {
+    "tipo": "UI",
+    "fuente": "Rediseño Refugio: narrativa; información pública del producto (requisitos)",
+    "estado": "pendiente de validar"
+  },
+  "home.access.lead": {
+    "tipo": "UI",
+    "fuente": "D18 (autorregistro como paciente), HU-06 y HU-10",
     "estado": "pendiente de validar"
   }
 }

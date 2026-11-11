@@ -1,0 +1,89 @@
+/*
+ * Ambient landscape behind the interface. The static SVG is always there; the WebGL
+ * canvas fades in over it once ready. Veils keep text contrast without frosted glass.
+ */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  /* Below all content of .shell (its own stacking context), above nothing else. */
+  z-index: -1;
+  overflow: hidden;
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Light parallax on the static ridges: nearer ridges drift a little more while scrolling. */
+.backdrop--moving .fallback__ridge {
+  transform: translateY(calc(var(--scroll-p, 0) * var(--depth, 1) * -6px));
+  transition: transform 600ms var(--ease-glide);
+}
+
+.backdrop__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1600ms ease;
+}
+
+.backdrop__canvas.is-ready {
+  opacity: 1;
+}
+
+/*
+ * Darkest under the menu and the story column (at least 72% opacity, which keeps muted
+ * text above 4.5:1 even on the lightest dawn sky); the landscape opens up beyond it.
+ * --story-edge follows the centred wide wrap, so wide screens show more landscape.
+ */
+.backdrop__veil {
+  --story-edge: calc(max(0px, 50vw - 700px) + 1040px);
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(8 18 28 / 0.9) 0,
+      rgb(8 18 28 / 0.76) calc(var(--story-edge) * 0.35),
+      rgb(8 18 28 / 0.72) var(--story-edge),
+      rgb(8 18 28 / 0.06) calc(var(--story-edge) + 300px)
+    ),
+    linear-gradient(180deg, rgb(8 18 28 / 0.4) 0%, rgb(8 18 28 / 0) 22%, rgb(8 18 28 / 0) 70%, rgb(8 18 28 / 0.5) 100%);
+}
+
+.backdrop--dim .backdrop__veil {
+  background:
+    linear-gradient(90deg, rgb(8 18 28 / 0.9) 0%, rgb(8 18 28 / 0.62) 50%, rgb(8 18 28 / 0.35) 100%),
+    linear-gradient(180deg, rgb(8 18 28 / 0.5) 0%, rgb(8 18 28 / 0) 30%, rgb(8 18 28 / 0.55) 100%);
+}
+
+/* Inner panels: the landscape recedes to a quiet band; reading comes first. */
+.backdrop--calm .fallback {
+  opacity: 0.42;
+  filter: saturate(0.75);
+}
+
+.backdrop--calm .backdrop__veil {
+  background: linear-gradient(180deg, rgb(10 22 34 / 0.55) 0%, rgb(10 22 34 / 0.9) 32%, var(--color-bg) 62%);
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 980px) {
+  .backdrop__veil {
+    background:
+      /* Lighter only over the lower band, where the scene is dark forest and water. */
+      linear-gradient(180deg, rgb(8 18 28 / 0.82) 0%, rgb(8 18 28 / 0.8) 62%, rgb(8 18 28 / 0.58) 100%);
+  }
+}

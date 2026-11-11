@@ -120,6 +120,14 @@ main:focus {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
+.wrap--wide {
+  max-width: calc(var(--wide-width) + 2 * var(--gutter));
+}
+
+html:not(:has(.backdrop--calm)) {
+  scroll-behavior: smooth;
+}
+
 .sr-only {
   position: absolute !important;
   width: 1px;
