@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { me } from '../../api/endpoints';
 import type { TherapyState } from '../../api/types';
@@ -70,6 +70,12 @@ function ProgressSection() {
 export function PatientHomePage() {
   const { user } = useAuth();
   const therapy = useApi(() => me.therapy(), []);
+  const narrativeStatus = therapy.data?.lastFeedback?.analysis.narrativeStatus;
+  useEffect(() => {
+    if (narrativeStatus !== 'pending' && narrativeStatus !== 'generating') return;
+    const timer = window.setInterval(therapy.reload, 5000);
+    return () => window.clearInterval(timer);
+  }, [narrativeStatus, therapy.reload]);
   const firstName = user?.fullName.split(' ')[0] ?? '';
   return (
     <>
@@ -153,6 +159,7 @@ export function PatientDevicesPage() {
   return (
     <>
       <PageHeader title={t('devices.title')} lead={t('devices.lead')} />
+      <p><Link to="/instalar">{t('installation.beforePairing')}</Link></p>
       <div className="grid-2">
         <section className="card" aria-labelledby="pairing-title">
           <h2 id="pairing-title">{t('pairing.title')}</h2>

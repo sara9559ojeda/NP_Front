@@ -1,8 +1,9 @@
-import { request, requestRaw } from './client';
+import { ApiError, request, requestRaw } from './client';
 import { named, mapPage, note, device, session, type WireMe, type WireNote, type WireDevice, type WireSession } from './adapters';
 import type {
   AdminPasswordResetRequest,
   AdminUser,
+  AppRelease,
   AdminUserQuery,
   Assignment,
   ChangePasswordRequest,
@@ -37,6 +38,10 @@ const page = (query?: PageQuery) => ({ limit: query?.limit, cursor: query?.curso
 // v1.1.0 Public product information (no session)
 export const publicInfo = {
   product: () => request<ProductInfo>('/public/product-info', { anonymous: true }),
+  appRelease: (): Promise<AppRelease> => request<AppRelease>('/public/app-release', { anonymous: true }).catch((error: unknown) => {
+    if (error instanceof ApiError && error.code === 'NOT_FOUND') return { status: 'unavailable', downloadRole: 'admin', headsetTested: false } satisfies AppRelease;
+    throw error;
+  }),
 };
 
 // §4.1–4.2 Accounts

@@ -1,7 +1,6 @@
 {
   "app.name": "NEUROPHOBIA",
   "app.footer": "Trabajo de grado · Ingeniería de Software · Universidad Cooperativa de Colombia, campus Pasto · 2026",
-
   "nav.skipToContent": "Saltar al contenido",
   "nav.primary": "Navegación principal",
   "nav.info": "Información",
@@ -17,11 +16,9 @@
   "nav.admin.assignments": "Asignaciones",
   "nav.admin.export": "Exportación anónima",
   "shell.greeting": "Hola, {name}",
-
   "role.patient": "Paciente",
   "role.professional": "Profesional",
   "role.admin": "Administrador",
-
   "common.loading": "Cargando…",
   "common.save": "Guardar",
   "common.cancel": "Cancelar",
@@ -32,10 +29,8 @@
   "common.noData": "Sin datos",
   "common.yes": "Sí",
   "common.no": "No",
-
   "disclaimer.webTitle": "Prototipo académico",
   "disclaimer.body": "NEUROPHOBIA es un prototipo académico de apoyo. No sustituye a un terapeuta ni a un tratamiento clínico. Úsalo solo con el acompañamiento de un profesional de la salud.",
-
   "home.lead": "NEUROPHOBIA acompaña la exposición gradual a la aracnofobia con sesiones en realidad virtual. Tú decides cuándo empezar; tu profesional decide desde dónde.",
   "home.hero.eyebrow": "Aracnofobia · Realidad virtual · Meta Quest",
   "home.hero.titleStart": "Acercarse, ",
@@ -56,7 +51,6 @@
   "home.roles.patient": "Ajustan su grado de fobia, inician la terapia y consultan su progreso.",
   "home.roles.professional": "Revisan el avance y la retroalimentación del análisis, y anotan observaciones.",
   "home.roles.admin": "Gestiona los perfiles, los roles y las asignaciones.",
-
   "level.number": "Nivel {n}",
   "level.1.name": "Psicoeducación",
   "level.2.name": "Distancia segura",
@@ -74,7 +68,6 @@
   "ruler.gap.3": "acercamiento",
   "ruler.gap.4": "cercanía",
   "ruler.gap.5": "muy cerca",
-
   "register.title": "Crear cuenta",
   "register.lead": "Tu cuenta te permite vincular el visor y consultar tu progreso. Nadie ve tus sesiones hasta que se te asigne un profesional.",
   "register.fullName": "Nombre completo",
@@ -93,7 +86,6 @@
   "register.success.title": "Cuenta creada",
   "register.success.body": "Ya puedes iniciar sesión con tu correo y tu contraseña.",
   "register.success.noProfessional": "Tu cuenta queda como paciente sin profesional asignado. Nadie ve tus datos de sesión hasta que un administrador te asigne uno.",
-
   "login.title": "Iniciar sesión",
   "login.lead": "Accede con tu correo y tu contraseña para ver tus sesiones y preparar la próxima.",
   "login.email": "Correo electrónico",
@@ -104,7 +96,6 @@
   "login.registerLink": "Regístrate",
   "login.sessionExpired": "Tu sesión terminó. Vuelve a iniciar sesión.",
   "login.breath": "No hay prisa. El visor te espera.",
-
   "validation.summary": "Revisa los campos marcados.",
   "validation.required": "Este campo es obligatorio.",
   "validation.email": "Escribe un correo válido.",
@@ -122,7 +113,6 @@
   "fieldError.invalid_type": "El valor no tiene el tipo esperado.",
   "fieldError.withdrawn": "Esta persona retiró su consentimiento; su cuenta no se puede reactivar.",
   "fieldError.default": "Este dato no es válido.",
-
   "error.BAD_REQUEST": "La solicitud no es válida.",
   "error.UNAUTHENTICATED": "Tu sesión terminó. Vuelve a iniciar sesión.",
   "error.TOKEN_EXPIRED": "Tu sesión terminó. Vuelve a iniciar sesión.",
@@ -143,14 +133,12 @@
   "error.SERVER_ERROR": "Algo salió mal. Inténtalo de nuevo más tarde.",
   "error.NETWORK_ERROR": "No hay conexión con el servidor. Comprueba tu red e inténtalo de nuevo.",
   "error.STORAGE_UNAVAILABLE": "No pudimos guardar ni cargar los datos. Inténtalo de nuevo en unos segundos.",
-
   "forbidden.title": "Acceso restringido",
   "forbidden.body": "Tu rol no tiene permiso para ver esta página.",
   "forbidden.goHome": "Ir a mi inicio",
   "notFound.title": "Página no encontrada",
   "notFound.body": "Esta dirección no existe.",
   "notFound.goHome": "Ir al inicio",
-
   "account.title": "Mis datos",
   "account.lead": "Consulta y actualiza tus datos personales.",
   "account.profile.title": "Datos personales",
@@ -171,7 +159,6 @@
   "account.withdraw.confirmCheck": "Entiendo que mi cuenta se desactivará y que no podré volver a entrar con ella.",
   "account.withdraw.confirm": "Sí, retirar",
   "account.withdraw.done": "Retiraste tu consentimiento. Tu cuenta quedó desactivada.",
-
   "progress.title": "Mi progreso",
   "patientHome.title": "Hola, {name}.",
   "patientHome.lead": "Ajusta tu grado de fobia antes de cada sesión y revisa cómo vas.",
@@ -179,7 +166,6 @@
   "stats.levelReached": "Nivel alcanzado",
   "stats.latestTolerance": "Índice de tolerancia más reciente",
   "stats.allowedStartLevel": "Nivel inicial permitido",
-
   "sessions.title": "Historial de sesiones",
   "sessions.myTitle": "Mis sesiones",
   "sessions.col.date": "Fecha",
@@ -191,23 +177,19 @@
   "sessions.view": "Ver",
   "sessions.viewLabel": "Ver la sesión del {date}",
   "sessions.empty": "Todavía no hay sesiones registradas.",
-
   "chart.tolerance.title": "Índice de tolerancia por sesión",
   "chart.tolerance.desc": "Gráfico de líneas con el índice de tolerancia de {n} sesiones, en una escala de 0 a 1. Los valores están en la tabla del historial.",
   "chart.tolerance.empty": "Aún no hay sesiones con índice de tolerancia.",
-
   "format.minutes": "{n} min",
   "format.seconds": "{n} s",
   "format.meters": "{n} m",
   "format.percent": "{n} %",
-
   "recommendation.advance": "Avanzar",
   "recommendation.repeat": "Repetir",
   "recommendation.step_back": "Retroceder",
   "recommendation.none": "Sin recomendación",
   "clinical.pending": "Pendiente de validar",
   "clinical.pending.explain": "Recomendación calculada por reglas que aún no ha validado un profesional. No cambia nada por sí sola: el profesional decide el nivel inicial.",
-
   "session.title": "Detalle de la sesión",
   "session.subtitle": "Sesión del {date}",
   "session.backToList": "Volver al historial",
@@ -297,7 +279,6 @@
   "therapy.devices.count": "Visores vinculados: {n}",
   "therapy.devices.none": "No tienes un visor vinculado.",
   "therapy.devices.manage": "Gestionar mi visor",
-
   "devices.title": "Mi visor",
   "devices.lead": "Vincula tu visor Meta Quest con un código de un solo uso.",
   "pairing.generate": "Generar código",
@@ -317,7 +298,6 @@
   "devices.revokeConfirm": "¿Revocar este visor? Para volver a usarlo tendrás que vincularlo con un código nuevo.",
   "devices.revokeDone": "Visor revocado.",
   "devices.empty": "No tienes visores vinculados.",
-
   "patients.title": "Mis pacientes",
   "patients.lead": "Solo ves a los pacientes que tienes asignados.",
   "patients.listLabel": "Pacientes asignados",
@@ -340,7 +320,6 @@
   "plan.saved": "Nivel inicial actualizado.",
   "plan.pairing.title": "Vincular el visor del paciente",
   "plan.pairing.lead": "Genera un código para vincular el visor durante la consulta.",
-
   "notes.new": "Nueva nota",
   "notes.session": "Sesión asociada",
   "notes.session.none": "Sin sesión asociada",
@@ -356,7 +335,6 @@
   "notes.saveEdit": "Guardar cambios",
   "notes.filter.active": "Notas de la sesión del {date}",
   "notes.filter.clear": "Ver todas las notas",
-
   "admin.noClinical": "Como administrador gestionas perfiles y asignaciones, pero no ves datos clínicos.",
   "users.title": "Gestión de perfiles",
   "users.create": "Crear perfil",
@@ -388,7 +366,6 @@
   "users.updated": "Perfil actualizado.",
   "users.empty": "No hay perfiles que coincidan.",
   "users.count": "{n} perfiles",
-
   "assignments.title": "Asignaciones profesional–paciente",
   "assignments.lead": "Un profesional solo ve a los pacientes que tiene asignados.",
   "assignments.professional": "Profesional",
@@ -403,13 +380,11 @@
   "assignments.empty": "No hay asignaciones.",
   "assignments.unassigned": "Pacientes sin profesional: {n}",
   "assignments.unknownUser": "Perfil no encontrado",
-
   "export.title": "Exportación anónima para análisis",
   "export.lead": "Descarga el conjunto de datos anónimo: sin identificadores de personas, con identificadores nuevos en cada exportación y sin sesiones de prueba.",
   "export.json": "Descargar JSON",
   "export.csv": "Descargar CSV",
   "export.done": "Descarga lista: {file}",
-
   "nav.session": "Acceso a la cuenta",
   "home.menu.label": "Recorrido por NEUROPHOBIA",
   "home.menu.about": "Información",
@@ -440,5 +415,54 @@
   "home.patient.feedback": "La retroalimentación de cada sesión, marcada como pendiente de validar.",
   "home.patient.data": "Sus datos personales, sus visores vinculados y su consentimiento.",
   "home.access.title": "Requisitos y acceso",
-  "home.access.lead": "Crea una cuenta de paciente o entra con la cuenta que te asignó la administración."
+  "home.access.lead": "Crea una cuenta de paciente o entra con la cuenta que te asignó la administración.",
+  "installation.nav": "Instalar y conectar",
+  "installation.title": "Prepara tu visor para NEUROPHOBIA",
+  "installation.lead": "Esta guía acompaña la demostración académica: consigue la versión autorizada, instala la app y vincula tu visor con la web.",
+  "installation.homeLead": "Antes de generar un código necesitas tener NEUROPHOBIA instalado en el visor. Sigue la guía de instalación y conexión.",
+  "installation.beforePairing": "¿Todavía no tienes la app en el visor? Consulta cómo instalarla.",
+  "installation.release.title": "Aplicación para Meta Quest",
+  "installation.release.unavailable": "Todavía no hay un APK validado disponible para descargar desde esta web. La persona responsable de la demostración te indicará cuándo está listo.",
+  "installation.release.pending_validation": "Hay una compilación en revisión. La descarga se habilitará cuando estén comprobadas su firma, conexión y ejecución en el visor.",
+  "installation.release.available": "La versión de evaluación está disponible. La persona responsable de la demostración puede descargarla e instalarla en los visores autorizados.",
+  "installation.release.version": "Versión",
+  "installation.release.date": "Fecha de compilación",
+  "installation.release.size": "Tamaño",
+  "installation.release.bytes": "{size} MiB",
+  "installation.release.checksum": "SHA-256: {hash}",
+  "installation.release.access": "La descarga está reservada a la administración de la demostración. Crear una cuenta de paciente no concede acceso al instalador.",
+  "installation.release.download": "Descargar APK verificado",
+  "installation.release.downloading": "Preparando la descarga…",
+  "installation.steps.title": "Desde la instalación hasta la revisión de tu sesión",
+  "installation.step.prepare.title": "1. Prepara el equipo",
+  "installation.step.prepare.body": "Para la demostración se verificará Meta Quest 3. La persona responsable prepara el visor, un PC y un cable USB de datos. Tener unas gafas compatibles no acredita que todas sus funciones estén probadas en ese modelo.",
+  "installation.step.install.title": "2. Instala y abre la app",
+  "installation.step.install.body": "La persona responsable habilita el modo de desarrollo y la depuración USB e instala el APK mediante las herramientas oficiales de Meta o ADB. Descargar el archivo en el PC no lo instala automáticamente en las gafas. Después abre NEUROPHOBIA en el visor y comprueba que llega al Refugio, su menú inicial.",
+  "installation.step.account.title": "3. Crea tu cuenta y conoce tu acompañamiento",
+  "installation.step.account.body": "Regístrate y revisa el consentimiento de la demostración. Una cuenta nueva no tiene un profesional asignado automáticamente: la administración debe hacer esa asignación. El profesional establece el nivel inicial permitido; el grado que declaras no sustituye esa decisión.",
+  "installation.step.pair.title": "4. Vincula NEUROPHOBIA con la web",
+  "installation.step.pair.body": "Entra en Mi visor y genera un código. Escríbelo en Vincular visor dentro de la app. Caduca a los diez minutos y solo puede usarse una vez. Es una vinculación distinta de la configuración inicial del dispositivo en la aplicación de Meta.",
+  "installation.step.session.title": "5. Realiza la sesión en el visor",
+  "installation.step.session.body": "Indica cómo te sientes antes de empezar. La sesión comienza en el Refugio al pulsar Comenzar, no al guardar el grado en la web. Puedes pausar o salir de forma segura. El visor registra cada intento y conserva los envíos pendientes si hay una interrupción de conexión.",
+  "installation.step.review.title": "6. Consulta el resultado al finalizar",
+  "installation.step.review.body": "Al cerrar la sesión, espera la confirmación del envío. La retroalimentación final se genera cuando el servidor recibe el inicio, el cierre y los registros necesarios. Puedes consultarla en el Refugio y en la web; el profesional revisa sus motivos. Los resultados técnicos no constituyen un diagnóstico.",
+  "installation.metaGuide": "Consultar la guía oficial de instalación con ADB",
+  "installation.openPairing": "Ir a Mi visor",
+  "installation.help.title": "Si algún paso no sale como esperabas",
+  "installation.help.network": "Si el visor no conecta, comprueba internet y que la versión instalada esté preparada para esta demostración. La persona responsable revisará la conexión; no necesitas modificar archivos internos para usar la app.",
+  "installation.help.code": "Si el código caducó o ya se utilizó, genera uno nuevo. Antes de cambiar de usuario en un visor compartido, termina y sincroniza la sesión anterior.",
+  "installation.help.feedback": "Si el resultado sigue pendiente, revisa el estado de envío. Una sesión de prueba o sin suficientes registros puede no tener recomendación; no debe mostrarse como si el análisis estuviera terminado.",
+  "error.RELEASE_UNAVAILABLE": "Todavía no hay un instalador validado para distribuir.",
+  "error.INVALID_DOWNLOAD": "El servidor no devolvió un APK válido. No se guardó ningún instalador; vuelve a intentarlo o avisa a la persona responsable.",
+  "feedback.comparison.title": "Comparación con la sesión anterior",
+  "feedback.comparison.none": "Todavía no hay una sesión anterior completa para comparar.",
+  "feedback.comparison.level": "Diferencia de niveles registrados",
+  "feedback.comparison.duration": "Diferencia de duración (segundos)",
+  "feedback.comparison.tolerance": "Variación del índice técnico",
+  "feedback.comparison.notComparable": "Los índices no se comparan porque cambió el nivel evaluado o la versión del método.",
+  "feedback.comparison.disclaimer": "Estas diferencias describen los registros; no demuestran mejoría ni empeoramiento clínico.",
+  "feedback.narrative.title": "Resumen asistido por IA",
+  "feedback.narrative.review": "Este texto explica los registros de la sesión y está pendiente de revisión profesional.",
+  "feedback.narrative.pending": "El resumen asistido se está preparando. Los indicadores y su explicación ya están disponibles.",
+  "feedback.narrative.fallback": "El resumen asistido no está disponible. Puedes consultar la explicación de las reglas; tus registros están guardados."
 }

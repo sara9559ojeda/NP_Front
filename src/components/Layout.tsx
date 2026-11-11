@@ -54,6 +54,7 @@ function Footer() {
     <div className="wrap wrap--wide">
       <footer className="site-footer">
         <span>{t('app.footer')}</span>
+        <Link to="/instalar">{t('installation.nav')}</Link>
         <span className="mono">{t('home.scope.notDevice')}</span>
       </footer>
     </div>
@@ -74,6 +75,7 @@ export function PublicLayout() {
         <header className="site-header site-header--overlay">
           <Brand to="/" />
           <nav aria-label={t('nav.session')} className="site-nav">
+            <NavLink to="/instalar" className="site-nav__link" viewTransition>{t('installation.nav')}</NavLink>
             {status === 'authenticated' && user ? (
               <NavLink to={HOME_BY_ROLE[user.role]} className="btn btn--primary btn--sm" viewTransition>
                 {t(NAV_BY_ROLE[user.role][0]!.label)}

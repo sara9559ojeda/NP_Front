@@ -2083,5 +2083,250 @@
     "tipo": "UI",
     "fuente": "D18 (autorregistro como paciente), HU-06 y HU-10",
     "estado": "pendiente de validar"
+  },
+  "installation.nav": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.lead": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.homeLead": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.beforePairing": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.unavailable": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.pending_validation": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.available": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.version": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.date": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.size": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.bytes": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.checksum": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.access": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.download": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.release.downloading": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.steps.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.prepare.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.prepare.body": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.install.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.install.body": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.account.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.account.body": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.pair.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.pair.body": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.session.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.session.body": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.review.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.step.review.body": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.metaGuide": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.openPairing": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.help.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.help.network": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.help.code": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "installation.help.feedback": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "error.RELEASE_UNAVAILABLE": {
+    "tipo": "SEG",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "error.INVALID_DOWNLOAD": {
+    "tipo": "SEG",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.title": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.none": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.level": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.duration": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.tolerance": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.notComparable": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.comparison.disclaimer": {
+    "tipo": "UI",
+    "fuente": "Plan de entrega académica y contrato API; revisión de 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.narrative.title": {
+    "tipo": "UI",
+    "fuente": "Especificación de resumen final con Groq; 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.narrative.review": {
+    "tipo": "UI",
+    "fuente": "Especificación de resumen final con Groq; 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.narrative.pending": {
+    "tipo": "UI",
+    "fuente": "Especificación de resumen final con Groq; 2026-11-10",
+    "estado": "pendiente de validar"
+  },
+  "feedback.narrative.fallback": {
+    "tipo": "UI",
+    "fuente": "Especificación de resumen final con Groq; 2026-11-10",
+    "estado": "pendiente de validar"
   }
 }

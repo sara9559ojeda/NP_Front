@@ -4,6 +4,23 @@
  */
 
 export interface paths {
+    "/api/v1/admin/app-release/download": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Download App */
+        get: operations["download_app_api_v1_admin_app_release_download_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/assignments": {
         parameters: {
             query?: never;
@@ -655,6 +672,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/public/app-release": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** App Release */
+        get: operations["app_release_api_v1_public_app_release_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/public/product-info": {
         parameters: {
             query?: never;
@@ -743,10 +777,28 @@ export interface components {
             clinicalStatus: string;
             /** Createdat */
             createdAt: string;
+            /** Evaluatedattempt */
+            evaluatedAttempt?: number | null;
+            /** Evaluatedlevel */
+            evaluatedLevel?: number | null;
+            /** Explanation */
+            explanation?: string | null;
             /** Method */
             method: string;
             /** Methodversion */
             methodVersion: string;
+            /** Narrative */
+            narrative?: string | null;
+            /** Narrativecreatedat */
+            narrativeCreatedAt?: string | null;
+            /** Narrativemodel */
+            narrativeModel?: string | null;
+            /**
+             * Narrativestatus
+             * @default disabled
+             * @enum {string}
+             */
+            narrativeStatus: "disabled" | "pending" | "generating" | "generated" | "fallback" | "quota_exceeded";
             /**
              * Recommendation
              * @enum {string}
@@ -754,6 +806,35 @@ export interface components {
             recommendation: "advance" | "repeat" | "step_back";
             /** Toleranceindex */
             toleranceIndex: number;
+        };
+        /** AppRelease */
+        AppRelease: {
+            /** Bytes */
+            bytes?: number | null;
+            /** Createdat */
+            createdAt?: string | null;
+            /**
+             * Downloadrole
+             * @default admin
+             * @constant
+             */
+            downloadRole: "admin";
+            /**
+             * Headsettested
+             * @default false
+             */
+            headsetTested: boolean;
+            /** Sha256 */
+            sha256?: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "unavailable" | "pending_validation" | "available";
+            /** Version */
+            version?: string | null;
+            /** Versioncode */
+            versionCode?: number | null;
         };
         /** AssignmentCreate */
         AssignmentCreate: {
@@ -864,6 +945,7 @@ export interface components {
         DeviceContext: {
             /** Allowedstartlevel */
             allowedStartLevel: number;
+            lastFeedback?: components["schemas"]["SessionFeedbackItem"] | null;
             lastSession: components["schemas"]["ContextLastSession"] | null;
             /** Phobiagrade */
             phobiaGrade?: number | null;
@@ -1379,6 +1461,7 @@ export interface components {
         /** ProfessionalFeedbackItem */
         ProfessionalFeedbackItem: {
             analysis: components["schemas"]["AnalysisOut"];
+            comparison?: components["schemas"]["SessionComparison"] | null;
             /** Endreason */
             endReason: string | null;
             /** Endedat */
@@ -1396,6 +1479,8 @@ export interface components {
             sessionId: string;
             /** Startedat */
             startedAt: string | null;
+            /** Totaldurationseconds */
+            totalDurationSeconds?: number | null;
         };
         /** ProfessionalSessionDetail */
         ProfessionalSessionDetail: {
@@ -1545,6 +1630,24 @@ export interface components {
         } & {
             [key: string]: unknown;
         };
+        /** SessionComparison */
+        SessionComparison: {
+            /** Durationdeltaseconds */
+            durationDeltaSeconds: number | null;
+            /** Leveldelta */
+            levelDelta: number | null;
+            /** Previousendedat */
+            previousEndedAt: string;
+            /**
+             * Previoussessionid
+             * Format: uuid
+             */
+            previousSessionId: string;
+            /** Tolerancecomparable */
+            toleranceComparable: boolean;
+            /** Tolerancedelta */
+            toleranceDelta: number | null;
+        };
         /** SessionDetail */
         SessionDetail: {
             analysis: components["schemas"]["AnalysisOut"] | null;
@@ -1605,6 +1708,7 @@ export interface components {
         /** SessionFeedbackItem */
         SessionFeedbackItem: {
             analysis: components["schemas"]["AnalysisOut"];
+            comparison?: components["schemas"]["SessionComparison"] | null;
             /** Endreason */
             endReason: string | null;
             /** Endedat */
@@ -1620,6 +1724,8 @@ export interface components {
             sessionId: string;
             /** Startedat */
             startedAt: string | null;
+            /** Totaldurationseconds */
+            totalDurationSeconds?: number | null;
         };
         /** SessionPage */
         SessionPage: {
@@ -1748,6 +1854,62 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    download_app_api_v1_admin_app_release_download_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.android.package-archive": unknown;
+                };
+            };
+            /** @description UNAUTHENTICATED, TOKEN_EXPIRED, INVALID_CREDENTIALS o DEVICE_REVOKED */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description FORBIDDEN */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description EMAIL_TAKEN, RECORD_CONFLICT o LAST_ADMIN */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description STORAGE_UNAVAILABLE (database unreachable; retry after Retry-After) */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
     list_assignments_api_v1_admin_assignments_get: {
         parameters: {
             query?: {
@@ -4247,6 +4409,35 @@ export interface operations {
             };
             /** @description ACCOUNT_DISABLED */
             423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    app_release_api_v1_public_app_release_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AppRelease"];
+                };
+            };
+            /** @description STORAGE_UNAVAILABLE (database unreachable; retry after Retry-After) */
+            503: {
                 headers: {
                     [name: string]: unknown;
                 };

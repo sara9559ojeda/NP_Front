@@ -213,7 +213,7 @@ export function FeedbackSummary({ feedback, audience, children }: FeedbackSummar
         {t('feedback.sessionLine', {
           date: formatDate(feedback.startedAt),
           level: levelLabel(feedback.levelReached),
-          duration: formatMinutes(durationSeconds(feedback.startedAt, feedback.endedAt)),
+          duration: formatMinutes(feedback.totalDurationSeconds ?? durationSeconds(feedback.startedAt, feedback.endedAt)),
         })}
       </p>
       <p className="feedback__phrase">{recommendationPhrase(analysis.recommendation, feedback.levelReached)}</p>
@@ -244,9 +244,39 @@ export function FeedbackSummary({ feedback, audience, children }: FeedbackSummar
         </>
       )}
       <p className="feedback__why">{t(audience === 'patient' ? 'feedback.patientExplain' : 'clinical.pending.explain')}</p>
-      {children}
-    </div>
-  );
+        <AnalysisExplanation analysis={analysis} />
+        <details>
+          <summary>{t('feedback.comparison.title')}</summary>
+          {feedback.comparison ? (
+            <>
+              <SummaryList items={[
+                { label: t('feedback.comparison.level'), value: formatNumber(feedback.comparison.levelDelta, 0) },
+                { label: t('feedback.comparison.duration'), value: formatNumber(feedback.comparison.durationDeltaSeconds, 0) },
+                { label: t('feedback.comparison.tolerance'), value: formatNumber(feedback.comparison.toleranceDelta, 3) },
+              ]} />
+              {!feedback.comparison.toleranceComparable && <p>{t('feedback.comparison.notComparable')}</p>}
+              <p className="muted small">{t('feedback.comparison.disclaimer')}</p>
+            </>
+          ) : <p>{t('feedback.comparison.none')}</p>}
+        </details>
+        {children}
+      </div>
+    );
+  }
+
+function AnalysisExplanation({ analysis }: { analysis: Analysis }) {
+  return <>
+    {analysis.explanation && <p>{analysis.explanation}</p>}
+    {analysis.narrativeStatus === 'generated' && analysis.narrative && (
+        <section aria-label={t('feedback.narrative.title')} className="stack">
+          <h4>{t('feedback.narrative.title')}</h4>
+          <p>{analysis.narrative}</p>
+          <p className="muted small">{t('feedback.narrative.review')}</p>
+        </section>
+      )}
+      {(analysis.narrativeStatus === 'pending' || analysis.narrativeStatus === 'generating') && <p role="status">{t('feedback.narrative.pending')}</p>}
+      {(analysis.narrativeStatus === 'fallback' || analysis.narrativeStatus === 'quota_exceeded') && <p className="muted">{t('feedback.narrative.fallback')}</p>}
+  </>;
 }
 
 const PHASES: SudsPhase[] = ['before', 'during', 'after'];
@@ -336,6 +366,7 @@ function AnalysisPanel({ analysis }: { analysis: Analysis | null }) {
         </div>
       </dl>
       <p className="feedback__why">{t('clinical.pending.explain')}</p>
+        <AnalysisExplanation analysis={analysis} />
       <h4>{t('analysis.basis.title')}</h4>
       <BasisTable basis={analysis.basis} />
       <p className="muted small">{t('analysis.method', { method: analysis.method, version: analysis.methodVersion })}</p>

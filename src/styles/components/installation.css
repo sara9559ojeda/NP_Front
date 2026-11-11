@@ -1,0 +1,4 @@
+.installation { display: grid; gap: var(--space-6, 1.5rem); padding-bottom: 4rem; }
+.installation__steps { display: grid; gap: 1rem; padding-left: 1.5rem; }
+.installation__steps > li::marker { color: var(--color-accent); font-weight: 700; }
+.installation__checksum { overflow-wrap: anywhere; }

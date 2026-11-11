@@ -42,7 +42,9 @@ export type ErrorCode =
   | 'ACCOUNT_DISABLED'
   | 'RATE_LIMITED'
   | 'SERVER_ERROR'
-  | 'STORAGE_UNAVAILABLE';
+  | 'STORAGE_UNAVAILABLE'
+  | 'RELEASE_UNAVAILABLE'
+  | 'INVALID_DOWNLOAD';
 
 export interface FieldError {
   field: string;
@@ -179,6 +181,11 @@ export interface Analysis {
   clinicalStatus: string;
   /** v1.1.0. */
   createdAt?: IsoDate;
+  explanation?: string | null;
+  narrativeStatus?: 'disabled' | 'pending' | 'generating' | 'generated' | 'fallback' | 'quota_exceeded';
+  narrative?: string | null;
+  narrativeModel?: string | null;
+  narrativeCreatedAt?: IsoDate | null;
 }
 
 // §5.2
@@ -278,6 +285,7 @@ export interface NoteQuery extends PageQuery {
 
 // v1.1.0: public product information
 export type ProductInfo = Schemas['ProductInfoOut'];
+export type AppRelease = Schemas['AppRelease'];
 
 // v1.1.0: patient therapy state and phobia grade (BPMN "Ajustar grado de fobia")
 export type TherapyState = Schemas['TherapyStateOut'];

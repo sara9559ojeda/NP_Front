@@ -163,7 +163,7 @@ function sessionFeedback(s: SessionDetail & { analysis: NonNullable<SessionDetai
     phobiaGrade: s.phobiaGrade,
     levelReached: s.levelReached,
     endReason: s.endReason,
-    analysis: { ...s.analysis, createdAt: s.analysis.createdAt ?? s.endedAt ?? now() },
+    analysis: { ...s.analysis, narrativeStatus: s.analysis.narrativeStatus ?? 'disabled', createdAt: s.analysis.createdAt ?? s.endedAt ?? now() },
   };
 }
 
@@ -222,6 +222,7 @@ export const handlers: HttpHandler[] = [
   http.get(`${BASE}/health`, () => HttpResponse.json({ status: 'ok', version: 'mock-0.2.0' })),
 
   // v1.1.0 product information, public
+  http.get(`${BASE}/public/app-release`, () => HttpResponse.json({ status: 'unavailable', downloadRole: 'admin', headsetTested: false })),
   http.get(`${BASE}/public/product-info`, () =>
     HttpResponse.json(PRODUCT_INFO, { headers: { 'Cache-Control': 'public, max-age=300' } }),
   ),

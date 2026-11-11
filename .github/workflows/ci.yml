@@ -2,7 +2,7 @@ name: Web CI
 on:
   pull_request:
   push:
-    branches: [feature/web-v1]
+    branches: [main, feature/web-v1]
 permissions:
   contents: read
 jobs:

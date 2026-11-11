@@ -308,6 +308,8 @@ export function HomePage() {
         </Chapter>
 
         <Chapter id="acceso" number={6} title={t('home.access.title')} lead={t('home.access.lead')}>
+          <p className="chapter__text">{t('installation.homeLead')}</p>
+          <Link to="/instalar" className="btn btn--primary" viewTransition>{t('installation.nav')}</Link>
           {product.data && (
             <dl className="facts facts--compact">
               <div className="facts__item">

@@ -16,6 +16,7 @@ import {
   ProfessionalPatientsPage,
 } from './pages/professional/ProfessionalPages';
 import { HomePage } from './pages/public/HomePage';
+import { InstallationPage } from './pages/public/InstallationPage';
 import { LoginPage } from './pages/public/LoginPage';
 import { RegisterPage } from './pages/public/RegisterPage';
 
@@ -24,6 +25,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="instalar" element={<InstallationPage />} />
         <Route path="registro" element={<RegisterPage />} />
         <Route path="iniciar-sesion" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
