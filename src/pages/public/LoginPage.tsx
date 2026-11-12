@@ -90,7 +90,8 @@ export function LoginPage() {
             onChange={(event) => setPassword(event.target.value)}
             error={errors.password}
           />
-          <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
+          <button type="submit" className="btn btn--primary btn--block" disabled={submitting} aria-busy={submitting || undefined}>
+            {submitting && <span className="spinner spinner--inline" aria-hidden="true" />}
             {submitting ? t('login.submitting') : t('login.submit')}
           </button>
         </form>

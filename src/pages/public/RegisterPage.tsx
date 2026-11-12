@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { Link } from 'react-router';
 import { ApiError } from '../../api/client';
 import { auth } from '../../api/endpoints';
+import { HOME_BY_ROLE, useAuth } from '../../auth/AuthContext';
 import { Alert } from '../../components/ui/Feedback';
 import { TextField } from '../../components/ui/Field';
 import { useDocumentTitle } from '../../components/Layout';
@@ -22,6 +23,8 @@ export function RegisterPage() {
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const { login } = useAuth();
 
   const update = (field: keyof typeof values) => (event: ChangeEvent<HTMLInputElement>) =>
     setValues((current) => ({ ...current, [field]: event.target.value }));
@@ -44,12 +47,17 @@ export function RegisterPage() {
     }
     setSubmitting(true);
     try {
+      const email = values.email.trim();
       await auth.register({
         fullName: values.fullName.trim(),
-        email: values.email.trim(),
+        email,
         password: values.password,
         consent: { accepted: true, consentVersion: CONSENT_VERSION },
       });
+      // The account exists: start the session right away instead of asking for the same data again.
+      // If that fails (for example, too many attempts), the person signs in from the login page.
+      setSignedIn(await login(email, values.password).then(() => true, () => false));
+      setValues((current) => ({ ...current, password: '', passwordConfirm: '' }));
       setDone(true);
     } catch (error) {
       if (error instanceof ApiError && error.code === 'EMAIL_TAKEN') {
@@ -77,11 +85,17 @@ export function RegisterPage() {
         </div>
         <div className="panel stack rise" style={riseOrder(1)}>
           <Alert tone="success">
-            <p>{t('register.success.body')}</p>
+            <p>{signedIn ? t('register.success.signedIn') : t('register.success.body')}</p>
           </Alert>
-          <Link to="/iniciar-sesion" className="btn btn--primary btn--block" viewTransition>
-            {t('nav.login')}
-          </Link>
+          {signedIn ? (
+            <Link to={HOME_BY_ROLE.patient} className="btn btn--primary btn--block" viewTransition>
+              {t('register.success.continue')}
+            </Link>
+          ) : (
+            <Link to="/iniciar-sesion" className="btn btn--primary btn--block" viewTransition>
+              {t('nav.login')}
+            </Link>
+          )}
         </div>
       </section>
     );
@@ -159,7 +173,8 @@ export function RegisterPage() {
               {errors.consent}
             </p>
           )}
-          <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
+          <button type="submit" className="btn btn--primary btn--block" disabled={submitting} aria-busy={submitting || undefined}>
+            {submitting && <span className="spinner spinner--inline" aria-hidden="true" />}
             {submitting ? t('common.loading') : t('register.submit')}
           </button>
         </form>

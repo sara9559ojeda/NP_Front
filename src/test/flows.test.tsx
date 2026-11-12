@@ -185,3 +185,20 @@ describe('gestión de perfiles (administrador)', () => {
     expect(await screen.findByText(t('users.resetPassword.done'))).toBeInTheDocument();
   });
 });
+
+describe('registro', () => {
+  test('el registro inicia la sesión al crear la cuenta', async () => {
+    const user = userEvent.setup();
+    page('/registro');
+    await user.type(await screen.findByLabelText(t('register.fullName'), { exact: false }), 'Paciente Nueva');
+    await user.type(screen.getByLabelText(t('register.email'), { exact: false }), 'nueva@example.com');
+    await user.type(screen.getByLabelText(new RegExp(`^${t('register.password')}`)), 'clave-segura-123');
+    await user.type(screen.getByLabelText(t('register.passwordConfirm'), { exact: false }), 'clave-segura-123');
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(screen.getByRole('button', { name: t('register.submit') }));
+
+    expect(await screen.findByText(t('register.success.signedIn'))).toBeInTheDocument();
+    await user.click(screen.getByRole('link', { name: t('register.success.continue') }));
+    await waitFor(() => expect(screen.getByRole('heading', { name: t('progress.title') })).toBeInTheDocument());
+  });
+});
