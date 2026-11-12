@@ -120,6 +120,11 @@
   border-bottom: 0;
 }
 
+/* The headset that has just used the code settles into the list. */
+.device--new {
+  animation: settle 420ms var(--ease-out) both;
+}
+
 .device__meta {
   display: grid;
   gap: 8px;
@@ -186,6 +191,103 @@
 
 .pairing__timer {
   font-variant-numeric: tabular-nums;
+}
+
+/* Live status under the code: a breathing dot while the page waits for the headset. */
+.pairing__watch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 0.93rem;
+  color: var(--color-text-muted);
+  animation: fade-in 320ms var(--ease-out) both;
+}
+
+.pairing__watch-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.pairing__watch[data-offline] {
+  color: var(--color-pending);
+}
+
+.pairing__watch[data-offline] .pairing__watch-dot {
+  background: var(--color-pending);
+  animation: none;
+}
+
+/* Confirmation: the card settles in, the ring and the tick draw themselves once. */
+.pairing__done {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+  border-radius: var(--radius);
+  background: var(--color-accent-soft);
+  animation: settle 420ms var(--ease-out) both;
+}
+
+.pairing__done-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pairing__done-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.pairing__done-model {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.pairing__done-time {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.pairing__check {
+  flex: none;
+  color: var(--color-accent);
+}
+
+.pairing__check-ring,
+.pairing__check-mark {
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pairing__check-ring {
+  stroke-dasharray: 126;
+  stroke-dashoffset: 126;
+  animation: draw 640ms var(--ease-out) 120ms forwards;
+}
+
+.pairing__check-mark {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation: draw 360ms var(--ease-out) 560ms forwards;
+}
+
+/* Without motion the tick is simply there. */
+@media (prefers-reduced-motion: reduce) {
+  .pairing__check-ring,
+  .pairing__check-mark {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (max-width: 860px) {

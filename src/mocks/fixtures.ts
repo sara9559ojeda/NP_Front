@@ -46,6 +46,8 @@ export interface MockDb {
   openSessions: Record<string, { sessionId: string; startedAt: string }>;
   notes: Record<string, MockNote[]>;
   devices: Record<string, Device[]>;
+  /** Issued pairing codes (§6.1), by normalised code. */
+  pairingCodes: Map<string, { patientId: string; expiresAt: string; usedAt: string | null }>;
   refreshTokens: Set<string>;
   accessTokens: Map<string, string>;
   failedLogins: Map<string, number>;
@@ -257,6 +259,7 @@ export function createDb(): MockDb {
     openSessions: {},
     notes: seedNotes(),
     devices: seedDevices(),
+    pairingCodes: new Map(),
     refreshTokens: new Set(),
     accessTokens: new Map(),
     failedLogins: new Map(),

@@ -194,10 +194,14 @@ function adminView({ id, fullName, email, role, active }: MockUser) {
   return { id, fullName, email, role, active };
 }
 
-function pairingCode() {
+const normalizeCode = (code: string) => code.replace(/[-s]/g, '').toUpperCase();
+
+function pairingCode(patientId: string) {
   const pick = () => PAIRING_ALPHABET[Math.floor(Math.random() * PAIRING_ALPHABET.length)];
   const code = `${pick()}${pick()}${pick()}-${pick()}${pick()}${pick()}`;
-  return { code, expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString() };
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
+  db.pairingCodes.set(normalizeCode(code), { patientId, expiresAt, usedAt: null });
+  return { code, expiresAt };
 }
 
 function validateProfile(body: { fullName?: unknown; email?: unknown }, required: boolean): FieldError[] {
@@ -399,7 +403,25 @@ export const handlers: HttpHandler[] = [
   http.post(`${BASE}/pairing-codes`, ({ request }) => {
     const auth = authenticate(request, ['patient']);
     if ('response' in auth) return auth.response;
-    return HttpResponse.json(pairingCode(), { status: 201 });
+    return HttpResponse.json(pairingCode(auth.user.id), { status: 201 });
+  }),
+
+  // §6.1 The headset uses the code (lets the dev server show the whole pairing flow).
+  http.post(`${BASE}/device/pair`, async ({ request }) => {
+    const body = (await request.json()) as { code?: string; deviceModel?: string; appVersion?: string };
+    const stored = db.pairingCodes.get(normalizeCode(body.code ?? ''));
+    if (!stored) return problem(404, 'PAIRING_CODE_INVALID');
+    if (stored.usedAt || Date.parse(stored.expiresAt) <= Date.now()) return problem(410, 'PAIRING_CODE_EXPIRED');
+    stored.usedAt = now();
+    const deviceId = uuid();
+    (db.devices[stored.patientId] ??= []).unshift({
+      deviceId,
+      model: body.deviceModel ?? 'quest3',
+      appVersion: body.appVersion ?? '0.2.0',
+      pairedAt: stored.usedAt,
+      revokedAt: null,
+    });
+    return HttpResponse.json({ deviceId, deviceToken: `npd_${uuid()}` }, { status: 201 });
   }),
 
   // §5.1 (professional)
@@ -535,7 +557,7 @@ export const handlers: HttpHandler[] = [
     const auth = authenticate(request, ['professional']);
     if ('response' in auth) return auth.response;
     const patient = patientFor(auth.user, String(params.patientId));
-    return patient ? HttpResponse.json(pairingCode(), { status: 201 }) : problem(404, 'NOT_FOUND');
+    return patient ? HttpResponse.json(pairingCode(String(params.patientId)), { status: 201 }) : problem(404, 'NOT_FOUND');
   }),
 
   // §4.4 (admin: profiles only, no clinical data)

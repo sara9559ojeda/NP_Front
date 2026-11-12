@@ -286,6 +286,18 @@
   animation: spin 0.9s linear infinite;
 }
 
+/* Inside a button: follows the button's text colour and keeps its height. */
+.spinner--inline {
+  width: 16px;
+  height: 16px;
+  border-color: color-mix(in srgb, currentColor 30%, transparent);
+  border-top-color: currentColor;
+}
+
+.btn[aria-busy='true'] {
+  cursor: progress;
+}
+
 .empty {
   padding: 26px 16px;
   border: 1px dashed var(--color-line);

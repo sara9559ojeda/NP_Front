@@ -434,6 +434,16 @@
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
     "estado": "pendiente de validar"
   },
+  "register.success.signedIn": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "register.success.continue": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
   "login.title": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
@@ -1432,6 +1442,36 @@
   "pairing.expired": {
     "tipo": "UI",
     "fuente": "Redacción de interfaz propuesta; encargo web HU-05 a HU-14",
+    "estado": "pendiente de validar"
+  },
+  "pairing.waiting": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; vinculación del visor (contrato §6.1)",
+    "estado": "pendiente de validar"
+  },
+  "pairing.offline": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; vinculación del visor (contrato §6.1)",
+    "estado": "pendiente de validar"
+  },
+  "pairing.again": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; vinculación del visor (contrato §6.1)",
+    "estado": "pendiente de validar"
+  },
+  "pairing.paired.title": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; vinculación del visor (contrato §6.1)",
+    "estado": "pendiente de validar"
+  },
+  "pairing.paired.at": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; vinculación del visor (contrato §6.1)",
+    "estado": "pendiente de validar"
+  },
+  "pairing.paired.next": {
+    "tipo": "UI",
+    "fuente": "Redacción de interfaz propuesta; vinculación del visor (contrato §6.1)",
     "estado": "pendiente de validar"
   },
   "devices.list.title": {

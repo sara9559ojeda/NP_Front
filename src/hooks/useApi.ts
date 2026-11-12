@@ -26,13 +26,39 @@ interface ApiState<T> {
   setData: (data: T) => void;
 }
 
-export function useApi<T>(load: () => Promise<T>, deps: DependencyList): ApiState<T> {
+interface ApiOptions {
+  /** Fetches again, without the loading state, when the tab becomes visible after being hidden. */
+  revalidateOnVisible?: boolean;
+}
+
+export function useApi<T>(load: () => Promise<T>, deps: DependencyList, options: ApiOptions = {}): ApiState<T> {
   const [data, setData] = useState<T>();
   const [error, setError] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
   const [version, setVersion] = useState(0);
   const loadRef = useRef(load);
   loadRef.current = load;
+  const { revalidateOnVisible = false } = options;
+
+  useEffect(() => {
+    if (!revalidateOnVisible) return;
+    let cancelled = false;
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      // Silent: the page keeps what it shows, and a failed refresh leaves the previous data.
+      loadRef.current().then(
+        (result) => {
+          if (!cancelled) setData(result);
+        },
+        () => undefined,
+      );
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      cancelled = true;
+      document.removeEventListener('visibilitychange', onVisible);
+    };
+  }, [revalidateOnVisible, ...deps]);
 
   useEffect(() => {
     let cancelled = false;

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
+import { deviceModelLabel } from '../../api/deviceModel';
 import { me } from '../../api/endpoints';
 import type { TherapyState } from '../../api/types';
 import { useAuth } from '../../auth/AuthContext';
@@ -69,7 +70,8 @@ function ProgressSection() {
 /** Patient home: today's session (adjust grade and start), last feedback and progress (HU-05). */
 export function PatientHomePage() {
   const { user } = useAuth();
-  const therapy = useApi(() => me.therapy(), []);
+  // Refreshed when the tab is visible again: a headset paired meanwhile shows up in "Mi visor".
+  const therapy = useApi(() => me.therapy(), [], { revalidateOnVisible: true });
   const narrativeStatus = therapy.data?.lastFeedback?.analysis.narrativeStatus;
   useEffect(() => {
     if (narrativeStatus !== 'pending' && narrativeStatus !== 'generating') return;
@@ -140,9 +142,19 @@ export function PatientSessionPage() {
 
 /** Pairing codes and device revocation (§6.1, D20). */
 export function PatientDevicesPage() {
-  const { data, error, loading, reload } = useApi(() => me.devices(), []);
+  const { data, error, loading, reload, setData } = useApi(() => me.devices(), []);
   const [notice, setNotice] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
   const [confirmId, setConfirmId] = useState<string | null>(null);
+  const [pairedId, setPairedId] = useState<string | null>(null);
+  // Remounting the panel clears its confirmation when that same headset is revoked.
+  const [panelKey, setPanelKey] = useState(0);
+
+  // Each check of the pairing panel also refreshes this list: no second request, no flicker.
+  const watchDevices = useCallback(async () => {
+    const page = await me.devices();
+    setData(page);
+    return page.items;
+  }, [setData]);
 
   const revoke = async (deviceId: string) => {
     setNotice(null);
@@ -150,6 +162,10 @@ export function PatientDevicesPage() {
       await me.revokeDevice(deviceId);
       setConfirmId(null);
       setNotice({ tone: 'success', text: t('devices.revokeDone') });
+      if (deviceId === pairedId) {
+        setPairedId(null);
+        setPanelKey((key) => key + 1);
+      }
       reload();
     } catch (err) {
       setNotice({ tone: 'error', text: errorMessage(err) });
@@ -163,22 +179,27 @@ export function PatientDevicesPage() {
       <div className="grid-2">
         <section className="card" aria-labelledby="pairing-title">
           <h2 id="pairing-title">{t('pairing.title')}</h2>
-          <PairingCodePanel create={() => me.createPairingCode()} />
+          <PairingCodePanel
+            key={panelKey}
+            create={() => me.createPairingCode()}
+            watchDevices={watchDevices}
+            onPaired={(device) => setPairedId(device.deviceId)}
+          />
         </section>
         <section className="card stack" aria-labelledby="devices-title">
           <h2 id="devices-title">{t('devices.list.title')}</h2>
           {notice && <Alert tone={notice.tone}>{notice.text}</Alert>}
-          {loading && <Loading />}
+          {loading && !data && <Loading />}
           {Boolean(error) && <ErrorState error={error} onRetry={reload} />}
           {data && data.items.length === 0 && <EmptyState>{t('devices.empty')}</EmptyState>}
           {data && data.items.length > 0 && (
             <ul className="device-list">
               {data.items.map((device) => (
-                <li key={device.deviceId} className="device">
+                <li key={device.deviceId} className={device.deviceId === pairedId ? 'device device--new' : 'device'}>
                   <dl className="device__meta">
                     <div>
                       <dt>{t('devices.model')}</dt>
-                      <dd>{device.model}</dd>
+                      <dd>{deviceModelLabel(device.model)}</dd>
                     </div>
                     <div>
                       <dt>{t('devices.appVersion')}</dt>
