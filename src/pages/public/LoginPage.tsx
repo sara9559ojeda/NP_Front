@@ -94,9 +94,9 @@ export function LoginPage() {
             {submitting && <span className="spinner spinner--inline" aria-hidden="true" />}
             {submitting ? t('login.submitting') : t('login.submit')}
           </button>
-          <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
-            {submitting ? t('login.submitting') : t('login.submit')}
-          </button>
+          <p className="small muted">
+            aaaaaaaaaaasarayyyyy pendejaaaaa
+          </p>
         </form>
         <p className="small muted">
           {t('login.noAccount')}{' '}
