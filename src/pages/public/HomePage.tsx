@@ -14,20 +14,66 @@ import { t, tDynamic, type TextKey } from '../../i18n';
 const SECTIONS = ['que-es', 'como-funciona', 'experiencia', 'acompanamiento', 'paciente', 'acceso'] as const;
 type SectionId = (typeof SECTIONS)[number];
 
+/** Line icons for the side menu, drawn on a 24 × 24 grid with the current text colour. */
+const ICONS = {
+  info: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5.5M12 7.5v.5" />
+    </>
+  ),
+  // The web and the headset, linked.
+  link: <path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" />,
+  headset: (
+    <>
+      <path d="M3 9.5A2.5 2.5 0 0 1 5.5 7h13A2.5 2.5 0 0 1 21 9.5v5a2.5 2.5 0 0 1-2.5 2.5h-3.6l-1.9-2.4h-2l-1.9 2.4H5.5A2.5 2.5 0 0 1 3 14.5z" />
+      <path d="M7.5 7V5.5M16.5 7V5.5" />
+    </>
+  ),
+  care: (
+    <>
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3.5 19c0-3.2 2.4-5 5.5-5s5.5 1.8 5.5 5" />
+      <circle cx="17" cy="9.5" r="2.3" />
+      <path d="M16.2 14.2c2.6.2 4.3 1.7 4.3 4.3" />
+    </>
+  ),
+  key: (
+    <>
+      <circle cx="8" cy="15" r="4" />
+      <path d="M10.9 12.1 19 4M16 7l2.2 2.2M13.8 9.2l2 2" />
+    </>
+  ),
+  enter: <path d="M10 4h8v16h-8M3 12h10.5M10.5 8.5 14 12l-3.5 3.5" />,
+};
+
+type IconName = keyof typeof ICONS;
+
+function RailIcon({ name }: { name: IconName }) {
+  return (
+    <span className="rail__icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        {ICONS[name]}
+      </svg>
+    </span>
+  );
+}
+
 interface MenuEntry {
   label: TextKey;
   hint: TextKey;
+  icon: IconName;
   target: SectionId;
   /** Sections that keep this entry selected while they are on screen. */
   covers: SectionId[];
 }
 
 const MENU: MenuEntry[] = [
-  { label: 'home.menu.about', hint: 'home.menu.about.hint', target: 'que-es', covers: ['que-es'] },
-  { label: 'home.menu.how', hint: 'home.menu.how.hint', target: 'como-funciona', covers: ['como-funciona'] },
-  { label: 'home.menu.vr', hint: 'home.menu.vr.hint', target: 'experiencia', covers: ['experiencia'] },
-  { label: 'home.menu.care', hint: 'home.menu.care.hint', target: 'acompanamiento', covers: ['acompanamiento', 'paciente'] },
-  { label: 'home.menu.access', hint: 'home.menu.access.hint', target: 'acceso', covers: ['acceso'] },
+  { label: 'home.menu.about', hint: 'home.menu.about.hint', icon: 'info', target: 'que-es', covers: ['que-es'] },
+  { label: 'home.menu.how', hint: 'home.menu.how.hint', icon: 'link', target: 'como-funciona', covers: ['como-funciona'] },
+  { label: 'home.menu.vr', hint: 'home.menu.vr.hint', icon: 'headset', target: 'experiencia', covers: ['experiencia'] },
+  { label: 'home.menu.care', hint: 'home.menu.care.hint', icon: 'care', target: 'acompanamiento', covers: ['acompanamiento', 'paciente'] },
+  { label: 'home.menu.access', hint: 'home.menu.access.hint', icon: 'key', target: 'acceso', covers: ['acceso'] },
 ];
 
 const CARE_POINTS: TextKey[] = ['home.care.plan', 'home.care.history', 'home.care.notes', 'home.care.assigned'];
@@ -75,14 +121,12 @@ function SideMenu({ active }: { active: SectionId | null }) {
   return (
     <nav className="rail" aria-label={t('home.menu.label')}>
       <ol className="rail__list">
-        {MENU.map((entry, index) => {
+        {MENU.map((entry) => {
           const current = active !== null && entry.covers.includes(active);
           return (
             <li key={entry.target}>
               <a href={`#${entry.target}`} className="rail__link" aria-current={current ? 'location' : undefined}>
-                <span className="rail__index" aria-hidden="true">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
+                <RailIcon name={entry.icon} />
                 <span className="rail__text">
                   <span className="rail__label">{t(entry.label)}</span>
                   <span className="rail__hint">{t(entry.hint)}</span>
@@ -93,11 +137,7 @@ function SideMenu({ active }: { active: SectionId | null }) {
         })}
         <li className="rail__divider">
           <Link to="/iniciar-sesion" className="rail__link rail__link--action" viewTransition>
-            <span className="rail__index" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <path d="M6 3h6v10H6M2 8h7M7 5l3 3-3 3" />
-              </svg>
-            </span>
+            <RailIcon name="enter" />
             <span className="rail__text">
               <span className="rail__label">{t('nav.login')}</span>
               <span className="rail__hint">{t('home.menu.login.hint')}</span>
