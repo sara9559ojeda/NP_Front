@@ -93,7 +93,7 @@ export function LoginPage() {
           <button type="submit" className="btn btn--primary btn--block" disabled={submitting}>
             {submitting ? t('login.submitting') : t('login.submit')}
           </button>
-          <p className="small muted">
+          <p >
             aaaaaaaaaaasarayyyyy pendejaaaaa
           </p>
         </form>
